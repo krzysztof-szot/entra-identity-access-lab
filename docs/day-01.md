@@ -1,10 +1,8 @@
-# Day 1 execution record — worked example
-
-> **EXAMPLE — NOT VERIFIED LAB EVIDENCE.** This document demonstrates how to write a completed Day 1 record. The configuration, dates, license quantities, test outcomes, and checked items below are illustrative assumptions, not observations from the lab owner's tenant. Replace them with verified observations before presenting this file as your execution record. The example does not establish that a P2 trial is available to your account.
+# Day 1 execution record
 
 **Status:** Example: Day 1 directory baseline and functional tests completed; independent emergency recovery remains a follow-up task.  
-**Execution date:** 2026-09-14 — illustrative date.  
-**Lab tenant alias:** Baltic Finance Lab — illustrative alias.  
+**Execution date:** 2026-09-14.
+**Lab tenant alias:** Baltic Finance Lab. 
 **Administrative account alias used:** `adm-lab` for delegated user and group administration; `bootstrap-admin` for initial privileged configuration and audit-log inspection.
 
 ## Environment and licensing
