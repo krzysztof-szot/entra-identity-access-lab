@@ -1,11 +1,8 @@
 # Day 1 execution record
 
 **Status:** Example: Day 1 directory baseline and functional tests completed; independent emergency recovery remains a follow-up task.  
-
 **Execution date:** 2026-09-14.
-
 **Lab tenant alias:** Baltic Finance Lab. 
-
 **Administrative account alias used:** `adm-lab` for delegated user and group administration; `bootstrap-admin` for initial privileged configuration and audit-log inspection.
 
 ## Environment and licensing
