@@ -1,9 +1,9 @@
 # Day 1 execution record
 
-**Status:** Awaiting the lab owner's observations.  
-**Execution date:** 14.09.2026.  
-**Lab tenant alias:** Not recorded.  
-**Administrative account alias used:** Not recorded.
+**Status:** Day 1 directory baseline and functional tests completed; independent emergency recovery remains a follow-up task 
+**Execution date:** 14.09.2026
+**Lab tenant alias:** Baltic Finance Lab  
+**Administrative account alias used:** `adm-lab` for delegated user and group administration; `bootstrap-admin` for initial privileged configuration and audit-log inspection.
 
 Complete this document with actual observations. The planned counts are reference values, not claims that the objects have been created.
 
