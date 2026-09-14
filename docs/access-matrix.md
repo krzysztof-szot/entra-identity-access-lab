@@ -13,9 +13,9 @@ Append the actual lab domain to each alias when creating an account. Public exam
 | anna.finance | Anna Finance | Finance | No administrator role | Standard employee |
 | peter.finance | Peter Finance | Finance | No administrator role | Future application approver |
 | eva.hr | Eva HR | HR | No administrator role | HR employee |
-| Thomas.it | Thomas IT | IT | No administrator role | IT employee and pilot user |
-| Jan.mover | Jan Mover | Finance | No administrator role | Future department-change test |
-| Alexandra.leaver | Alexandra Leaver | Finance | No administrator role | Future offboarding test |
+| thomas.it | Thomas IT | IT | No administrator role | IT employee and pilot user |
+| jan.mover | Jan Mover | Finance | No administrator role | Future department-change test |
+| alexandra.leaver | Alexandra Leaver | Finance | No administrator role | Future offboarding test |
 | adm-lab | Lab Identity Administrator | IT | User Administrator, Active | Ordinary user and group administration |
 | bg01 | Emergency Access 01 | Not applicable | Global Administrator, Active permanent | Emergency access |
 | bg02 | Emergency Access 02 | Not applicable | Global Administrator, Active permanent | Emergency access |
