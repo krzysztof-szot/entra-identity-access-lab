@@ -1,7 +1,7 @@
 # Day 1 execution record
 
 **Status:** Awaiting the lab owner's observations.  
-**Execution date:** Not recorded.  
+**Execution date:** 14.09.2026.  
 **Lab tenant alias:** Not recorded.  
 **Administrative account alias used:** Not recorded.
 
