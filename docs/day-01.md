@@ -19,12 +19,12 @@ A dash means that the result has not been recorded here.
 
 | Check | Result |
 |---|---|
-| adm-lab can change an employee's Job title and restore it. | - |
-| adm-lab can remove and re-add Thomas in SG-CA-Pilot; final membership is Anna and Thomas. | - |
-| adm-lab cannot assign tenant-wide administrative roles; expected denial counts as Pass. | - |
-| anna.finance can sign in to My Account in a fresh session. | - |
-| bg01 and bg02 can each complete a fresh administrative sign-in. | - |
-| An authorized account can find the tested changes in Audit logs. | - |
+| adm-lab can change an employee's Job title and restore it. | The updated Job title is saved and visible after refreshing the profile. The original value is then restored and verified. |
+| adm-lab can remove and re-add Thomas in SG-CA-Pilot; final membership is Anna and Thomas. | Membership changes from Anna and Thomas (2 members) to Anna (1 member), then returns to Anna and Thomas (2 members). |
+| adm-lab cannot assign tenant-wide administrative roles; expected denial counts as Pass. | The role-assignment action is unavailable or returns an authorization denial. No administrative role assignment is created. This expected restriction counts as Pass. |
+| anna.finance can sign in to My Account in a fresh session. | My Account opens successfully after the required authentication steps, including any prompted password change or MFA registration. |
+| bg01 and bg02 can each complete a fresh administrative sign-in. | Each account successfully signs in to the Entra admin center in a separate fresh session and completes the required authentication. |
+| An authorized account can find the tested changes in Audit logs. | Relevant user-update and group-membership events are found. The initiator, target, activity time and result match the actions performed during the tests. |
 
 ## Notes from the lab
 
