@@ -1,6 +1,6 @@
 # Day 1 evidence
 
-**Status:** No evidence attached.
+**Status:** Evidences attached.
 
 Add screenshots from the actual lab and update this index. The filenames below are suggestions; no screenshot is included in this starter package.
 
