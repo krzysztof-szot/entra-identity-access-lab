@@ -14,15 +14,6 @@ Users, security groups, delegated administration and emergency accounts.
 - [Day 1 notes and checks](docs/day-01.md)
 - [Users and groups](docs/access-matrix.md)
 
-## Next steps
-
-- Connect the Expense Portal to Entra ID.
-- Configure MFA and Conditional Access.
-- Automate onboarding and offboarding with Microsoft Graph PowerShell.
-- Add PIM and access reviews where licensing allows.
-
-Work in progress. All employee identities are fictional.
-
 ## Planned architecture
 
 ```mermaid
@@ -40,3 +31,12 @@ flowchart TD
 
 Entra ID handles authentication and access policies.
 The Expense Portal enforces employee and approver application roles.
+
+## Next steps
+
+- Connect the Expense Portal to Entra ID.
+- Configure MFA and Conditional Access.
+- Automate onboarding and offboarding with Microsoft Graph PowerShell.
+- Add PIM and access reviews where licensing allows.
+
+Work in progress. All employee identities are fictional.
