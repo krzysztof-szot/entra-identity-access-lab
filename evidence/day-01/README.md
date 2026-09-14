@@ -6,8 +6,8 @@ Add screenshots from the actual lab and update this index. The filenames below a
 
 | Suggested filename | Intended subject | Actual evidence attached |
 |---|---|---|
-| 01-users.png | Employee account inventory | No |
-| 02-groups.png | Group membership or group inventory | No |
+| 01-users.png | Employee account inventory | Yes |
+| 02-groups.png | Group membership or group inventory | Yes |
 | 03-delegated-admin.png | Delegated role or permission-boundary observation | No |
 | 04-audit-log.png | A relevant audit event showing actor, target, and outcome | No |
 
