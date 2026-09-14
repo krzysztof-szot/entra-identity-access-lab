@@ -44,12 +44,12 @@ Security Defaults remains the baseline while the Conditional Access rollout is p
 
 | Group | Example verified members | Count |
 |---|---|---|
-| `SG-Dept-Finance` | `anna.finance`, `piotr.finance`, `jan.mover`, `ola.leaver` | 4 |
-| `SG-Dept-HR` | `ewa.hr` | 1 |
-| `SG-Dept-IT` | `tomasz.it` | 1 |
-| `SG-App-Expense-Users` | `anna.finance`, `piotr.finance`, `ewa.hr`, `tomasz.it`, `jan.mover`, `ola.leaver` | 6 |
-| `SG-App-Expense-Approvers` | `piotr.finance` | 1 |
-| `SG-CA-Pilot` | `anna.finance`, `tomasz.it` | 2 |
+| `SG-Dept-Finance` | `anna.finance`, `peter.finance`, `jan.mover`, `alexandra.leaver` | 4 |
+| `SG-Dept-HR` | `eva.hr` | 1 |
+| `SG-Dept-IT` | `thomas.it` | 1 |
+| `SG-App-Expense-Users` | `anna.finance`, `peter.finance`, `eva.hr`, `thomas.it`, `jan.mover`, `alexandra.leaver` | 6 |
+| `SG-App-Expense-Approvers` | `peter.finance` | 1 |
+| `SG-CA-Pilot` | `anna.finance`, `thomas.it` | 2 |
 | `SG-External-Contractors` | No members; reserved for a later B2B phase | 0 |
 
 These are overlapping group memberships, not additional user accounts. Expense groups are prepared for later application integration; their creation alone does not establish application access.
@@ -86,7 +86,7 @@ Only authentication method types belong in this record. Passwords, enrollment QR
 | Test ID | Example result | Outcome |
 |---|---|---|
 | D1-01 | `adm-lab` changed the ordinary user's Job title to a temporary value, verified the change, and restored the original empty value. | Pass |
-| D1-02 | `adm-lab` removed and re-added `tomasz.it` in `SG-CA-Pilot`; final membership is Anna and Tomasz, two members. | Pass |
+| D1-02 | `adm-lab` removed and re-added `tomasz.it` in `SG-CA-Pilot`; final membership is Anna and Thomas, two members. | Pass |
 | D1-03 | Administrative role assignment was unavailable to `adm-lab`. No privilege escalation or unintended role assignment occurred. | Pass |
 | D1-04 | `anna.finance` signed in to My Account in a fresh session and completed the required first-sign-in steps. | Pass |
 | D1-05 | `bg01` and `bg02` each completed a fresh sign-in to the Entra admin center. The shared MFA-device limitation was recorded separately. | Pass |
