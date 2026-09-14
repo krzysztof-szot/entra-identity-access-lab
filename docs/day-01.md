@@ -61,7 +61,7 @@ Record the actual number of completed, failed, blocked, and unrun tests after ex
 
 ## End-of-day checks
 
-- [ ] Actual objects have been compared with the access matrix.
+- [x] Actual objects have been compared with the access matrix.
 - [ ] Changes made during tests have been restored.
 - [ ] Emergency access limitations have been recorded.
 - [ ] License availability has been recorded.
