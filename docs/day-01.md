@@ -72,7 +72,7 @@ Only authentication method types belong in this record. Passwords, enrollment QR
 |---|---|---|---|
 | Administrative role assignment unavailable to `adm-lab` | The account could not add an administrative role assignment. | Confirmed that the session used `adm-lab` and that its only directory role was User Administrator. No role was added. | Expected permission boundary demonstrated; D1-03 marked Pass. This is not an implementation failure. |
 | Shared MFA device for administrative accounts | All three administrative accounts used registrations on one physical phone. | Recorded the shared dependency and limited the recovery claim to successful sign-in under current conditions. | Open follow-up: configure independent phishing-resistant emergency authentication and test recovery. |
-| Temporary state introduced during validation | `tomasz.it` Job title changed and the user was temporarily removed from `SG-CA-Pilot`. | Restored the original empty Job title, re-added Tomasz, and checked the final group members. | Resolved. CA Pilot again contains Anna and Tomasz; no extra administrator role assignments were introduced. |
+| Temporary state introduced during validation | `thomas.it` Job title changed and the user was temporarily removed from `SG-CA-Pilot`. | Restored the original empty Job title, re-added Thomas, and checked the final group members. | Resolved. CA Pilot again contains Anna and Thomas; no extra administrator role assignments were introduced. |
 
 ## Evidence and results
 
