@@ -111,7 +111,7 @@ The checked items below describe the hypothetical execution. They must be valida
 - [x] Emergency access limitations have been recorded: all three administrative accounts depend on one phone.
 - [x] License availability has been recorded: illustrative P2 allocation of 100 total, 7 assigned, and 93 unassigned seats.
 - [x] The example test summary agrees with the six illustrative outcomes above.
-- [ ] Published evidence has been checked for private information — not applicable to this worked example, which supplies no evidence files.
+- [x] Published evidence has been checked for private information — not applicable to this worked example, which supplies no evidence files.
 - [x] The next implementation task has been selected.
 
 **Next task:** Complete independent emergency authentication and recovery validation, then begin Expense Portal integration with Entra ID using OpenID Connect. Prepare the application registration, corresponding enterprise application, redirect URI, and application roles; validate application access in the next phase.
