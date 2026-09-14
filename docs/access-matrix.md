@@ -11,16 +11,16 @@ Append the actual lab domain to each alias when creating an account. Public exam
 | Alias | Display name | Department | Planned Entra directory role | Purpose |
 |---|---|---|---|---|
 | anna.finance | Anna Finance | Finance | No administrator role | Standard employee |
-| piotr.finance | Piotr Finance | Finance | No administrator role | Future application approver |
-| ewa.hr | Ewa HR | HR | No administrator role | HR employee |
-| tomasz.it | Tomasz IT | IT | No administrator role | IT employee and pilot user |
-| jan.mover | Jan Mover | Finance | No administrator role | Future department-change test |
-| ola.leaver | Ola Leaver | Finance | No administrator role | Future offboarding test |
+| peter.finance | Peter Finance | Finance | No administrator role | Future application approver |
+| eva.hr | Eva HR | HR | No administrator role | HR employee |
+| Thomas.it | Thomas IT | IT | No administrator role | IT employee and pilot user |
+| Jan.mover | Jan Mover | Finance | No administrator role | Future department-change test |
+| Alexandra.leaver | Alexandra Leaver | Finance | No administrator role | Future offboarding test |
 | adm-lab | Lab Identity Administrator | IT | User Administrator, Active | Ordinary user and group administration |
 | bg01 | Emergency Access 01 | Not applicable | Global Administrator, Active permanent | Emergency access |
 | bg02 | Emergency Access 02 | Not applicable | Global Administrator, Active permanent | Emergency access |
 
-For Anna, Jan, and Ola, the planned Manager is Piotr. The employee accounts use Member as User type and Poland as Usage location.
+For Anna, Jan, and Alexandra, the planned Manager is Peter. The employee accounts use Member as User type and Poland as Usage location.
 
 ## Security groups
 
@@ -28,12 +28,12 @@ Planned settings: Security type, Assigned membership, and Microsoft Entra roles 
 
 | Group | Direct members | Expected member count | Purpose |
 |---|---|---:|---|
-| SG-Dept-Finance | anna.finance, piotr.finance, jan.mover, ola.leaver | 4 | Finance membership |
-| SG-Dept-HR | ewa.hr | 1 | HR membership |
-| SG-Dept-IT | tomasz.it | 1 | IT membership |
+| SG-Dept-Finance | anna.finance, peter.finance, jan.mover, alexandra.leaver | 4 | Finance membership |
+| SG-Dept-HR | eva.hr | 1 | HR membership |
+| SG-Dept-IT | thomas.it | 1 | IT membership |
 | SG-App-Expense-Users | All six employee accounts | 6 | Future employee role assignment |
-| SG-App-Expense-Approvers | piotr.finance | 1 | Future approver role assignment |
-| SG-CA-Pilot | anna.finance, tomasz.it | 2 | Conditional Access pilot |
+| SG-App-Expense-Approvers | peter.finance | 1 | Future approver role assignment |
+| SG-CA-Pilot | anna.finance, thomas.it | 2 | Conditional Access pilot |
 | SG-External-Contractors | None yet | 0 | Future B2B assignments |
 
 All employee membership is direct. The delegated administrator and emergency accounts are not included in the employee application groups.
