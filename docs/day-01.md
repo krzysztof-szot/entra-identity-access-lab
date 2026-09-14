@@ -20,7 +20,7 @@ A dash means that the result has not been recorded here.
 | Check | Result |
 |---|---|
 | adm-lab can change an employee's Job title and restore it. | - |
-| adm-lab can remove and re-add Tomasz in SG-CA-Pilot; final membership is Anna and Tomasz. | - |
+| adm-lab can remove and re-add Thomas in SG-CA-Pilot; final membership is Anna and Thomas. | - |
 | adm-lab cannot assign tenant-wide administrative roles; expected denial counts as Pass. | - |
 | anna.finance can sign in to My Account in a fresh session. | - |
 | bg01 and bg02 can each complete a fresh administrative sign-in. | - |
