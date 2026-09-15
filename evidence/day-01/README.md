@@ -1,8 +1,15 @@
-# Day 1 evidence
+# Day 01 — Evidence
 
-Add a few screenshots or log excerpts and link them from
-[Day 1 notes](../../docs/day-01.md), with a sentence explaining each one.
+This folder contains evidence from the Day 01 identity foundation lab.
 
-Include useful test observations, such as group membership before and
-after a change or the relevant audit event. Remove private information;
-do not upload passwords, tokens or MFA enrollment material.
+## Evidence
+
+- `01-users.png` — shows the created workforce, administrator and emergency access accounts.
+- `02-groups.png` — shows the security groups used for department, application and Conditional Access assignments.
+- `03-adm-lab-user-administrator.png` — confirms that `adm-lab` has the active `User Administrator` role.
+- `04-permission-denied-role-assignment.png` — demonstrates the least-privilege boundary: `adm-lab` cannot assign privileged directory roles.
+- `05-break-glass-accounts.png` — confirms that both emergency access accounts have permanent active `Global Administrator` assignments.
+- `06-audit-log-group-membership.png` — shows an `SG-CA-Pilot` membership change performed by `adm-lab` and recorded in Microsoft Entra Audit Logs.
+- `07-audit-log-user-update.png` — shows a user attribute change performed by `adm-lab`, including the modified `JobTitle` value in Audit Logs.
+
+Sensitive identifiers, IP addresses and tenant-specific values were redacted before publication.
