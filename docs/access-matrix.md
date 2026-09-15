@@ -1,6 +1,6 @@
 # Access Matrix
 
-This document describes the identities, administrative roles and security groups used in the Baltic Finance Lab.
+This document describes the identities, administrative roles, security groups and application access model used in the Baltic Finance Lab.
 
 ## Workforce Users
 
@@ -26,15 +26,15 @@ Peter Finance is configured as the manager for selected Finance users, including
 | Account | Display Name | Directory Role | Purpose |
 |---|---|---|---|
 | `adm-lab` | Lab Identity Administrator | User Administrator | Delegated day-to-day identity administration |
-| `appops-lab` | Cloud Application Administrator | Cloud Application Administrator | Application registrations and Enterprise Application administration |
+| `appops-lab` | Cloud Application Administrator | Cloud Application Administrator | App Registration and Enterprise Application administration |
 | `roleops-lab` | Privileged Role Administrator | Privileged Role Administrator | Privileged role assignment and PIM administration |
 | `bg01` | Emergency Access 01 | Global Administrator | Emergency / break-glass access |
 | `bg02` | Emergency Access 02 | Global Administrator | Emergency / break-glass access |
 | Tenant bootstrap account | Tenant Bootstrap Administrator | Global Administrator | Initial tenant administration and recovery |
 
-The emergency access accounts use permanent active `Global Administrator` assignments.
+Administrative accounts are separated from standard workforce identities.
 
-Administrative accounts are separated from normal workforce identities and are not used for regular employee access.
+Emergency access accounts use permanent active `Global Administrator` assignments and are reserved for recovery scenarios.
 
 ---
 
@@ -42,19 +42,41 @@ Administrative accounts are separated from normal workforce identities and are n
 
 All groups are configured as:
 
-- Type: `Security`
+- Group type: `Security`
 - Membership type: `Assigned`
 - Role assignable: `No`
 
 | Group | Purpose | Members |
 |---|---|---|
+| `SG-App-Expense-Approvers` | Expense Portal approval access | `peter.finance` |
+| `SG-App-Expense-Users` | Expense Portal submitter access | All six workforce users |
+| `SG-CA-Pilot` | Pilot scope for Conditional Access testing | `anna.finance`, `thomas.it` |
 | `SG-Dept-Finance` | Finance department membership | `anna.finance`, `peter.finance`, `jan.mover`, `alexandra.leaver` |
 | `SG-Dept-HR` | HR department membership | `eva.hr` |
 | `SG-Dept-IT` | IT department membership | `thomas.it` |
-| `SG-App-Expense-Users` | Expense Portal submitter access | All six workforce users |
-| `SG-App-Expense-Approvers` | Expense Portal approval access | `peter.finance` |
-| `SG-CA-Pilot` | Conditional Access pilot group | `anna.finance`, `thomas.it` |
-| `SG-External-Contractors` | Future B2B contractor access | Empty until the B2B phase |
+| `SG-Emergency-Access` | Dedicated group for emergency / break-glass accounts | `bg01`, `bg02` |
+| `SG-External-Contractors` | B2B contractor access | Empty until the External Identities phase |
+
+---
+
+## Group Design
+
+Department groups represent organizational membership:
+
+- `SG-Dept-Finance`
+- `SG-Dept-HR`
+- `SG-Dept-IT`
+
+Application groups control access to the Expense Portal:
+
+- `SG-App-Expense-Users` → `Expense.Submitter`
+- `SG-App-Expense-Approvers` → `Expense.Approver`
+
+`SG-CA-Pilot` is used to test Conditional Access policies on a limited set of users before wider deployment.
+
+`SG-Emergency-Access` separates emergency access identities from standard administrative and workforce accounts and can be used as a defined scope for Conditional Access exclusions.
+
+`SG-External-Contractors` is reserved for future B2B collaboration scenarios.
 
 ---
 
@@ -65,7 +87,7 @@ All groups are configured as:
 | `SG-App-Expense-Users` | `Expense.Submitter` |
 | `SG-App-Expense-Approvers` | `Expense.Approver` |
 
-Application access is assigned through security groups rather than directly to individual users.
+Application access is assigned through security groups instead of directly to individual users.
 
 This supports centralized access management and prepares the environment for future Joiner / Mover / Leaver automation.
 
