@@ -1,40 +1,96 @@
-# Day 1 - users, groups and administration
+# Day 01 — Identity Foundation and Administrative Separation
 
-This page contains the setup and checks for Day 1.
-Actual lab observations have not yet been added to this version.
+## Objective
 
-## Setup
+Build the identity foundation for the Baltic Finance Lab and validate delegated administration, least-privilege boundaries, emergency access and auditability in Microsoft Entra ID.
 
-- Six employee accounts, one delegated administrator and two emergency accounts.
-- Seven security groups with memberships from the [access matrix](access-matrix.md).
-- Department, Usage location and Manager attributes.
-- A check of the available Entra licensing and current authentication settings.
+## Implemented
 
-The initial focus is user and group administration. Application access
-will be configured in the next phase.
+### Workforce identities
 
-## Checks
+Six Microsoft Entra `Member` users were created to represent the core workforce:
 
-A dash means that the result has not been recorded here.
+- `anna.finance`
+- `peter.finance`
+- `eva.hr`
+- `thomas.it`
+- `jan.mover`
+- `alexandra.leaver`
 
-| Check | Result |
-|---|---|
-| adm-lab can change an employee's Job title and restore it. | The updated Job title is saved and visible after refreshing the profile. The original value is then restored and verified. |
-| adm-lab can remove and re-add Thomas in SG-CA-Pilot; final membership is Anna and Thomas. | Membership changes from Anna and Thomas (2 members) to Anna (1 member), then returns to Anna and Thomas (2 members). |
-| adm-lab cannot assign tenant-wide administrative roles; expected denial counts as Pass. | The role-assignment action is unavailable or returns an authorization denial. No administrative role assignment is created. This expected restriction counts as Pass. |
-| anna.finance can sign in to My Account in a fresh session. | My Account opens successfully after the required authentication steps, including any prompted password change or MFA registration. |
-| bg01 and bg02 can each complete a fresh administrative sign-in. | Each account successfully signs in to the Entra admin center in a separate fresh session and completes the required authentication. |
-| An authorized account can find the tested changes in Audit logs. | Relevant user-update and group-membership events are found. The initiator, target, activity time and result match the actions performed during the tests. |
+Department, manager and usage-location attributes were configured to support future group-based access and Joiner / Mover / Leaver scenarios.
 
-## Notes from the lab
+### Administrative separation
 
-Add the actual license, authentication methods, problems and fixes here.
-Record any shared recovery dependency, such as both emergency accounts
-using the same phone. Successful sign-in alone does not prove independent recovery.
+Dedicated administrative identities are used instead of normal workforce accounts:
 
-Link supporting [screenshots or log excerpts](../evidence/day-01/).
-Keep temporary test changes restored to their original values.
+- `adm-lab` — `User Administrator`
+- `appops-lab` — `Cloud Application Administrator`
+- `roleops-lab` — `Privileged Role Administrator`
+- `bg01` — permanent active `Global Administrator`
+- `bg02` — permanent active `Global Administrator`
+- Tenant bootstrap account — `Global Administrator`
 
-## Next
+This separates day-to-day identity administration, application administration, privileged role management and emergency access.
 
-Resolve unfinished Day 1 checks, then start Expense Portal integration.
+### Security groups
+
+Eight assigned security groups define department membership, application access, Conditional Access pilot scope and emergency-access grouping:
+
+- `SG-Dept-Finance`
+- `SG-Dept-HR`
+- `SG-Dept-IT`
+- `SG-App-Expense-Users`
+- `SG-App-Expense-Approvers`
+- `SG-CA-Pilot`
+- `SG-Emergency-Access`
+- `SG-External-Contractors`
+
+The complete identity and group model is documented in the [Access Matrix](access-matrix.md).
+
+## Design Decisions
+
+### Least-privilege administration
+
+`adm-lab` uses the `User Administrator` role rather than `Global Administrator` for routine identity management.
+
+A permission-boundary test confirmed that this account can manage users and group membership but cannot assign privileged Microsoft Entra directory roles.
+
+### Dedicated emergency access
+
+Two separate emergency access accounts, `bg01` and `bg02`, have permanent active `Global Administrator` assignments.
+
+These accounts are reserved for recovery scenarios and are separated from standard workforce and delegated administrator identities.
+
+### Group-based access model
+
+Users are placed into security groups according to department, application access or policy scope instead of relying on direct per-user assignments wherever possible.
+
+This prepares the environment for later Conditional Access, application authorization, B2B and Joiner / Mover / Leaver automation.
+
+### Auditability
+
+Administrative changes were verified in Microsoft Entra Audit Logs.
+
+The lab confirmed that group-membership changes and user-attribute changes can be traced back to the initiating administrator, target identity and successful result.
+
+## Validation
+
+The following controls were tested successfully:
+
+- `adm-lab` has an active `User Administrator` assignment.
+- `adm-lab` can modify and restore an employee `JobTitle`.
+- `adm-lab` can remove and re-add `thomas.it` in `SG-CA-Pilot`.
+- `adm-lab` cannot assign privileged directory roles.
+- `anna.finance` can complete a fresh sign-in.
+- `bg01` and `bg02` can each complete an administrative sign-in.
+- User and group administrative changes are recorded in Microsoft Entra Audit Logs.
+
+Detailed test results are available in [Day 01 Tests](../tests/day-01.md).
+
+Supporting screenshots are available in [Day 01 Evidence](../evidence/day-01/).
+
+## Result
+
+Day 01 established a documented Microsoft Entra identity foundation with workforce identities, separated administrative accounts, security groups, emergency access accounts, least-privilege validation and auditable administrative activity.
+
+This foundation is used by the later application access, Conditional Access, governance and automation phases of the project.
