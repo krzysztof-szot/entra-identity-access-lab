@@ -14,24 +14,6 @@ Users, security groups, delegated administration and emergency accounts.
 - [Day 1 notes and checks](docs/day-01.md)
 - [Users and groups](docs/access-matrix.md)
 
-## Planned architecture
-
-```mermaid
-flowchart TD
-    Users["Employees"] -->|"Sign-in"| Entra["Microsoft Entra ID"]
-    Guests["Contractors"] -->|"B2B collaboration"| Entra
-
-    Admin["Administrators"] -->|"Directory roles / PIM"| Entra
-    Admin --> Graph["Microsoft Graph PowerShell"]
-    Graph -->|"Joiner / Mover / Leaver"| Entra
-
-    Entra -->|"SSO / MFA / Conditional Access"| App["Expense Portal"]
-    Entra --> Logs["Sign-in and Audit logs"]
-```
-
-Entra ID handles authentication and access policies.
-The Expense Portal enforces employee and approver application roles.
-
 ## Architecture
 
 ```mermaid
