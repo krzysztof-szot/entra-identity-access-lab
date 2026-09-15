@@ -4,9 +4,6 @@ I'm building this lab while preparing for SC-300, after passing AZ-500.
 The aim is to configure identity controls and check how they behave
 with different user accounts.
 
-The scenario is a small company with Finance, HR and IT teams.
-An Expense Portal will be used to test employee and approver access.
-
 ## Project Overview
 
 This project is a hands-on Microsoft Entra ID identity and access management lab designed around a fictional financial organization.
