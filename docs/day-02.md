@@ -2,8 +2,7 @@
 
 ## Objectives
 
-The goal of Day 02 was to integrate the Expense Portal with
-Microsoft Entra ID and implement role-based application access.
+The goal of Day 02 was to integrate the Expense Portal with Microsoft Entra ID and implement role-based application access.
 
 ## Implemented
 
@@ -21,28 +20,27 @@ Microsoft Entra ID and implement role-based application access.
 - Successfully tested authentication with Anna Finance and Peter Finance.
 - Verified both sign-ins in Microsoft Entra sign-in logs.
 
+The detailed application design is documented in the [Expense Portal Application Architecture](application-architecture.md).
+
 ## Access Model
 
-SG-App-Expense-Users
-→ Expense.Submitter
+`SG-App-Expense-Users` → `Expense.Submitter`
 
-SG-App-Expense-Approvers
-→ Expense.Approver
+`SG-App-Expense-Approvers` → `Expense.Approver`
+
+The group membership model is documented in the [Access Matrix](access-matrix.md).
 
 ## Design Decisions
 
 ### Group-based access
 
-Application access is assigned to security groups instead of directly
-to individual users.
+Application access is assigned to security groups instead of directly to individual users.
 
-This simplifies access management and prepares the environment for
-future Joiner-Mover-Leaver automation.
+This simplifies access management and prepares the environment for future Joiner / Mover / Leaver automation.
 
 ### Application roles
 
-Business permissions are represented by App Roles instead of
-hard-coded user identities.
+Business permissions are represented by App Roles instead of hard-coded user identities.
 
 This separates identity management from application authorization.
 
@@ -50,10 +48,12 @@ This separates identity management from application authorization.
 
 `Assignment required` is enabled on the Enterprise Application.
 
-Successful Microsoft Entra authentication alone is therefore not
-sufficient to access the application.
+Successful Microsoft Entra authentication alone is therefore not sufficient to access the application.
 
 ## Verification
 
-Successful sign-ins for both Anna Finance and Peter Finance were
-verified using Microsoft Entra sign-in logs.
+Authentication, group-based access, App Roles, assignment requirements and sign-in logging were validated successfully.
+
+Detailed test results are available in [Day 02 Tests](../tests/day-02.md).
+
+Supporting screenshots are available in [Day 02 Evidence](../evidence/day-02/).
