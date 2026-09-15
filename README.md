@@ -32,6 +32,128 @@ flowchart TD
 Entra ID handles authentication and access policies.
 The Expense Portal enforces employee and approver application roles.
 
+## Architecture
+
+```mermaid
+flowchart TB
+
+    %% =========================
+    %% USERS
+    %% =========================
+
+    EMP["Employees"]
+    CON["Contractors"]
+    ADM["Administrators"]
+
+    %% =========================
+    %% MICROSOFT ENTRA ID
+    %% =========================
+
+    ENTRA["Microsoft Entra ID"]
+
+    %% =========================
+    %% ADMINISTRATION
+    %% =========================
+
+    PIM["Directory Roles / PIM"]
+    PS["Microsoft Graph PowerShell"]
+    GRAPH["Microsoft Graph API"]
+    JML["Joiner / Mover / Leaver Automation"]
+
+    %% =========================
+    %% APPLICATION ACCESS
+    %% =========================
+
+    AUTH["Authentication / MFA / SSO / Conditional Access"]
+    APPREG["App Registration"]
+    SP["Enterprise Application / Service Principal"]
+    PORTAL["Expense Portal"]
+
+    %% =========================
+    %% WORKLOAD IDENTITY
+    %% =========================
+
+    MI["Workload Identity / Managed Identity"]
+    KV["Azure Key Vault"]
+    SECRETS["Secrets / Certificates"]
+
+    %% =========================
+    %% MONITORING
+    %% =========================
+
+    LOGS["Sign-in and Audit Logs"]
+
+    %% =========================
+    %% USER FLOWS
+    %% =========================
+
+    EMP -->|"Sign-in"| ENTRA
+    CON -->|"B2B Collaboration"| ENTRA
+
+    %% =========================
+    %% ADMIN FLOWS
+    %% =========================
+
+    ADM --> PIM
+    PIM -->|"Privileged administration"| ENTRA
+
+    ADM --> PS
+    PS --> GRAPH
+    GRAPH -->|"Administration"| ENTRA
+    PS -.->|"Automation"| JML
+    JML -.-> ENTRA
+
+    %% =========================
+    %% APPLICATION FLOW
+    %% =========================
+
+    ENTRA --> AUTH
+    AUTH -->|"Protected access"| PORTAL
+
+    ENTRA --> APPREG
+    APPREG --> SP
+
+    APPREG -.->|"Application definition"| PORTAL
+    SP -.->|"Assignments / App Roles"| PORTAL
+
+    %% =========================
+    %% WORKLOAD IDENTITY FLOW
+    %% =========================
+
+    PORTAL --> MI
+    MI -.->|"Identity managed by Entra"| ENTRA
+    MI -->|"Access token"| KV
+    KV --> SECRETS
+
+    %% =========================
+    %% LOGGING
+    %% =========================
+
+    ENTRA -->|"Sign-in and administrative events"| LOGS
+
+    %% =========================
+    %% STYLES
+    %% =========================
+
+    classDef entra fill:#e8f1ff,stroke:#2563eb,stroke-width:2px,color:#111827;
+    classDef person fill:#f8fafc,stroke:#64748b,stroke-width:1.5px,color:#111827;
+    classDef admin fill:#fff7ed,stroke:#ea580c,stroke-width:1.5px,color:#111827;
+    classDef security fill:#fef2f2,stroke:#dc2626,stroke-width:1.5px,color:#111827;
+    classDef app fill:#f0fdf4,stroke:#16a34a,stroke-width:1.5px,color:#111827;
+    classDef workload fill:#faf5ff,stroke:#9333ea,stroke-width:1.5px,color:#111827;
+    classDef monitor fill:#fefce8,stroke:#ca8a04,stroke-width:1.5px,color:#111827;
+    classDef automation fill:#ecfeff,stroke:#0891b2,stroke-width:1.5px,color:#111827;
+
+    class ENTRA entra;
+    class EMP,CON person;
+    class ADM,PIM admin;
+    class AUTH security;
+    class APPREG,SP,PORTAL app;
+    class MI,KV,SECRETS workload;
+    class LOGS monitor;
+    class PS,GRAPH,JML automation;
+```
+
 ## Implementation Progress
 
 ### Day 01 — Identity Foundation
