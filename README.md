@@ -16,6 +16,8 @@ Users, security groups, delegated administration and emergency accounts.
 
 ## Architecture
 
+The project simulates an enterprise Microsoft Entra ID environment for a fictional financial organization. It demonstrates identity lifecycle management, privileged access, application authentication, Conditional Access, workload identities, automation, and auditing.
+
 ```mermaid
 flowchart TB
 
