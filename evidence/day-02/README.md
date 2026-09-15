@@ -1,16 +1,18 @@
-# Day 2 evidence
+# Day 02 — Evidence
 
-Add screenshots showing the completed Expense Portal identity integration and link them from [Day 2 notes](../../docs/day-02.md).
+This folder contains evidence from the Day 02 Expense Portal identity integration lab.
 
-Useful evidence includes:
+## Evidence
 
-- Expense Portal App Registration and Enterprise Application.
-- Configured App Roles: `Expense.Submitter` and `Expense.Approver`.
-- Group-to-role assignments for `SG-App-Expense-Users` and `SG-App-Expense-Approvers`.
-- `Assignment required = Yes`.
-- Successful sign-in events for `anna.finance` and `peter.finance`.
-- Expense Portal screenshots showing the signed-in user and effective application permissions.
+- `01-app-registration.png` — shows the single-tenant App Registration created for the Expense Portal.
+- `02-app-roles.png` — shows the configured `Expense.Submitter` and `Expense.Approver` application roles.
+- `03-enterprise-application.png` — shows the corresponding Enterprise Application / Service Principal.
+- `04-group-assignments.png` — shows group-based application access assignments.
+- `05-assignment-required.png` — confirms that `Assignment required` is enabled for the Enterprise Application.
+- `05a-app-service-authentication.png` — shows Microsoft Entra authentication configured for the Azure App Service.
+- `06-anna-portal-access.png` — confirms successful access for `anna.finance` with the expected application permissions.
+- `07-peter-portal-access.png` — confirms successful access for `peter.finance` with the expected application permissions.
+- `08-admin-consent.png` — confirms tenant-wide admin consent for the required permissions.
+- `09-anna-and-peter-signin-logs.png` — shows successful sign-in events for both test users in Microsoft Entra sign-in logs.
 
-For each screenshot, add one short sentence explaining what it proves.
-
-Remove private information before publishing. Do not upload passwords, client secrets, tokens, MFA enrollment data, recovery codes, or billing information.
+Sensitive identifiers and tenant-specific values were redacted before publication.
