@@ -7,12 +7,28 @@ with different user accounts.
 The scenario is a small company with Finance, HR and IT teams.
 An Expense Portal will be used to test employee and approver access.
 
-## Current focus
+## Project Overview
 
-Users, security groups, delegated administration and emergency accounts.
+This project is a hands-on Microsoft Entra ID identity and access management lab designed around a fictional financial organization.
 
-- [Day 1 notes and checks](docs/day-01.md)
-- [Users and groups](docs/access-matrix.md)
+The goal is to build and secure an enterprise-style IAM environment using Microsoft Entra ID and technologies covered by the SC-300 certification.
+
+The project includes:
+
+- User, group and role management
+- Least-privilege administration and break-glass accounts
+- Conditional Access and MFA
+- Enterprise Applications, App Registrations and App Roles
+- B2B collaboration and external identities
+- Joiner / Mover / Leaver lifecycle management
+- Privileged Identity Management (PIM)
+- Entitlement Management and Access Reviews
+- OAuth, Microsoft Graph and PowerShell automation
+- Workload identities and Managed Identities
+- Azure Key Vault integration
+- Sign-in and Audit Log monitoring
+
+Each implementation is documented with design decisions, configuration steps, validation tests, evidence and troubleshooting notes.
 
 ## Architecture
 
