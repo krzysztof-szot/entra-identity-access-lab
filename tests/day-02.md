@@ -18,6 +18,7 @@ group-based access and application roles for the Expense Portal.
 | Tenant-wide admin consent is granted for required API permissions | Pass | Pass |
 | Sign-in events for Anna are visible in Microsoft Entra logs | Pass | Pass |
 | Sign-in events for Peter are visible in Microsoft Entra logs | Pass | Pass |
+| Unassigned standard user cannot access Expense Portal | Access denied — Pass | Pass |
 
 ## Result
 
