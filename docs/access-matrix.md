@@ -97,17 +97,33 @@ This supports centralized access management and prepares the environment for fut
 
 The lab follows a separation-of-duties model:
 
-```text
-Tenant Bootstrap Administrator
-        |
-        +-- Emergency Access 01 / 02
-        |      Global Administrator
-        |
-        +-- roleops-lab
-        |      Privileged Role Administrator
-        |
-        +-- appops-lab
-        |      Cloud Application Administrator
-        |
-        +-- adm-lab
-               User Administrator
+```mermaid
+flowchart TB
+
+    TBA["Tenant Bootstrap Administrator<br/>Global Administrator"]
+
+    BG["Emergency Access 01 / 02<br/>Global Administrator"]
+
+    ROLEOPS["roleops-lab<br/>Privileged Role Administrator"]
+
+    APPOPS["appops-lab<br/>Cloud Application Administrator"]
+
+    ADMLAB["adm-lab<br/>User Administrator"]
+
+    TBA --> BG
+    TBA --> ROLEOPS
+    TBA --> APPOPS
+    TBA --> ADMLAB
+
+    classDef root fill:#e8f1ff,stroke:#2563eb,stroke-width:2px,color:#111827;
+    classDef emergency fill:#fef2f2,stroke:#dc2626,stroke-width:1.5px,color:#111827;
+    classDef privileged fill:#fff7ed,stroke:#ea580c,stroke-width:1.5px,color:#111827;
+    classDef appadmin fill:#f0fdf4,stroke:#16a34a,stroke-width:1.5px,color:#111827;
+    classDef useradmin fill:#f8fafc,stroke:#64748b,stroke-width:1.5px,color:#111827;
+
+    class TBA root;
+    class BG emergency;
+    class ROLEOPS privileged;
+    class APPOPS appadmin;
+    class ADMLAB useradmin;
+```
