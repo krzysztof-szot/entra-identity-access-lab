@@ -32,11 +32,37 @@ flowchart TD
 Entra ID handles authentication and access policies.
 The Expense Portal enforces employee and approver application roles.
 
-## Next steps
+## Implementation Progress
 
-- Connect the Expense Portal to Entra ID.
-- Configure MFA and Conditional Access.
-- Automate onboarding and offboarding with Microsoft Graph PowerShell.
-- Add PIM and access reviews where licensing allows.
+### Day 01 — Identity Foundation
 
-Work in progress. All employee identities are fictional.
+- [x] Workforce users
+- [x] Security groups
+- [x] Administrative separation
+- [x] Emergency access accounts
+- [x] Permission boundary testing
+- [x] Audit log verification
+
+### Day 02 — Application Identity and Access
+
+- [x] Azure App Service
+- [x] Microsoft Entra authentication
+- [x] Single-tenant App Registration
+- [x] Enterprise Application / Service Principal
+- [x] Application roles
+- [x] Group-based application assignment
+- [x] Assignment required
+- [x] Admin consent
+- [x] Positive authentication tests
+- [x] Sign-in log verification
+
+### Planned
+
+- [ ] Dynamic groups
+- [ ] Joiner-Mover-Leaver lifecycle
+- [ ] Conditional Access
+- [ ] Identity Protection
+- [ ] Privileged Identity Management
+- [ ] B2B collaboration
+- [ ] Entitlement Management
+- [ ] Access Reviews
