@@ -19,3 +19,13 @@ Microsoft Entra ID
         │
         └── SG-App-Expense-Approvers
             └── Expense.Approver
+
+```markdown
+## Authentication vs Authorization
+
+Microsoft Entra ID provides authentication.
+
+Application assignment and App Roles provide authorization.
+
+A successful sign-in does not automatically grant business access
+to the Expense Portal.
