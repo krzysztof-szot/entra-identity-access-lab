@@ -1,35 +1,113 @@
 # Microsoft Entra Identity & Access Lab
 
-I'm building this lab while preparing for SC-300, after passing AZ-500.
-The aim is to configure identity controls and check how they behave
-with different user accounts.
+I'm building this hands-on Microsoft Entra ID lab while preparing for the SC-300 Microsoft Identity and Access Administrator certification, after previously passing AZ-500.
+
+The project simulates identity and access management for a fictional financial organization and focuses on designing, implementing and validating enterprise-style IAM controls.
 
 ## Project Overview
 
-This project is a hands-on Microsoft Entra ID identity and access management lab designed around a fictional financial organization.
+The goal of the project is to build and secure a Microsoft Entra ID environment covering the major identity, authentication, application access, privileged access and governance scenarios expected from an Identity and Access Administrator.
 
-The goal is to build and secure an enterprise-style IAM environment using Microsoft Entra ID and technologies covered by the SC-300 certification.
+The project is based on practical implementation rather than configuration screenshots alone.
 
-The project includes:
+Each phase includes:
 
-- User, group and role management
-- Least-privilege administration and break-glass accounts
-- Conditional Access and MFA
-- Enterprise Applications, App Registrations and App Roles
-- B2B collaboration and external identities
-- Joiner / Mover / Leaver lifecycle management
-- Privileged Identity Management (PIM)
-- Entitlement Management and Access Reviews
-- OAuth, Microsoft Graph and PowerShell automation
-- Workload identities and Managed Identities
-- Azure Key Vault integration
-- Sign-in and Audit Log monitoring
+* design decisions
+* implementation
+* positive and negative validation tests
+* Microsoft Entra log verification
+* supporting evidence
+* troubleshooting where applicable
 
-Each implementation is documented with design decisions, configuration steps, validation tests, evidence and troubleshooting notes.
+## Technologies and Concepts
 
-## Architecture
+The project covers or will cover:
 
-The project simulates an enterprise Microsoft Entra ID environment for a fictional financial organization. It demonstrates identity lifecycle management, privileged access, application authentication, Conditional Access, workload identities, automation, and auditing.
+* Microsoft Entra ID
+* Identity and group management
+* Least-privilege administration
+* Emergency / break-glass accounts
+* Microsoft Entra Conditional Access
+* Authentication Strengths
+* Multifactor Authentication
+* Temporary Access Pass
+* Passkeys / FIDO2
+* Self-Service Password Reset
+* App Registrations
+* Enterprise Applications / Service Principals
+* App Roles
+* Group-based application access
+* B2B collaboration and External Identities
+* Joiner / Mover / Leaver lifecycle management
+* Privileged Identity Management
+* Entitlement Management
+* Access Reviews
+* Microsoft Graph
+* PowerShell automation
+* Workload identities
+* Managed Identities
+* Azure Key Vault
+* Sign-in and Audit Logs
+* Identity monitoring
+
+---
+
+## Current Implementation
+
+The currently implemented environment includes:
+
+### Identity Foundation
+
+* Workforce identities
+* Department and access groups
+* Dedicated administrative accounts
+* Least-privilege role assignments
+* Two emergency access accounts
+* Permission-boundary validation
+* Audit Log verification
+
+### Expense Portal Identity Integration
+
+* Azure App Service protected by Microsoft Entra authentication
+* Single-tenant App Registration
+* Enterprise Application / Service Principal
+* App Roles
+* Group-based application assignment
+* `Assignment required`
+* Positive and negative application access testing
+* Sign-in log validation
+
+### Conditional Access
+
+* Pilot-based Conditional Access deployment
+* MFA enforcement
+* Authentication Strengths
+* Emergency access exclusions
+* Report-only validation
+* Conditional Access What If testing
+* High sign-in risk policy evaluation
+* Sign-in log verification
+
+### Authentication Hardening
+
+* Authentication Methods Policy
+* Microsoft Authenticator
+* SMS
+* Temporary Access Pass
+* Passkey / FIDO2
+* Passwordless onboarding
+* Phishing-resistant MFA
+* Authentication hardening pilot groups
+* Positive and negative authentication testing
+* Self-Service Password Reset
+
+---
+
+## Target Architecture
+
+The following diagram represents the target architecture of the complete lab.
+
+Some components shown below are planned for later phases and are not yet implemented.
 
 ```mermaid
 flowchart TB
@@ -151,36 +229,185 @@ flowchart TB
     class PS,GRAPH,JML automation;
 ```
 
+---
+
 ## Implementation Progress
 
 ### Day 01 — Identity Foundation
 
-- [x] Workforce users
-- [x] Security groups
-- [x] Administrative separation
-- [x] Emergency access accounts
-- [x] Permission boundary testing
-- [x] Audit log verification
+* [x] Workforce users
+* [x] Security groups
+* [x] Administrative separation
+* [x] Least-privilege administration
+* [x] Emergency access accounts
+* [x] Permission-boundary testing
+* [x] Audit Log verification
+
+Documentation: [`docs/day-01.md`](docs/day-01.md)
+
+Tests: [`tests/day-01.md`](tests/day-01.md)
+
+Evidence: [`evidence/day-01/`](evidence/day-01/)
+
+---
 
 ### Day 02 — Application Identity and Access
 
-- [x] Azure App Service
-- [x] Microsoft Entra authentication
-- [x] Single-tenant App Registration
-- [x] Enterprise Application / Service Principal
-- [x] Application roles
-- [x] Group-based application assignment
-- [x] Assignment required
-- [x] Admin consent
-- [x] Positive authentication tests
-- [x] Sign-in log verification
+* [x] Azure App Service
+* [x] Microsoft Entra authentication
+* [x] Single-tenant App Registration
+* [x] Enterprise Application / Service Principal
+* [x] Application roles
+* [x] Group-based application assignment
+* [x] Assignment required
+* [x] Admin consent
+* [x] Positive authentication and authorization tests
+* [x] Negative access test
+* [x] Sign-in log verification
 
-### Planned
+Documentation: [`docs/day-02.md`](docs/day-02.md)
 
-- [ ] Dynamic groups
-- [ ] Joiner-Mover-Leaver lifecycle
-- [ ] Conditional Access
-- [ ] Identity Protection
+Tests: [`tests/day-02.md`](tests/day-02.md)
+
+Evidence: [`evidence/day-02/`](evidence/day-02/)
+
+---
+
+### Day 03 — Conditional Access and MFA
+
+* [x] Conditional Access Administrator delegation
+* [x] Reports Reader delegation
+* [x] Conditional Access pilot group
+* [x] Emergency access exclusion
+* [x] MFA authentication strength
+* [x] Report-only deployment
+* [x] Conditional Access What If validation
+* [x] Enforced MFA
+* [x] Sign-in log verification
+* [x] High sign-in risk policy evaluation
+
+Documentation: [`docs/day-03.md`](docs/day-03.md)
+
+Tests: [`tests/day-03.md`](tests/day-03.md)
+
+Evidence: [`evidence/day-03/`](evidence/day-03/)
+
+---
+
+### Day 04 — Authentication Hardening
+
+* [x] Authentication Methods Policy
+* [x] Microsoft Authenticator
+* [x] SMS
+* [x] Temporary Access Pass
+* [x] Passkey / FIDO2
+* [x] Passwordless pilot group
+* [x] Authentication hardening pilot group
+* [x] Phishing-resistant MFA Authentication Strength
+* [x] Conditional Access enforcement
+* [x] Positive passkey authentication test
+* [x] Negative weak-authentication test
+* [x] Sign-in log verification
+* [x] Self-Service Password Reset
+
+Documentation: [`docs/day-04.md`](docs/day-04.md)
+
+Tests: [`tests/day-04.md`](tests/day-04.md)
+
+Evidence: [`evidence/day-04/`](evidence/day-04/)
+
+---
+
+## Supporting Documentation
+
+* [Access Matrix](docs/access-matrix.md)
+* [Expense Portal Application Architecture](docs/application-architecture.md)
+
+---
+
+## Planned Implementation
+
+The next phases of the project will expand the environment with:
+
+* [ ] Dynamic groups
+* [ ] Joiner / Mover / Leaver lifecycle
+* [ ] Privileged Identity Management
+* [ ] B2B collaboration and External Identities
+* [ ] Entitlement Management
+* [ ] Access Reviews
+* [ ] Workload identities
+* [ ] Managed Identity
+* [ ] Microsoft Graph
+* [ ] PowerShell automation
+* [ ] Azure Key Vault integration
+* [ ] Extended identity monitoring and log analysis
+
+---
+
+## Security Design Principles
+
+The lab follows several core identity security principles:
+
+**Least privilege**
+
+Routine administrative accounts receive only the roles required for their tasks.
+
+**Separation of duties**
+
+Identity administration, application administration, privileged role management and emergency access are separated.
+
+**Pilot before enforcement**
+
+Security controls such as Conditional Access and stronger authentication requirements are tested with limited pilot groups before wider deployment.
+
+**Emergency access protection**
+
+Dedicated break-glass accounts are maintained separately and excluded from restrictive Conditional Access policies.
+
+**Group-based access**
+
+Application authorization is assigned through security groups rather than directly to individual users.
+
+**Authentication and authorization separation**
+
+Successful authentication does not automatically grant application permissions. Application access remains controlled through assignments and App Roles.
+
+**Verification and auditability**
+
+Configuration changes and access scenarios are validated using Microsoft Entra Sign-in Logs, Audit Logs, Conditional Access evaluation and documented test evidence.
+
+---
+
+## Repository Structure
+
+```text
+entra-identity-access-lab/
+│
+├── README.md
+│
+├── docs/
+│   ├── access-matrix.md
+│   ├── application-architecture.md
+│   ├── day-01.md
+│   ├── day-02.md
+│   ├── day-03.md
+│   └── day-04.md
+│
+├── tests/
+│   ├── day-01.md
+│   ├── day-02.md
+│   ├── day-03.md
+│   └── day-04.md
+│
+└── evidence/
+    ├── day-01/
+    ├── day-02/
+    ├── day-03/
+    └── day-04/
+```
+
+The repository will continue to evolve as additional Microsoft Entra identity governance, privileged access, workload identity and automation scenarios are implemented.
+
 - [ ] Privileged Identity Management
 - [ ] B2B collaboration
 - [ ] Entitlement Management
