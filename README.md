@@ -380,30 +380,52 @@ Configuration changes and access scenarios are validated using Microsoft Entra S
 
 ## Repository Structure
 
-```text
-entra-identity-access-lab/
-│
-├── README.md
-│
-├── docs/
-│   ├── access-matrix.md
-│   ├── application-architecture.md
-│   ├── day-01.md
-│   ├── day-02.md
-│   ├── day-03.md
-│   └── day-04.md
-│
-├── tests/
-│   ├── day-01.md
-│   ├── day-02.md
-│   ├── day-03.md
-│   └── day-04.md
-│
-└── evidence/
-    ├── day-01/
-    ├── day-02/
-    ├── day-03/
-    └── day-04/
+```mermaid
+flowchart TB
+
+    ROOT["entra-identity-access-lab"]
+
+    README["README.md"]
+
+    subgraph DOCS["docs/"]
+        ACCESS["access-matrix.md"]
+        ARCH["application-architecture.md"]
+        D1["day-01.md"]
+        D2["day-02.md"]
+        D3["day-03.md"]
+        D4["day-04.md"]
+    end
+
+    subgraph TESTS["tests/"]
+        T1["day-01.md"]
+        T2["day-02.md"]
+        T3["day-03.md"]
+        T4["day-04.md"]
+    end
+
+    subgraph EVIDENCE["evidence/"]
+        E1["day-01/"]
+        E2["day-02/"]
+        E3["day-03/"]
+        E4["day-04/"]
+    end
+
+    ROOT --> README
+    ROOT --> DOCS
+    ROOT --> TESTS
+    ROOT --> EVIDENCE
+
+    classDef root fill:#e8f1ff,stroke:#2563eb,stroke-width:2px,color:#111827;
+    classDef readme fill:#f8fafc,stroke:#475569,stroke-width:1.5px,color:#111827;
+    classDef docs fill:#f0fdf4,stroke:#16a34a,stroke-width:1.5px,color:#111827;
+    classDef tests fill:#fff7ed,stroke:#ea580c,stroke-width:1.5px,color:#111827;
+    classDef evidence fill:#faf5ff,stroke:#9333ea,stroke-width:1.5px,color:#111827;
+
+    class ROOT root;
+    class README readme;
+    class ACCESS,ARCH,D1,D2,D3,D4 docs;
+    class T1,T2,T3,T4 tests;
+    class E1,E2,E3,E4 evidence;
 ```
 
 The repository will continue to evolve as additional Microsoft Entra identity governance, privileged access, workload identity and automation scenarios are implemented.
