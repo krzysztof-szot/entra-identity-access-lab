@@ -19,6 +19,7 @@ The goal of Day 02 was to integrate the Expense Portal with Microsoft Entra ID a
 - Granted required tenant-wide admin consent.
 - Successfully tested authentication with Anna Finance and Peter Finance.
 - Verified both sign-ins in Microsoft Entra sign-in logs.
+- Confirmed that an unassigned account is denied access to the application.
 
 The detailed application design is documented in the [Expense Portal Application Architecture](application-architecture.md).
 
@@ -52,7 +53,7 @@ Successful Microsoft Entra authentication alone is therefore not sufficient to a
 
 ## Verification
 
-Authentication, group-based access, App Roles, assignment requirements and sign-in logging were validated successfully.
+Authentication, group-based access, App Roles, assignment requirements, denied access for an unassigned account and sign-in logging were validated successfully.
 
 Detailed test results are available in [Day 02 Tests](../tests/day-02.md).
 
