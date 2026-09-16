@@ -11,8 +11,8 @@ Validate delegated administration, least-privilege boundaries, emergency access 
 | `adm-lab` can remove and re-add `thomas.it` in `SG-CA-Pilot` | Membership change succeeds and final membership is restored | Pass | [06-audit-log-group-membership.png](../evidence/day-01/06-audit-log-group-membership.png) |
 | `adm-lab` cannot assign privileged directory roles | Role assignment control is unavailable or denied | Pass | [04-permission-denied-role-assignment.png](../evidence/day-01/04-permission-denied-role-assignment.png) |
 | `anna.finance` can complete a fresh sign-in | User authentication succeeds | Pass | — |
-| `bg01` can complete an administrative sign-in | Emergency account can access the Entra admin center | Pass | [05-break-glass-accounts.png](../evidence/day-01/05-break-glass-accounts.png) |
-| `bg02` can complete an administrative sign-in | Emergency account can access the Entra admin center | Pass | [05-break-glass-accounts.png](../evidence/day-01/05-break-glass-accounts.png) |
+| `bg01` can complete an administrative sign-in | Emergency account can access the Azure Portal successfully | Pass | [08-break-glass-signin-logs.png](../evidence/day-01/08-break-glass-signin-logs.png) |
+| `bg02` can complete an administrative sign-in | Emergency account can access the Azure Portal successfully | Pass | [08-break-glass-signin-logs.png](../evidence/day-01/08-break-glass-signin-logs.png) |
 | Group membership changes are recorded in Audit Logs | Event shows initiator, target and successful result | Pass | [06-audit-log-group-membership.png](../evidence/day-01/06-audit-log-group-membership.png) |
 | User attribute changes are recorded in Audit Logs | `Update user` event shows modified property and initiator | Pass | [07-audit-log-user-update.png](../evidence/day-01/07-audit-log-user-update.png) |
 
