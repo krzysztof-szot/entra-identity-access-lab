@@ -14,5 +14,6 @@ This folder contains evidence from the Day 02 Expense Portal identity integratio
 - `07-peter-portal-access.png` — confirms successful access for `peter.finance` with the expected application permissions.
 - `08-admin-consent.png` — confirms tenant-wide admin consent for the required permissions.
 - `09-anna-and-peter-signin-logs.png` — shows successful sign-in events for both test users in Microsoft Entra sign-in logs.
+- `10-unassigned-user-access-denied.png` — confirms that an account without an explicit application assignment is denied access to the Expense Portal with `AADSTS50105`.
 
 Sensitive identifiers and tenant-specific values were redacted before publication.
