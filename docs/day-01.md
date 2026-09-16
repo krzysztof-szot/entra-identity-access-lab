@@ -39,4 +39,6 @@ Two dedicated break-glass accounts provide tenant recovery access and are kept s
 
 User attribute changes and `SG-CA-Pilot` membership changes were completed successfully and verified in Microsoft Entra Audit Logs.
 
+Both emergency access accounts also completed successful interactive Azure Portal sign-ins.
+
 Detailed validation results are available in [Day 01 Tests](../tests/day-01.md), with supporting screenshots in [Day 01 Evidence](../evidence/day-01/).
