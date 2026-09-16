@@ -18,7 +18,7 @@ Validate Microsoft Entra authentication, group-based application access, App Rol
 | `peter.finance` receives `Expense.Submitter` and `Expense.Approver` | Both expected application permissions are present | Pass | [07-peter-portal-access.png](../evidence/day-02/07-peter-portal-access.png) |
 | Tenant-wide admin consent is granted | Required API permissions have admin consent | Pass | [08-admin-consent.png](../evidence/day-02/08-admin-consent.png) |
 | Sign-ins for Anna and Peter are recorded | Successful authentication events are visible in Microsoft Entra sign-in logs | Pass | [09-anna-and-peter-signin-logs.png](../evidence/day-02/09-anna-and-peter-signin-logs.png) |
-| Unassigned standard user cannot access Expense Portal | Access is denied because explicit assignment is required | Pass | — |
+| Unassigned account cannot access Expense Portal | Access is denied because explicit assignment is required | Pass | [10-unassigned-user-access-denied.png](../evidence/day-02/10-unassigned-user-access-denied.png) |
 
 ## Result
 
