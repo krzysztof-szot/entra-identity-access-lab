@@ -39,6 +39,12 @@ The project covers or will cover:
 * Group-based application access
 * B2B collaboration and External Identities
 * Joiner / Mover / Leaver lifecycle management
+* Administrative Units
+* Hybrid Identity
+* Microsoft Entra Connect Sync
+* Password Hash Synchronization
+* Microsoft Entra device identities
+* Microsoft Entra registered / joined / hybrid joined devices
 * Privileged Identity Management
 * Entitlement Management
 * Access Reviews
@@ -100,6 +106,50 @@ The currently implemented environment includes:
 * Authentication hardening pilot groups
 * Positive and negative authentication testing
 * Self-Service Password Reset
+
+### External Identities and Cross-Tenant Access
+
+* Microsoft Entra B2B collaboration
+* Guest invitation and redemption
+* Dedicated external contractor access group
+* Group-based Expense Portal assignment
+* Cross-tenant inbound and outbound access settings
+* MFA trust from the partner tenant
+* Positive and negative cross-tenant access testing
+* Audit Log and Sign-in Log validation
+
+### Identity Lifecycle and Scoped Administration
+
+* Joiner / Mover / Leaver lifecycle scenarios
+* Group-based application entitlement
+* Access removal during department changes
+* Leaver account disablement and entitlement removal
+* Administrative Units
+* Administrative Unit-scoped `User Administrator`
+* Positive and negative delegated administration testing
+
+### Hybrid Identity
+
+* Active Directory Domain Services lab environment
+* Microsoft Entra Connect Sync
+* Organizational Unit filtering
+* Password Hash Synchronization
+* Synchronized users and groups
+* Hybrid identity authentication
+* Conditional Access for synchronized identities
+* Microsoft Entra Connect Health validation
+
+### Device Identities and Conditional Access
+
+* Microsoft Entra registered device
+* Microsoft Entra joined device
+* Microsoft Entra hybrid joined device
+* `dsregcmd /status` verification
+* Microsoft Entra device inventory validation
+* Conditional Access device filters
+* Device trust-based application access
+* Positive and negative device-state testing
+* Separation of device join state from compliance
 
 ---
 
@@ -318,6 +368,92 @@ Evidence: [`evidence/day-04/`](evidence/day-04/)
 
 ---
 
+### Day 05 — External Identities and Cross-Tenant Access
+
+* [x] Microsoft Entra B2B collaboration
+* [x] Guest invitation and redemption
+* [x] Dedicated external contractor group
+* [x] Group-based Expense Portal assignment
+* [x] Cross-tenant inbound access configuration
+* [x] Cross-tenant outbound access configuration
+* [x] MFA trust from the partner tenant
+* [x] Positive external application access test
+* [x] Negative application assignment test
+* [x] Negative cross-tenant access test
+* [x] Audit Log and Sign-in Log verification
+
+Documentation: [`docs/day-05.md`](docs/day-05.md)
+
+Tests: [`tests/day-05.md`](tests/day-05.md)
+
+Evidence: [`evidence/day-05/`](evidence/day-05/)
+
+---
+
+### Day 06 — Identity Lifecycle and Administrative Units
+
+* [x] Group-based application entitlement
+* [x] Joiner provisioning
+* [x] Mover access transition
+* [x] Leaver deprovisioning
+* [x] Administrative Unit creation
+* [x] Administrative Unit-scoped User Administrator
+* [x] Positive scoped administration test
+* [x] Negative out-of-scope administration test
+* [x] Positive and negative lifecycle access validation
+
+Documentation: [`docs/day-06.md`](docs/day-06.md)
+
+Tests: [`tests/day-06.md`](tests/day-06.md)
+
+Evidence: [`evidence/day-06/`](evidence/day-06/)
+
+---
+
+### Day 07 — Hybrid Identity
+
+* [x] Active Directory Domain Services
+* [x] Dedicated hybrid synchronization scope
+* [x] Microsoft Entra Connect Sync
+* [x] Organizational Unit filtering
+* [x] Password Hash Synchronization
+* [x] Synchronized hybrid user and group
+* [x] Cloud authentication with synchronized credentials
+* [x] Conditional Access for hybrid identity
+* [x] Expense Portal authorization
+* [x] Sign-in Log verification
+* [x] Microsoft Entra Connect Health validation
+
+Documentation: [`docs/day-07.md`](docs/day-07.md)
+
+Tests: [`tests/day-07.md`](tests/day-07.md)
+
+Evidence: [`evidence/day-07/`](evidence/day-07/)
+
+---
+
+### Day 08 — Device Identities and Conditional Access
+
+* [x] Microsoft Entra registered device
+* [x] Microsoft Entra joined device
+* [x] Microsoft Entra hybrid joined device
+* [x] `dsregcmd` device-state verification
+* [x] Microsoft Entra device inventory validation
+* [x] Conditional Access device filter
+* [x] Report-only registered-device test
+* [x] Negative Entra-joined device access test
+* [x] Positive hybrid-joined device access test
+* [x] Sign-in Log and Conditional Access verification
+* [x] Join state vs compliance distinction
+
+Documentation: [`docs/day-08.md`](docs/day-08.md)
+
+Tests: [`tests/day-08.md`](tests/day-08.md)
+
+Evidence: [`evidence/day-08/`](evidence/day-08/)
+
+---
+
 ## Supporting Documentation
 
 * [Access Matrix](docs/access-matrix.md)
@@ -329,10 +465,7 @@ Evidence: [`evidence/day-04/`](evidence/day-04/)
 
 The next phases of the project will expand the environment with:
 
-* [ ] Dynamic groups
-* [ ] Joiner / Mover / Leaver lifecycle
 * [ ] Privileged Identity Management
-* [ ] B2B collaboration and External Identities
 * [ ] Entitlement Management
 * [ ] Access Reviews
 * [ ] Workload identities
@@ -341,6 +474,7 @@ The next phases of the project will expand the environment with:
 * [ ] PowerShell automation
 * [ ] Azure Key Vault integration
 * [ ] Extended identity monitoring and log analysis
+* [ ] Additional identity governance and automation scenarios
 
 ---
 
@@ -394,6 +528,10 @@ flowchart TB
         D2["day-02.md"]
         D3["day-03.md"]
         D4["day-04.md"]
+        D5["day-05.md"]
+        D6["day-06.md"]
+        D7["day-07.md"]
+        D8["day-08.md"]
     end
 
     subgraph TESTS["tests/"]
@@ -401,6 +539,10 @@ flowchart TB
         T2["day-02.md"]
         T3["day-03.md"]
         T4["day-04.md"]
+        T5["day-05.md"]
+        T6["day-06.md"]
+        T7["day-07.md"]
+        T8["day-08.md"]
     end
 
     subgraph EVIDENCE["evidence/"]
@@ -408,6 +550,10 @@ flowchart TB
         E2["day-02/"]
         E3["day-03/"]
         E4["day-04/"]
+        E5["day-05/"]
+        E6["day-06/"]
+        E7["day-07/"]
+        E8["day-08/"]
     end
 
     ROOT --> README
@@ -423,14 +569,9 @@ flowchart TB
 
     class ROOT root;
     class README readme;
-    class ACCESS,ARCH,D1,D2,D3,D4 docs;
-    class T1,T2,T3,T4 tests;
-    class E1,E2,E3,E4 evidence;
+    class ACCESS,ARCH,D1,D2,D3,D4,D5,D6,D7,D8 docs;
+    class T1,T2,T3,T4,T5,T6,T7,T8 tests;
+    class E1,E2,E3,E4,E5,E6,E7,E8 evidence;
 ```
 
 The repository will continue to evolve as additional Microsoft Entra identity governance, privileged access, workload identity and automation scenarios are implemented.
-
-- [ ] Privileged Identity Management
-- [ ] B2B collaboration
-- [ ] Entitlement Management
-- [ ] Access Reviews
