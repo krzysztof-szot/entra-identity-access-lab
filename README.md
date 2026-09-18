@@ -527,7 +527,6 @@ flowchart TB
         D1["day-01.md"]
         D2["day-02.md"]
         D3["day-03.md"]
-        D4["day-04.md"]
         DX["day-...md"]
     end
 
@@ -535,7 +534,6 @@ flowchart TB
         T1["day-01.md"]
         T2["day-02.md"]
         T3["day-03.md"]
-        T4["day-04.md"]
         TX["day-...md"]
     end
 
@@ -543,7 +541,6 @@ flowchart TB
         E1["day-01/"]
         E2["day-02/"]
         E3["day-03/"]
-        E4["day-04/"]
         EX["day-.../"]
     end
 
@@ -560,9 +557,9 @@ flowchart TB
 
     class ROOT root;
     class README readme;
-    class ACCESS,ARCH,D1,D2,D3,D4,DX docs;
-    class T1,T2,T3,T4,TX tests;
-    class E1,E2,E3,E4,EX evidence;
+    class ACCESS,ARCH,D1,D2,D3,DX docs;
+    class T1,T2,T3,TX tests;
+    class E1,E2,E3,EX evidence;
 ```
 
 The repository will continue to evolve as additional Microsoft Entra identity governance, privileged access, workload identity and automation scenarios are implemented.
