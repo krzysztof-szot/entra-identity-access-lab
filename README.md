@@ -528,10 +528,7 @@ flowchart TB
         D2["day-02.md"]
         D3["day-03.md"]
         D4["day-04.md"]
-        D5["day-05.md"]
-        D6["day-06.md"]
-        D7["day-07.md"]
-        D8["day-08.md"]
+        DX["day-...md"]
     end
 
     subgraph TESTS["tests/"]
@@ -539,10 +536,7 @@ flowchart TB
         T2["day-02.md"]
         T3["day-03.md"]
         T4["day-04.md"]
-        T5["day-05.md"]
-        T6["day-06.md"]
-        T7["day-07.md"]
-        T8["day-08.md"]
+        TX["day-...md"]
     end
 
     subgraph EVIDENCE["evidence/"]
@@ -550,10 +544,7 @@ flowchart TB
         E2["day-02/"]
         E3["day-03/"]
         E4["day-04/"]
-        E5["day-05/"]
-        E6["day-06/"]
-        E7["day-07/"]
-        E8["day-08/"]
+        EX["day-.../"]
     end
 
     ROOT --> README
@@ -569,9 +560,9 @@ flowchart TB
 
     class ROOT root;
     class README readme;
-    class ACCESS,ARCH,D1,D2,D3,D4,D5,D6,D7,D8 docs;
-    class T1,T2,T3,T4,T5,T6,T7,T8 tests;
-    class E1,E2,E3,E4,E5,E6,E7,E8 evidence;
+    class ACCESS,ARCH,D1,D2,D3,D4,DX docs;
+    class T1,T2,T3,T4,TX tests;
+    class E1,E2,E3,E4,EX evidence;
 ```
 
 The repository will continue to evolve as additional Microsoft Entra identity governance, privileged access, workload identity and automation scenarios are implemented.
