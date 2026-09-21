@@ -9,7 +9,7 @@ This folder documents Microsoft Entra Entitlement Management for the existing Ex
 - `03-external-audit-catalog.png` — shows `BFL-External-Audit` enabled and available for external users.
 - `04-catalog-resources.png` — shows `SG-External-Contractors` and `Expense Portal` selected as catalog resources.
 - `05-access-package-resource-roles..png` — shows `AP-External-Auditor-30D` with group role `Member` and application role `Expense Submitter`.
-- `06-assignment-policy-approval(1).png` — shows the external request scope restricted to Amber Audit Partners, self-service request, required justification, and one-stage approval by Anna Finance within three days.
+- `06-assignment-policy-approval.png` — shows the external request scope restricted to Amber Audit Partners, self-service request, required justification, and one-stage approval by Anna Finance within three days.
 - `07-access-package-lifecycle-30d.png` — shows 30-day assignment expiration, with user-selected timelines, extensions and access reviews disabled for this lab.
 - `08-auditor-access-package-available.png` — shows the package available to External Auditor in My Access with the `Request` action. **It does not show a Pending request**; the portal continued displaying Request after submission.
 - `09-auditor-request-approved.png` — shows Anna Finance's approved request, requester details, business justification, questions and package resource roles.
@@ -17,7 +17,7 @@ This folder documents Microsoft Entra Entitlement Management for the existing Ex
 - `11-auditor-group-membership.png` — confirms that External Auditor became a member of `SG-External-Contractors`.
 - `12-auditor-expense-portal-assignment.png` — confirms the `Expense Submitter` app-role assignment in Expense Portal.
 - `13-auditor-expense-portal-access.png` — shows successful application authentication and the `Expense.Submitter` role exposed by the portal.
-- `14-conditional-access-terms-of-use(1).png` — shows `CA-External-Auditor-ToU` targeting the contractors group and Expense Portal, with `BFL-External-Auditor-ToU` as the grant control and the policy set to On.
+- `14-conditional-access-terms-of-use.png` — shows `CA-External-Auditor-ToU` targeting the contractors group and Expense Portal, with `BFL-External-Auditor-ToU` as the grant control and the policy set to On.
 - `15-auditor-terms-of-use.png` — shows the Terms of Use prompt presented to the external auditor before acceptance.
 - `16-terms-of-use-ca-success.png` — shows a successful Expense Portal sign-in with the Terms of Use Conditional Access grant control satisfied. This is not a separate acceptance-report record.
 - `17-access-package-assignment-removed.png` — shows the auditor's assignment in `Expired` status after **manual removal**, with the original future end date still displayed. It does not demonstrate automatic expiration after 30 days.
