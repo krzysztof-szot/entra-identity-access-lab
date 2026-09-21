@@ -1,4 +1,4 @@
-1111# Microsoft Entra Identity & Access Lab
+# Microsoft Entra Identity & Access Lab
 
 I'm building this hands-on Microsoft Entra ID lab while preparing for the SC-300 Microsoft Identity and Access Administrator certification, after previously passing AZ-500.
 
