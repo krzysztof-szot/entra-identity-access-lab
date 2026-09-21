@@ -21,4 +21,4 @@ This folder documents OAuth 2.0 authorization and Microsoft Graph integration wi
 - `15-least-privilege-final-state.png` — shows the final App Registration permission list with delegated `User.Read` retained and temporary application `User.Read.All` removed.
 - `16-final-expense-portal-graph.png` — confirms Expense Portal still authenticates Anna, displays `Expense.Submitter`, and retrieves her Graph profile (HTTP 200) after cleanup.
 
-The temporary `User.Read.All` consent and test client secret were revoked/deleted after testing; screenshot 15 by itself shows the final configured permission list, not the separate consent-revocation or secret-deletion actions. Sensitive identifiers, user-specific details and credentials were redacted where appropriate. No access tokens or client secrets are published.
+Sensitive identifiers, user-specific details and credentials were redacted where appropriate. No access tokens or client secrets are published.
