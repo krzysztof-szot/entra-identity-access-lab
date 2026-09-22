@@ -23,4 +23,4 @@ This folder documents SSO and application integration in Baltic Finance: OIDC au
 - `17-provisioning-on-demand.png` — shows successful on-demand provisioning for Anna: user import, scoping, matching, evaluation, and update of `title` in `customappsso`.
 - `18-provisioning-deprovisioning.png` — shows Anna no longer assigned to the application, the subsequent on-demand soft-delete skipped as `RedundantSoftDelete` because it had already been processed, and a separate provisioning log recording `Disable → Success` in `customappsso`.
 
-The Application Proxy lab intentionally hosts IIS and the connector together on `BFL-APP01` due to lab resource limits; it does not demonstrate a highly available connector deployment. Password-based SSO was not implemented and has no evidence screenshot. Sensitive identifiers and user-specific details were redacted where appropriate; no credentials or tokens are published.
+Password-based SSO was not implemented and has no evidence screenshot. Sensitive identifiers and user-specific details were redacted where appropriate; no credentials or tokens are published.
