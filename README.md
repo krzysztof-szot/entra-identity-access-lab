@@ -673,7 +673,6 @@ flowchart TB
         D1["day-01.md"]
         D2["day-02.md"]
         D3["day-03.md"]
-        D14["day-14.md"]
         DX["day-...md"]
     end
 
@@ -681,7 +680,6 @@ flowchart TB
         T1["day-01.md"]
         T2["day-02.md"]
         T3["day-03.md"]
-        T14["day-14.md"]
         TX["day-...md"]
     end
 
@@ -689,7 +687,6 @@ flowchart TB
         E1["day-01/"]
         E2["day-02/"]
         E3["day-03/"]
-        E14["day-14/"]
         EX["day-.../"]
     end
 
