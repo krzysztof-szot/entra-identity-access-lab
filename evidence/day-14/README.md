@@ -26,4 +26,4 @@ This folder documents SSO and application integration in Baltic Finance: OIDC au
 - `20-password-sso-myapps-assignment.png` — shows the assigned `BFL Legacy HR - Password SSO` tile in Anna's My Apps dashboard.
 - `21-password-based-sso.png` — shows the target site's `/secure` page after the My Apps launch. During the test, stored credentials were replayed automatically, without manual username or password entry; this individual image shows the successful destination, not the replay mechanism itself.
 
-Password-based SSO was completed after the provisioning lab; screenshots 19–21 preserve that execution order. The test used a separate form-based demo application, not Expense Portal or the internal IIS site. Sensitive identifiers and user-specific details were redacted where appropriate; no credentials or tokens are published.
+Sensitive identifiers and user-specific details were redacted where appropriate; no credentials or tokens are published.
