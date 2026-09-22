@@ -2,7 +2,7 @@
 
 ## Objectives
 
-Day 14 extended the existing Baltic Finance identity lab with enterprise application integration. The goals were to compare OIDC, SAML and Linked SSO; publish a private IIS application through Microsoft Entra Application Proxy; enforce application assignment and Conditional Access; and exercise SCIM-based account updates and deprovisioning.
+Day 14 extended the existing Baltic Finance identity lab with enterprise application integration. The goals were to compare OIDC, SAML, Linked SSO and Password-based SSO; publish a private IIS application through Microsoft Entra Application Proxy; enforce application assignment and Conditional Access; and exercise SCIM-based account updates and deprovisioning.
 
 Day 12 focused on OAuth 2.0 authorization and Microsoft Graph. This day separates **authentication/SSO**, **remote application access**, and **identity lifecycle provisioning** instead of treating them as interchangeable.
 
@@ -34,6 +34,14 @@ Anna's SAML Toolkit session and a successful BFL SAML Lab sign-in log were captu
 BFL Linked Portal was configured with the existing Expense Portal URL as the linked destination. The My Apps tile and resulting Expense Portal page were captured for Anna.
 
 **Linked SSO is navigation, not federated authentication by itself.** Expense Portal continues to authenticate the user through its own Microsoft Entra integration.
+
+### Password-based SSO for a legacy application
+
+A separate Enterprise Application, `BFL Legacy HR - Password SSO`, was configured for **Password-based single sign-on** using the test application's form at `https://the-internet.herokuapp.com/login`. Entra's configuration page reported `A sign-in form was detected`.
+
+Anna was assigned the application, and the `BFL Legacy HR - Password SSO` tile appeared in My Apps. In the executed test, selecting the tile automatically signed her in to the test site's `/secure` page using stored application credentials **without manually entering the username or password**. The resulting page displayed `You logged into a secure area!`.
+
+This is credential replay to a separate form-based application's sign-in, **not SAML/OIDC federation** and not evidence that the application itself validates an Entra token. The configuration, My Apps assignment and successful destination page are visible in screenshots 19–21. Those screenshots do not independently expose the credential-replay step; the no-manual-entry observation is the recorded test execution. No credentials were published.
 
 ### Single-server Application Proxy architecture
 
@@ -88,6 +96,7 @@ The source identity remained active (IsActive = True); deprovisioning concerned 
 ## Design Decisions
 
 - Reuse Expense Portal for OIDC and Linked SSO while keeping the SAML experiment isolated in BFL SAML Lab.
+- Test Password-based SSO separately with a disposable form-based test site, avoiding production credentials.
 - Keep OAuth/Microsoft Graph authorization distinct from OIDC/SAML authentication and SCIM lifecycle management.
 - Use BFL-APP01 for both IIS and the connector rather than creating an additional VM; document the resulting single point of failure.
 - Use Microsoft Entra ID pre-authentication, a narrowly assigned group and app-specific MFA policy rather than an unprotected public application.
@@ -96,9 +105,9 @@ The source identity remained active (IsActive = True); deprovisioning concerned 
 
 ## Verification and Limitations
 
-The evidence supports: working Expense Portal authentication; SAML Toolkit sign-in with a matching Entra application log; Linked SSO redirection; a healthy connector and working external Application Proxy route; Anna's allowed access and Peter's expected assignment denial; MFA policy evaluation; and SCIM user update plus successful disable recorded by Provisioning Logs.
+The evidence supports: working Expense Portal authentication; SAML Toolkit sign-in with a matching Entra application log; Linked SSO redirection; successful Password-based SSO test execution through a My Apps tile and a separate login form; a healthy connector and working external Application Proxy route; Anna's allowed access and Peter's expected assignment denial; MFA policy evaluation; and SCIM user update plus successful disable recorded by Provisioning Logs.
 
-**Not implemented / not claimed:** Password-based SSO (the planned LAB 5 was omitted), Kerberos Constrained Delegation, header-based backend SSO, a second connector, high availability, a separate connector VM, or independent inspection of raw OIDC/SAML/SCIM messages. The LAB 6 screenshot numbering therefore begins at **16**, with deprovisioning evidence consolidated in screenshot **18**; there is no screenshot 19.
+**Not implemented / not claimed:** Kerberos Constrained Delegation, header-based backend SSO, a second connector, high availability, a separate connector VM, or independent inspection of raw OIDC/SAML/SCIM messages. The provisioning evidence is numbered **16–18** and was completed before the previously deferred Password-based SSO lab was added as **19–21**. The last three images were not renumbered to imply a different execution order.
 
 ## Evidence and Tests
 
