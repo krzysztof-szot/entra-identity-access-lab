@@ -55,6 +55,12 @@ The project covers or will cover:
 * Azure Key Vault
 * Sign-in and Audit Logs
 * Identity monitoring
+* OAuth 2.0 and delegated / application permissions
+* SAML, OIDC, Linked SSO and Password-based SSO
+* Microsoft Entra Application Proxy
+* SCIM application provisioning and deprovisioning
+* Access package governance and access recertification
+* Azure Automation and Storage data-plane RBAC
 
 ---
 
@@ -151,13 +157,55 @@ The currently implemented environment includes:
 * Positive and negative device-state testing
 * Separation of device join state from compliance
 
+### Privileged Identity Management
+
+* Eligible Conditional Access Administrator assignment
+* Just-in-Time activation with MFA, justification and separate approval
+* One-hour activation window and automatic expiry
+* Access-boundary testing before and after activation
+* PIM Resource audit validation
+
+### Entitlement Management and Access Reviews
+
+* Partner-scoped connected organization and access catalog
+* Time-limited access package with group and application resource roles
+* External request, independent approval and delivered assignment
+* Terms of Use for external application access
+* Manual package revocation and application access denial
+* Guest group Access Review, justified Deny decision and applied removal
+
+### OAuth 2.0 and Microsoft Graph
+
+* Delegated `User.Read` integration in Expense Portal
+* Microsoft Graph profile retrieval for signed-in users
+* Temporary app-only `User.Read.All` and Client Credentials Flow
+* App-only `GET /users` success and `GET /me` negative test
+* Least-privilege cleanup and delegated-access regression test
+
+### Workload Identities and Managed Identity
+
+* Azure Automation with System-assigned and User-assigned Managed Identities
+* Microsoft Entra authentication to private Azure Blob Storage
+* Storage Blob Data Reader authorization
+* Negative read-before-RBAC and read-only write-denial tests
+* Runbook execution and Managed identity sign-in monitoring
+
+### SSO, Application Proxy and Provisioning
+
+* Existing Expense Portal sign-in and separate SAML SSO test
+* Linked SSO and Password-based SSO with a test application
+* Internal IIS application published through Microsoft Entra Application Proxy
+* Microsoft Entra pre-authentication, group assignment and Conditional Access evaluation
+* Positive and negative external access tests
+* Pilot-scoped SCIM attribute update and target-application disable
+
 ---
 
 ## Target Architecture
 
 The following diagram represents the target architecture of the complete lab.
 
-Some components shown below are planned for later phases and are not yet implemented.
+The diagram combines implemented identity and application flows with the target state. Microsoft Graph PowerShell administration, Joiner / Mover / Leaver automation and Azure Key Vault integration remain planned; the Managed Identity lab currently demonstrates Azure Blob Storage access.
 
 ```mermaid
 flowchart TB
@@ -454,6 +502,109 @@ Evidence: [`evidence/day-08/`](evidence/day-08/)
 
 ---
 
+### Day 09 — Privileged Identity Management
+
+* [x] Eligible Conditional Access Administrator assignment
+* [x] One-hour Just-in-Time role activation
+* [x] MFA, justification and separate approver
+* [x] Negative access test before activation
+* [x] Temporary privileged administration
+* [x] PIM audit and automatic expiration verification
+
+Documentation: [`docs/day-09.md`](docs/day-09.md)
+
+Tests: [`tests/day-09.md`](tests/day-09.md)
+
+Evidence: [`evidence/day-09/`](evidence/day-09/)
+
+---
+
+### Day 10 — Entitlement Management
+
+* [x] Connected organization and external access catalog
+* [x] Access Package with group and application resource roles
+* [x] Scoped self-service request and separate approval
+* [x] 30-day assignment configuration and delivered access
+* [x] Terms of Use and Conditional Access validation
+* [x] Manual revocation and negative application access test
+
+Documentation: [`docs/day-10.md`](docs/day-10.md)
+
+Tests: [`tests/day-10.md`](tests/day-10.md)
+
+Evidence: [`evidence/day-10/`](evidence/day-10/)
+
+---
+
+### Day 11 — Access Reviews
+
+* [x] Guest group membership review
+* [x] Independent business reviewer and justified Deny decision
+* [x] Recommendation versus reviewer decision validation
+* [x] Access test before applying review results
+* [x] Applied review results and group membership removal
+* [x] Negative application access test and audit verification
+
+Documentation: [`docs/day-11.md`](docs/day-11.md)
+
+Tests: [`tests/day-11.md`](tests/day-11.md)
+
+Evidence: [`evidence/day-11/`](evidence/day-11/)
+
+---
+
+### Day 12 — OAuth 2.0 and Microsoft Graph
+
+* [x] Delegated `User.Read` and admin consent
+* [x] Expense Portal Microsoft Graph profile integration
+* [x] Separate application roles and Graph permissions
+* [x] Temporary app-only `User.Read.All` Client Credentials Flow
+* [x] App-only `GET /users` success and `GET /me` negative test
+* [x] Permission cleanup and delegated-access regression test
+
+Documentation: [`docs/day-12.md`](docs/day-12.md)
+
+Tests: [`tests/day-12.md`](tests/day-12.md)
+
+Evidence: [`evidence/day-12/`](evidence/day-12/)
+
+---
+
+### Day 13 — Workload Identities and Managed Identity
+
+* [x] System-assigned and User-assigned Managed Identities
+* [x] Azure Automation authentication to private Blob Storage
+* [x] Negative read test before Storage data-plane RBAC
+* [x] `Storage Blob Data Reader` assignment and successful read
+* [x] Negative write test under read-only authorization
+* [x] Published Runbook and Managed identity sign-in verification
+
+Documentation: [`docs/day-13.md`](docs/day-13.md)
+
+Tests: [`tests/day-13.md`](tests/day-13.md)
+
+Evidence: [`evidence/day-13/`](evidence/day-13/)
+
+---
+
+### Day 14 — SSO, Application Proxy and Provisioning
+
+* [x] Existing Expense Portal sign-in and SAML SSO validation
+* [x] Linked SSO and Password-based SSO with test credentials
+* [x] Private IIS application and active Application Proxy connector
+* [x] Microsoft Entra pre-authentication and group-based access
+* [x] Positive and negative external access tests
+* [x] Application-specific MFA policy evaluation
+* [x] SCIM pilot scope, attribute update and logged target disable
+
+Documentation: [`docs/day-14.md`](docs/day-14.md)
+
+Tests: [`tests/day-14.md`](tests/day-14.md)
+
+Evidence: [`evidence/day-14/`](evidence/day-14/)
+
+---
+
 ## Supporting Documentation
 
 * [Access Matrix](docs/access-matrix.md)
@@ -465,14 +616,9 @@ Evidence: [`evidence/day-08/`](evidence/day-08/)
 
 The next phases of the project will expand the environment with:
 
-* [ ] Privileged Identity Management
-* [ ] Entitlement Management
-* [ ] Access Reviews
-* [ ] Workload identities
-* [ ] Managed Identity
-* [ ] Microsoft Graph
-* [ ] PowerShell automation
-* [ ] Azure Key Vault integration
+* [ ] Global Secure Access and Defender for Cloud Apps labs
+* [ ] Microsoft Graph PowerShell administration and lifecycle automation
+* [ ] Azure Key Vault integration for workload identities
 * [ ] Extended identity monitoring and log analysis
 * [ ] Additional identity governance and automation scenarios
 
@@ -527,6 +673,7 @@ flowchart TB
         D1["day-01.md"]
         D2["day-02.md"]
         D3["day-03.md"]
+        D14["day-14.md"]
         DX["day-...md"]
     end
 
@@ -534,6 +681,7 @@ flowchart TB
         T1["day-01.md"]
         T2["day-02.md"]
         T3["day-03.md"]
+        T14["day-14.md"]
         TX["day-...md"]
     end
 
@@ -541,6 +689,7 @@ flowchart TB
         E1["day-01/"]
         E2["day-02/"]
         E3["day-03/"]
+        E14["day-14/"]
         EX["day-.../"]
     end
 
@@ -557,9 +706,9 @@ flowchart TB
 
     class ROOT root;
     class README readme;
-    class ACCESS,ARCH,D1,D2,D3,DX docs;
-    class T1,T2,T3,TX tests;
-    class E1,E2,E3,EX evidence;
+    class ACCESS,ARCH,D1,D2,D3,D14,DX docs;
+    class T1,T2,T3,T14,TX tests;
+    class E1,E2,E3,E14,EX evidence;
 ```
 
 The repository will continue to evolve as additional Microsoft Entra identity governance, privileged access, workload identity and automation scenarios are implemented.
