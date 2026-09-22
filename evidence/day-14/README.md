@@ -1,6 +1,6 @@
 # Day 14 — Evidence
 
-This folder documents SSO and application integration in Baltic Finance: OIDC authentication with the existing Expense Portal, SAML federation, linked sign-on, a single-server Microsoft Entra Application Proxy deployment, Conditional Access, and SCIM-based provisioning and deprovisioning.
+This folder documents SSO and application integration in Baltic Finance: OIDC authentication with the existing Expense Portal, SAML federation, linked sign-on, a single-server Microsoft Entra Application Proxy deployment, Conditional Access, SCIM-based provisioning and deprovisioning, and a subsequently completed Password-based SSO test.
 
 ## Evidence
 
@@ -22,5 +22,8 @@ This folder documents SSO and application integration in Baltic Finance: OIDC au
 - `16-provisioning-attribute-mappings.png` — shows the `SG-APP-Provisioning-Pilot` assignment scope and Entra-to-`customappsso` SCIM attribute mappings, including `userPrincipalName → userName` and `jobTitle → title`.
 - `17-provisioning-on-demand.png` — shows successful on-demand provisioning for Anna: user import, scoping, matching, evaluation, and update of `title` in `customappsso`.
 - `18-provisioning-deprovisioning.png` — shows Anna no longer assigned to the application, the subsequent on-demand soft-delete skipped as `RedundantSoftDelete` because it had already been processed, and a separate provisioning log recording `Disable → Success` in `customappsso`.
+- `19-password-based-sso-configuration.png` — shows `BFL Legacy HR - Password SSO` configured with the test login form URL and Entra's `A sign-in form was detected` confirmation.
+- `20-password-sso-myapps-assignment.png` — shows the assigned `BFL Legacy HR - Password SSO` tile in Anna's My Apps dashboard.
+- `21-password-based-sso.png` — shows the target site's `/secure` page after the My Apps launch. During the test, stored credentials were replayed automatically, without manual username or password entry; this individual image shows the successful destination, not the replay mechanism itself.
 
-Password-based SSO was not implemented and has no evidence screenshot. Sensitive identifiers and user-specific details were redacted where appropriate; no credentials or tokens are published.
+Password-based SSO was completed after the provisioning lab; screenshots 19–21 preserve that execution order. The test used a separate form-based demo application, not Expense Portal or the internal IIS site. Sensitive identifiers and user-specific details were redacted where appropriate; no credentials or tokens are published.
