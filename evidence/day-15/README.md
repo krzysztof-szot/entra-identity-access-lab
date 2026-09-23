@@ -23,4 +23,4 @@ The images are arranged by **implementation and verification flow**, not by exac
 - `15-mdca-block-download-policy.png` — shows `MDCA-Block-Download`, Control file download (with inspection), file-name filter `BFL-Test-Download.docx`, Inspection method None, and action Block.
 - `16-mdca-download-blocked.png` — shows SharePoint Online refusing the matching document download with the Microsoft Defender for Cloud Apps “Download blocked” message.
 
-Cloud Discovery was deferred and is **not** represented by a sample/demo screenshot. Sensitive account and device identifiers, network addresses where appropriate, and user-specific details were redacted. No credentials or tokens are published.
+Sensitive account and device identifiers, network addresses where appropriate, and user-specific details were redacted. No credentials or tokens are published.
