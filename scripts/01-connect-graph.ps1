@@ -25,10 +25,7 @@ $scopes = switch ($Mode) {
     "IdentityWrite" {
         @(
             "User.ReadWrite.All"
-            "Group.ReadWrite.All"
-            "GroupMember.ReadWrite.All"
             "User.Read.All"
-            "Group.Read.All"
         )
     }
 
