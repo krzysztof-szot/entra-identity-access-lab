@@ -1,4 +1,31 @@
-# Microsoft Entra Identity & Access Lab
+<p align="center">
+  <img src="assets/entra-identity-banner.svg" alt="Microsoft Entra Identity and Access Lab — Azure Security Engineering Portfolio" width="100%">
+</p>
+
+<h1 align="center">Microsoft Entra Identity &amp; Access Lab</h1>
+
+<p align="center">
+  <img alt="AZ-500 passed" src="https://img.shields.io/badge/AZ--500-PASSED-238636?style=for-the-badge">
+  <img alt="SC-300 in preparation" src="https://img.shields.io/badge/SC--300-IN%20PREPARATION-0078D4?style=for-the-badge">
+  <img alt="17 documented labs" src="https://img.shields.io/badge/LABS-17%20DOCUMENTED-6f42c1?style=for-the-badge">
+</p>
+
+<p align="center">
+  <img alt="Microsoft Entra ID" src="https://img.shields.io/badge/Microsoft-Entra%20ID-0078D4?style=flat-square">
+  <img alt="Azure" src="https://img.shields.io/badge/Microsoft-Azure-0078D4?style=flat-square">
+  <img alt="Microsoft Graph" src="https://img.shields.io/badge/Microsoft-Graph-5C2D91?style=flat-square">
+  <img alt="PowerShell" src="https://img.shields.io/badge/PowerShell-Automation-3973B9?style=flat-square">
+  <img alt="Identity Governance" src="https://img.shields.io/badge/Identity-Governance-805AD5?style=flat-square">
+</p>
+
+<p align="center">
+  <a href="#project-overview">Overview</a> ·
+  <a href="#target-architecture">Architecture</a> ·
+  <a href="#featured-implementation-evidence">Featured evidence</a> ·
+  <a href="#implementation-progress">Lab roadmap</a> ·
+  <a href="#supporting-documentation">Documentation</a> ·
+  <a href="#security-design-principles">Security principles</a>
+</p>
 
 I'm building this hands-on Microsoft Entra ID lab while preparing for the SC-300 Microsoft Identity and Access Administrator certification, after previously passing AZ-500.
 
@@ -18,6 +45,13 @@ Each phase includes:
 * Microsoft Entra log verification
 * supporting evidence
 * troubleshooting where applicable
+
+## Explore the Project
+
+| 🏗️ Architecture | 🔐 Implementation | 🧪 Validation | 📸 Evidence |
+|:---:|:---:|:---:|:---:|
+| [View design](#target-architecture) | [Browse labs](#implementation-progress) | [Open tests](tests/) | [Open screenshots](evidence/) |
+| Identity and access flows | Documented lab scenarios | Positive and negative testing | Redacted implementation proof |
 
 ## Technologies and Concepts
 
@@ -209,6 +243,37 @@ The currently implemented environment includes:
 
 ---
 
+## Featured Implementation Evidence
+
+Selected, redacted screenshots from the lab. Each image links to its full evidence set.
+
+<table>
+<tr>
+<td width="50%" align="center">
+  <a href="evidence/day-03/"><img src="evidence/day-03/07-ca001-enforced-success.png" alt="Conditional Access sign-in validation" width="100%"></a><br>
+  <strong>Conditional Access &amp; MFA</strong><br>
+  <sub><a href="docs/day-03.md">Day 03 documentation</a> · <a href="evidence/day-03/">Evidence</a></sub>
+</td>
+<td width="50%" align="center">
+  <a href="evidence/day-09/"><img src="evidence/day-09/08-conditional-access-admin-active.png" alt="Time-limited PIM activation" width="100%"></a><br>
+  <strong>Privileged Identity Management</strong><br>
+  <sub><a href="docs/day-09.md">Day 09 documentation</a> · <a href="evidence/day-09/">Evidence</a></sub>
+</td>
+</tr>
+<tr>
+<td width="50%" align="center">
+  <a href="evidence/day-11/"><img src="evidence/day-11/14-auditor-expense-portal-access-denied.png" alt="Application access denied after review" width="100%"></a><br>
+  <strong>Access Review &amp; Revocation</strong><br>
+  <sub><a href="docs/day-11.md">Day 11 documentation</a> · <a href="evidence/day-11/">Evidence</a></sub>
+</td>
+<td width="50%" align="center">
+  <a href="evidence/day-16/"><img src="evidence/day-16/16-custom-identity-workbook.png" alt="Identity security monitoring workbook" width="100%"></a><br>
+  <strong>Security Monitoring &amp; KQL</strong><br>
+  <sub><a href="docs/day-16.md">Day 16 documentation</a> · <a href="evidence/day-16/">Evidence</a></sub>
+</td>
+</tr>
+</table>
+
 ## Target Architecture
 
 The following diagram represents the target architecture of the complete lab.
@@ -339,7 +404,36 @@ flowchart TB
 
 ## Implementation Progress
 
-### Day 01 — Identity Foundation
+### Quick Lab Index
+
+| Lab | Topic | Documentation | Tests | Evidence |
+|:---:|---|:---:|:---:|:---:|
+| 01 | Identity Foundation | [Docs](docs/day-01.md) | [Tests](tests/day-01.md) | [Screens](evidence/day-01/) |
+| 02 | Application Identity and Access | [Docs](docs/day-02.md) | [Tests](tests/day-02.md) | [Screens](evidence/day-02/) |
+| 03 | Conditional Access and MFA | [Docs](docs/day-03.md) | [Tests](tests/day-03.md) | [Screens](evidence/day-03/) |
+| 04 | Authentication Hardening | [Docs](docs/day-04.md) | [Tests](tests/day-04.md) | [Screens](evidence/day-04/) |
+| 05 | External Identities and Cross-Tenant Access | [Docs](docs/day-05.md) | [Tests](tests/day-05.md) | [Screens](evidence/day-05/) |
+| 06 | Identity Lifecycle and Administrative Units | [Docs](docs/day-06.md) | [Tests](tests/day-06.md) | [Screens](evidence/day-06/) |
+| 07 | Hybrid Identity | [Docs](docs/day-07.md) | [Tests](tests/day-07.md) | [Screens](evidence/day-07/) |
+| 08 | Device Identities and Conditional Access | [Docs](docs/day-08.md) | [Tests](tests/day-08.md) | [Screens](evidence/day-08/) |
+| 09 | Privileged Identity Management | [Docs](docs/day-09.md) | [Tests](tests/day-09.md) | [Screens](evidence/day-09/) |
+| 10 | Entitlement Management | [Docs](docs/day-10.md) | [Tests](tests/day-10.md) | [Screens](evidence/day-10/) |
+| 11 | Access Reviews | [Docs](docs/day-11.md) | [Tests](tests/day-11.md) | [Screens](evidence/day-11/) |
+| 12 | OAuth 2.0 and Microsoft Graph | [Docs](docs/day-12.md) | [Tests](tests/day-12.md) | [Screens](evidence/day-12/) |
+| 13 | Workload Identities and Managed Identity | [Docs](docs/day-13.md) | [Tests](tests/day-13.md) | [Screens](evidence/day-13/) |
+| 14 | SSO, Application Proxy and Provisioning | [Docs](docs/day-14.md) | [Tests](tests/day-14.md) | [Screens](evidence/day-14/) |
+| 15 | Global Secure Access and Defender for Cloud Apps | [Docs](docs/day-15.md) | [Tests](tests/day-15.md) | [Screens](evidence/day-15/) |
+| 16 | Monitoring, KQL, Workbooks and Identity Secure Score | [Docs](docs/day-16.md) | [Tests](tests/day-16.md) | [Screens](evidence/day-16/) |
+| 17 | Microsoft Graph PowerShell Automation | [Docs](docs/day-17.md) | [Tests](tests/day-17.md) | [Screens](evidence/day-17/) |
+
+<sub>Day 15's Cloud Discovery extension and some Day 17 follow-up evidence remain outstanding; see the individual lab notes.</sub>
+
+### Detailed Lab Notes
+
+Select a day to expand its original implementation checklist and supporting links.
+
+<details>
+<summary><strong>Day 01 — Identity Foundation</strong> · implementation, tests &amp; evidence</summary>
 
 * [x] Workforce users
 * [x] Security groups
@@ -355,9 +449,12 @@ Tests: [`tests/day-01.md`](tests/day-01.md)
 
 Evidence: [`evidence/day-01/`](evidence/day-01/)
 
+</details>
+
 ---
 
-### Day 02 — Application Identity and Access
+<details>
+<summary><strong>Day 02 — Application Identity and Access</strong> · implementation, tests &amp; evidence</summary>
 
 * [x] Azure App Service
 * [x] Microsoft Entra authentication
@@ -377,9 +474,12 @@ Tests: [`tests/day-02.md`](tests/day-02.md)
 
 Evidence: [`evidence/day-02/`](evidence/day-02/)
 
+</details>
+
 ---
 
-### Day 03 — Conditional Access and MFA
+<details>
+<summary><strong>Day 03 — Conditional Access and MFA</strong> · implementation, tests &amp; evidence</summary>
 
 * [x] Conditional Access Administrator delegation
 * [x] Reports Reader delegation
@@ -398,9 +498,12 @@ Tests: [`tests/day-03.md`](tests/day-03.md)
 
 Evidence: [`evidence/day-03/`](evidence/day-03/)
 
+</details>
+
 ---
 
-### Day 04 — Authentication Hardening
+<details>
+<summary><strong>Day 04 — Authentication Hardening</strong> · implementation, tests &amp; evidence</summary>
 
 * [x] Authentication Methods Policy
 * [x] Microsoft Authenticator
@@ -422,9 +525,12 @@ Tests: [`tests/day-04.md`](tests/day-04.md)
 
 Evidence: [`evidence/day-04/`](evidence/day-04/)
 
+</details>
+
 ---
 
-### Day 05 — External Identities and Cross-Tenant Access
+<details>
+<summary><strong>Day 05 — External Identities and Cross-Tenant Access</strong> · implementation, tests &amp; evidence</summary>
 
 * [x] Microsoft Entra B2B collaboration
 * [x] Guest invitation and redemption
@@ -444,9 +550,12 @@ Tests: [`tests/day-05.md`](tests/day-05.md)
 
 Evidence: [`evidence/day-05/`](evidence/day-05/)
 
+</details>
+
 ---
 
-### Day 06 — Identity Lifecycle and Administrative Units
+<details>
+<summary><strong>Day 06 — Identity Lifecycle and Administrative Units</strong> · implementation, tests &amp; evidence</summary>
 
 * [x] Group-based application entitlement
 * [x] Joiner provisioning
@@ -464,9 +573,12 @@ Tests: [`tests/day-06.md`](tests/day-06.md)
 
 Evidence: [`evidence/day-06/`](evidence/day-06/)
 
+</details>
+
 ---
 
-### Day 07 — Hybrid Identity
+<details>
+<summary><strong>Day 07 — Hybrid Identity</strong> · implementation, tests &amp; evidence</summary>
 
 * [x] Active Directory Domain Services
 * [x] Dedicated hybrid synchronization scope
@@ -486,9 +598,12 @@ Tests: [`tests/day-07.md`](tests/day-07.md)
 
 Evidence: [`evidence/day-07/`](evidence/day-07/)
 
+</details>
+
 ---
 
-### Day 08 — Device Identities and Conditional Access
+<details>
+<summary><strong>Day 08 — Device Identities and Conditional Access</strong> · implementation, tests &amp; evidence</summary>
 
 * [x] Microsoft Entra registered device
 * [x] Microsoft Entra joined device
@@ -508,9 +623,12 @@ Tests: [`tests/day-08.md`](tests/day-08.md)
 
 Evidence: [`evidence/day-08/`](evidence/day-08/)
 
+</details>
+
 ---
 
-### Day 09 — Privileged Identity Management
+<details>
+<summary><strong>Day 09 — Privileged Identity Management</strong> · implementation, tests &amp; evidence</summary>
 
 * [x] Eligible Conditional Access Administrator assignment
 * [x] One-hour Just-in-Time role activation
@@ -525,9 +643,12 @@ Tests: [`tests/day-09.md`](tests/day-09.md)
 
 Evidence: [`evidence/day-09/`](evidence/day-09/)
 
+</details>
+
 ---
 
-### Day 10 — Entitlement Management
+<details>
+<summary><strong>Day 10 — Entitlement Management</strong> · implementation, tests &amp; evidence</summary>
 
 * [x] Connected organization and external access catalog
 * [x] Access Package with group and application resource roles
@@ -542,9 +663,12 @@ Tests: [`tests/day-10.md`](tests/day-10.md)
 
 Evidence: [`evidence/day-10/`](evidence/day-10/)
 
+</details>
+
 ---
 
-### Day 11 — Access Reviews
+<details>
+<summary><strong>Day 11 — Access Reviews</strong> · implementation, tests &amp; evidence</summary>
 
 * [x] Guest group membership review
 * [x] Independent business reviewer and justified Deny decision
@@ -559,9 +683,12 @@ Tests: [`tests/day-11.md`](tests/day-11.md)
 
 Evidence: [`evidence/day-11/`](evidence/day-11/)
 
+</details>
+
 ---
 
-### Day 12 — OAuth 2.0 and Microsoft Graph
+<details>
+<summary><strong>Day 12 — OAuth 2.0 and Microsoft Graph</strong> · implementation, tests &amp; evidence</summary>
 
 * [x] Delegated `User.Read` and admin consent
 * [x] Expense Portal Microsoft Graph profile integration
@@ -576,9 +703,12 @@ Tests: [`tests/day-12.md`](tests/day-12.md)
 
 Evidence: [`evidence/day-12/`](evidence/day-12/)
 
+</details>
+
 ---
 
-### Day 13 — Workload Identities and Managed Identity
+<details>
+<summary><strong>Day 13 — Workload Identities and Managed Identity</strong> · implementation, tests &amp; evidence</summary>
 
 * [x] System-assigned and User-assigned Managed Identities
 * [x] Azure Automation authentication to private Blob Storage
@@ -593,9 +723,12 @@ Tests: [`tests/day-13.md`](tests/day-13.md)
 
 Evidence: [`evidence/day-13/`](evidence/day-13/)
 
+</details>
+
 ---
 
-### Day 14 — SSO, Application Proxy and Provisioning
+<details>
+<summary><strong>Day 14 — SSO, Application Proxy and Provisioning</strong> · implementation, tests &amp; evidence</summary>
 
 * [x] Existing Expense Portal sign-in and SAML SSO validation
 * [x] Linked SSO and Password-based SSO with test credentials
@@ -611,9 +744,12 @@ Tests: [`tests/day-14.md`](tests/day-14.md)
 
 Evidence: [`evidence/day-14/`](evidence/day-14/)
 
+</details>
+
 ---
 
-### Day 15 — Global Secure Access and Defender for Cloud Apps
+<details>
+<summary><strong>Day 15 — Global Secure Access and Defender for Cloud Apps</strong> · implementation, tests &amp; evidence</summary>
 
 * [x] Scoped GSA pilot and three forwarding profiles
 * [x] Private Access application and verified client tunnel
@@ -627,9 +763,12 @@ Tests: [`tests/day-15.md`](tests/day-15.md)
 
 Evidence: [`evidence/day-15/`](evidence/day-15/)
 
+</details>
+
 ---
 
-### Day 16 — Monitoring, KQL, Workbooks and Identity Secure Score
+<details>
+<summary><strong>Day 16 — Monitoring, KQL, Workbooks and Identity Secure Score</strong> · implementation, tests &amp; evidence</summary>
 
 * [x] Entra sign-in and audit investigations
 * [x] Diagnostic Settings to Log Analytics
@@ -643,9 +782,12 @@ Tests: [`tests/day-16.md`](tests/day-16.md)
 
 Evidence: [`evidence/day-16/`](evidence/day-16/)
 
+</details>
+
 ---
 
-### Day 17 — Microsoft Graph PowerShell Automation
+<details>
+<summary><strong>Day 17 — Microsoft Graph PowerShell Automation</strong> · implementation, tests &amp; evidence</summary>
 
 * [x] PowerShell SDK and delegated Microsoft Graph sign-in
 * [x] User, group and membership provisioning with repeat-safe checks
@@ -662,6 +804,8 @@ Tests: [`tests/day-17.md`](tests/day-17.md)
 Evidence: [`evidence/day-17/`](evidence/day-17/)
 
 Scripts: [`scripts/`](scripts/)
+
+</details>
 
 ---
 
