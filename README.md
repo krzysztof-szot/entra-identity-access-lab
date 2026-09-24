@@ -199,13 +199,21 @@ The currently implemented environment includes:
 * Positive and negative external access tests
 * Pilot-scoped SCIM attribute update and target-application disable
 
+### Microsoft Graph PowerShell Automation
+
+* Six delegated Microsoft Graph PowerShell scripts for connection, lab-user provisioning, security-group creation, group membership, controlled directory role assignment and selected tenant-state CSV export
+* Repeat-safe provisioning and membership checks, explicit privileged-operation confirmation and separate privileged operator
+* Real role authorization troubleshooting: `adm-lab` received `403 Forbidden`, while `roleops-lab` completed the authorized assignment
+* Separate App Registration, Service Principal and Conditional Access inventory, and successful Add-user Audit Log correlation
+* Local CSV exports excluded from Git; captured tenant export omitted CA because `Policy.Read.All` was absent in that run, and role-assignment cleanup is not evidenced
+
 ---
 
 ## Target Architecture
 
 The following diagram represents the target architecture of the complete lab.
 
-The diagram combines implemented identity and application flows with the target state. Microsoft Graph PowerShell administration, Joiner / Mover / Leaver automation and Azure Key Vault integration remain planned; the Managed Identity lab currently demonstrates Azure Blob Storage access.
+The diagram combines implemented identity and application flows with the target state. Microsoft Graph PowerShell administration and the manual Joiner / Mover / Leaver labs are implemented; broader lifecycle automation and Azure Key Vault integration remain planned. The Managed Identity lab currently demonstrates Azure Blob Storage access.
 
 ```mermaid
 flowchart TB
@@ -605,6 +613,58 @@ Evidence: [`evidence/day-14/`](evidence/day-14/)
 
 ---
 
+### Day 15 — Global Secure Access and Defender for Cloud Apps
+
+* [x] Scoped GSA pilot and three forwarding profiles
+* [x] Private Access application and verified client tunnel
+* [x] Internet Access filtering and traffic-log observations
+* [x] Defender for Cloud Apps session policy blocking a named SharePoint download
+* [ ] Cloud Discovery (deferred)
+
+Documentation: [`docs/day-15.md`](docs/day-15.md)
+
+Tests: [`tests/day-15.md`](tests/day-15.md)
+
+Evidence: [`evidence/day-15/`](evidence/day-15/)
+
+---
+
+### Day 16 — Monitoring, KQL, Workbooks and Identity Secure Score
+
+* [x] Entra sign-in and audit investigations
+* [x] Diagnostic Settings to Log Analytics
+* [x] KQL investigations with ingested events
+* [x] Microsoft Conditional Access and custom monitoring Workbooks
+* [x] Identity Secure Score baseline and recommendations review
+
+Documentation: [`docs/day-16.md`](docs/day-16.md)
+
+Tests: [`tests/day-16.md`](tests/day-16.md)
+
+Evidence: [`evidence/day-16/`](evidence/day-16/)
+
+---
+
+### Day 17 — Microsoft Graph PowerShell Automation
+
+* [x] PowerShell SDK and delegated Microsoft Graph sign-in
+* [x] User, group and membership provisioning with repeat-safe checks
+* [x] Privileged role dry run, `403 Forbidden` negative test and authorized assignment
+* [x] Selected local tenant-state export; captured CA CSV export was skipped
+* [x] Separate application, service principal and Conditional Access queries
+* [x] Add-user audit event correlation
+* [ ] Privileged role cleanup and post-fix CA CSV export not evidenced
+
+Documentation: [`docs/day-17.md`](docs/day-17.md)
+
+Tests: [`tests/day-17.md`](tests/day-17.md)
+
+Evidence: [`evidence/day-17/`](evidence/day-17/)
+
+Scripts: [`scripts/`](scripts/)
+
+---
+
 ## Supporting Documentation
 
 * [Access Matrix](docs/access-matrix.md)
@@ -616,11 +676,10 @@ Evidence: [`evidence/day-14/`](evidence/day-14/)
 
 The next phases of the project will expand the environment with:
 
-* [ ] Global Secure Access and Defender for Cloud Apps labs
-* [ ] Microsoft Graph PowerShell administration and lifecycle automation
+* [ ] Cloud Discovery extension for Defender for Cloud Apps (deferred in Day 15)
+* [ ] Broader joiner / mover / leaver automation beyond Day 17's scoped test-user provisioning
 * [ ] Azure Key Vault integration for workload identities
-* [ ] Extended identity monitoring and log analysis
-* [ ] Additional identity governance and automation scenarios
+* [ ] Further identity governance and automation scenarios
 
 ---
 
@@ -690,10 +749,13 @@ flowchart TB
         EX["day-.../"]
     end
 
+    SCRIPTS["scripts/ - Day 17 Graph PowerShell"]
+
     ROOT --> README
     ROOT --> DOCS
     ROOT --> TESTS
     ROOT --> EVIDENCE
+    ROOT --> SCRIPTS
 
     classDef root fill:#e8f1ff,stroke:#2563eb,stroke-width:2px,color:#111827;
     classDef readme fill:#f8fafc,stroke:#475569,stroke-width:1.5px,color:#111827;
@@ -706,6 +768,7 @@ flowchart TB
     class ACCESS,ARCH,D1,D2,D3,D14,DX docs;
     class T1,T2,T3,T14,TX tests;
     class E1,E2,E3,E14,EX evidence;
+    class SCRIPTS docs;
 ```
 
 The repository will continue to evolve as additional Microsoft Entra identity governance, privileged access, workload identity and automation scenarios are implemented.
