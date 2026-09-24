@@ -19,6 +19,7 @@ $scopes = switch ($Mode) {
             "Group.Read.All"
             "Application.Read.All"
             "RoleManagement.Read.Directory"
+            "Policy.Read.All"
         )
     }
 
@@ -26,6 +27,9 @@ $scopes = switch ($Mode) {
         @(
             "User.ReadWrite.All"
             "User.Read.All"
+            "Group.ReadWrite.All"
+            "GroupMember.ReadWrite.All"
+            "Group.Read.All"
         )
     }
 
