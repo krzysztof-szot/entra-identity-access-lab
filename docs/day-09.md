@@ -88,7 +88,7 @@ Azure MFA was required in the role settings. The screenshots document the requir
 
 ### Privileged administrative action
 
-During the activation window, `adm-lab` accessed Conditional Access Policies and created the dedicated validation policy:
+During the activation window, `adm-lab` accessed Conditional Access Policies. The lab notes report creating the dedicated validation policy:
 
 `CA009-PIM-Validation`
 
@@ -96,7 +96,7 @@ The policy was left:
 
 `State: Off`
 
-This demonstrates access to the administrative surface after elevation while avoiding enforcement of a new Conditional Access rule in the lab. The policy-list screenshot documents the resulting object; it is not, by itself, a creator-specific Audit log entry.
+This demonstrates access to the administrative surface after elevation while avoiding enforcement of a new Conditional Access rule in the lab. The policy-list screenshot documents the resulting object and a creation time within the activation window; it does not independently establish who created it. Creator attribution remains partially evidenced until a matching Audit log entry is captured.
 
 ### PIM audit and automatic expiration
 

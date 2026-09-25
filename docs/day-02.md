@@ -16,7 +16,7 @@ The goal of Day 02 was to integrate the Expense Portal with Microsoft Entra ID a
   - `Expense.Approver`
 - Assigned `SG-App-Expense-Users` to `Expense.Submitter`.
 - Assigned `SG-App-Expense-Approvers` to `Expense.Approver`.
-- Granted required tenant-wide admin consent.
+- Granted tenant-wide admin consent for Microsoft Graph delegated `User.Read`.
 - Successfully tested authentication with Anna Finance and Peter Finance.
 - Verified both sign-ins in Microsoft Entra sign-in logs.
 - Confirmed that an unassigned account is denied access to the application.
@@ -54,6 +54,8 @@ Successful Microsoft Entra authentication alone is therefore not sufficient to a
 ## Verification
 
 Authentication, group-based access, App Roles, assignment requirements, denied access for an unassigned account and sign-in logging were validated successfully.
+
+The application screenshots demonstrate authenticated sessions and displayed role values. They do not demonstrate completed submit/approve operations or server-side authorization enforcement. The consent capture shows delegated `User.Read` granted for the tenant; its default `Admin consent required` value is `No`.
 
 Detailed test results are available in [Day 02 Tests](../tests/day-02.md).
 

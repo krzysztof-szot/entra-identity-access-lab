@@ -1,6 +1,6 @@
 # Access Matrix
 
-This matrix summarizes the Baltic Finance Lab through Day 18. Each row names its evidence point: an earlier lab record is not a fresh inventory of every current permission. Day 18 confirms selected final states, including PIM eligibility, emergency CA exclusions, revoked external access and workload RBAC.
+This matrix summarizes the Baltic Finance Lab through Day 18. Each row names its evidence point: an earlier lab record is not a fresh inventory of every current permission. Day 18 confirms selected captured states, including PIM eligibility, revoked external access and workload RBAC. Its custom report of emergency CA exclusions still needs independent calculation verification.
 
 ## Workforce and External Identities
 
@@ -11,7 +11,7 @@ This matrix summarizes the Baltic Finance Lab through Day 18. Each row names its
 | `eva.hr` | HR | Day 01 workforce baseline; no final application entitlement asserted |
 | `thomas.it` | IT | Day 01 workforce and CA-pilot baseline |
 | `jan.mover` | **IT after Day 06** | Finance access removed, `SG-IT-Users` added, fresh Expense Portal sign-in denied |
-| `alexandra.leaver` | Former Finance employee | Day 06 account disabled, memberships and assignments removed, fresh sign-in blocked |
+| `alexandra.leaver` | Former Finance employee | Day 06 Disabled and zero displayed group/application/role counts; sign-in blocked, exact error cause unverified; one license remains and old-session termination is untested |
 | `Marc Joiner` | Finance | Day 06 `SG-Finance-Users` membership and Expense Portal access |
 | `Hybrid Finance` | Synchronized AD DS identity | Days 07–08 PHS authentication, app access and device-state tests |
 | `graph.operator` | IT automation test account | Day 17 provisioning; temporary CA Administrator role removed and audited in Day 18 |
@@ -28,7 +28,7 @@ Sources: [Day 01](day-01.md), [Day 06](day-06.md), [Day 12](day-12.md), [Day 18]
 | `adm-lab` | User Administrator | Delegated identity administration established in Day 01 |
 | `adm-lab` | Reports Reader | Log-reading role added in Day 03 |
 | `adm-lab` | Conditional Access Administrator | **Permanent Eligible** in Day 18; no Active assignment at capture; activation requires MFA, justification, separate approval and a maximum of one hour |
-| `adm-finance` | User Administrator | Scoped to `AU-Finance` in Day 06; in-scope success and out-of-scope denial demonstrated |
+| `adm-finance` | User Administrator | `AU-Finance` assignment and contrasting Edit/Delete UI controls shown in Day 06; direct AU user membership, full effective roles and runtime write/deny attribution remain unverified |
 | `appops-lab` | Cloud Application Administrator | Application-administration identity from the baseline model; not independently re-inventoried in Day 18 |
 | `roleops-lab` | Privileged Role Administrator | Privileged operator in the baseline model; authorized direct role assignment demonstrated in Day 17 |
 | `pim-approver` | PIM approval responsibility | Separate approver in Days 09/18; approval responsibility is not itself a directory role assignment |
@@ -50,7 +50,7 @@ Permanent Eligible and Permanent Active are different states. The Day 17 direct 
 | `SG-CA-Pilot` | Initial CA rollout | Anna and Thomas in the Day 01 baseline |
 | `SG-Auth-Hardening-Pilot` | CA003 and SSPR pilot | Authentication-strength testing and SSPR configuration in Day 04 |
 | `SG-Passwordless-Pilot` | Passkey registration rollout | Day 04 registration campaign target |
-| `SG-Emergency-Access` | Emergency-account CA exclusions | Both emergency accounts resolve to effective exclusions across ten reviewed policies in Day 18 |
+| `SG-Emergency-Access` | Emergency-account CA exclusions | Day 18 custom output reports both accounts excluded across ten policies; source, policy IDs and membership-resolution rules are not published |
 | `SG-External-Contractors` | B2B Expense Portal access → `Expense.Submitter` | **Zero direct members in Day 18**, after package revocation and Access Review scenarios |
 | `SG-APP-InternalPortal` | Application Proxy access | Day 14 assigned pilot; Anna allowed, Peter unassigned and denied |
 | `SG-APP-Provisioning-Pilot` | SCIM application provisioning scope | Day 14 scoped update and deprovisioning tests |
@@ -80,7 +80,7 @@ The states below come from the final ten-policy review in [Day 18 screenshot 06]
 | `CA-GSA-Web-Filtering` | GSA pilot / Internet resources; security profile `SP-GSA-Web` | On |
 | `CA-MDCA-Session-Control` | GSA pilot / SharePoint; custom Conditional Access App Control | On |
 
-Both emergency accounts are effectively excluded through the emergency group in the final review. An On state alone is not evidence that a policy applied to every user or sign-in. CA001 and CA003 are corroborated by actual sign-in and KQL results in Day 18.
+The custom report marks both emergency accounts effectively excluded through the emergency group; its result is not independently reproduced by the published source/configuration. An On state alone is not evidence that a policy applied to every user or sign-in. CA001 and CA003 outcomes are corroborated by actual sign-in and KQL results in Day 18, from different events.
 
 ## Application and Workload Permissions
 
@@ -88,7 +88,7 @@ Both emergency accounts are effectively excluded through the emergency group in 
 | --- | --- | --- |
 | Expense Portal | Microsoft Graph `User.Read`, Delegated, admin consent | Day 18 configured and granted permissions; business App Roles remain separate |
 | Expense Portal | No Application `User.Read.All` grant shown | Temporary Day 12 app-only experiment removed; final consent reviewed in Day 18 |
-| `aa-bfl-identity-lab` | `Storage Blob Data Reader` at Storage Account scope | Day 13 runtime read/deny tests; Day 18 IAM review |
+| `aa-bfl-identity-lab` | `Storage Blob Data Reader` at Storage Account scope | Day 13 read/403 evidence and reported write denial; write-denial source/raw error absent; Day 18 filtered IAM review |
 | `mi-bfl-shared-reader` | `Storage Blob Data Reader` at Storage Account scope | Day 13 explicit user-assigned identity read; Day 18 IAM review |
 
 The zero-credential App Registration capture does not by itself validate the Easy Auth credential path or Graph token renewal. See [remaining work](remaining-work.md) for the corresponding test and missing source artifacts.

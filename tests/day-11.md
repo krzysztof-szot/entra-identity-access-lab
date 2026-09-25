@@ -14,7 +14,7 @@ Tests validate real recertification of the existing External Auditor's group-der
 | D11-06 | Review creation and reviewer task | Review is created and later appears in Anna's My Access | Initially `Not started`; auditor later appeared for review | Pass |
 | D11-07 | Justified business Deny | Anna records Deny and provides an engagement-based reason | `Denied` with the completed-audit justification | Pass |
 | D11-08 | Recommendation is not decision | Reviewer can deny even when recommendation says Approve | `Recommended action: Approve`; `Outcome: Denied` | Pass |
-| D11-09 | No immediate revocation | With auto-apply off, portal access works before Apply | Auditor's portal session still showed `Expense.Submitter` | Pass (session screenshot has no timestamp) |
+| D11-09 | No immediate revocation | With auto-apply off, group membership and fresh portal access remain before Apply | Auditor's session showed `Expense.Submitter`, but timing, membership and fresh sign-in were not independently captured | Partial evidence |
 | D11-10 | Apply review results | Completed review results are applied successfully | `Result applied` and `Apply review / Success` | Pass |
 | D11-11 | Group access removed | Auditor no longer belongs to reviewed group | Group returned to zero members | Pass |
 | D11-12 | Negative sign-in | Fresh Expense Portal access is denied after membership removal | `AADSTS50105`: no qualifying group/direct assignment | Pass |
@@ -68,14 +68,14 @@ Tests validate real recertification of the existing External Auditor's group-der
 
 **Acting identity:** External Auditor.  
 **Expected:** with `Auto apply results to resource` disabled, Deny does not instantly remove the membership or existing access.  
-**Observed:** Expense Portal still showed successful authentication and `Expense.Submitter` when tested before the results were applied.  
-**Result:** Pass (workflow-observed, with limited timestamp evidence).  
+**Observed:** Expense Portal showed successful authentication and `Expense.Submitter` in the session reported as before Apply; the screenshot does not establish a fresh sign-in.  
+**Result:** Partial evidence.  
 **Evidence:**
 
 - [09 — Deny decision](../evidence/day-11/09-reviewer-denied-auditor-access.png)
 - [10 — Portal access before Apply](../evidence/day-11/10-auditor-access-before-results-applied.png)
 
-**Evidence boundary:** screenshot 10 has no visible timestamp and by itself cannot independently establish the timing relative to Deny and Apply.
+**Evidence boundary:** screenshot 10 has no visible timestamp and by itself cannot independently establish timing relative to Deny and Apply, current membership or fresh authorization. For a complete repeat test, capture timestamped group membership and a new sign-in after Deny but before Apply, then compare with the Apply event and post-removal denial. Do not use a retained session as proof of a new access decision.
 
 ## D11-10–D11-11 — Apply and group-membership removal
 

@@ -24,6 +24,6 @@ This folder documents SSO and application integration in Baltic Finance: OIDC au
 - `18-provisioning-deprovisioning.png` — shows Anna no longer assigned to the application, the subsequent on-demand soft-delete skipped as `RedundantSoftDelete` because it had already been processed, and a separate provisioning log recording `Disable → Success` in `customappsso`.
 - `19-password-based-sso-configuration.png` — shows `BFL Legacy HR - Password SSO` configured with the test login form URL and Entra's `A sign-in form was detected` confirmation.
 - `20-password-sso-myapps-assignment.png` — shows the assigned `BFL Legacy HR - Password SSO` tile in Anna's My Apps dashboard.
-- `21-password-based-sso.png` — shows the target site's `/secure` page after the My Apps launch. During the test, stored credentials were replayed automatically, without manual username or password entry; this individual image shows the successful destination, not the replay mechanism itself.
+- `21-password-based-sso.png` — shows the target site's `/secure` page after the My Apps launch. The existing lab notes report automatic stored-credential replay without manual entry; this image only confirms the destination session. Independent replay verification is Partial.
 
 Sensitive identifiers and user-specific details were redacted where appropriate; no credentials or tokens are published.

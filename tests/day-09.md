@@ -12,7 +12,7 @@ Tests validate the Just-in-Time activation lifecycle for the Microsoft Entra `Co
 | D9-04 | Activation request | `adm-lab` requests a one-hour activation with a business justification | Activation form shows one hour and the lab justification | Pass |
 | D9-05 | Approval gate | The request waits for a separate approver | My requests showed Pending approval; `pim-approver` received the request | Pass |
 | D9-06 | Temporary role activation | Approved request produces an Activated role with an end time | My roles showed Conditional Access Administrator as Activated with a scheduled end time | Pass |
-| D9-07 | Privileged operation | After elevation, the operator can reach Conditional Access and create a disabled validation policy | `CA009-PIM-Validation` appeared in the policy list with State Off | Pass |
+| D9-07 | Privileged operation | After elevation, the operator can reach Conditional Access and create a disabled validation policy | `adm-lab` could view `CA009-PIM-Validation` with State Off; creator-specific audit not captured | Partial evidence |
 | D9-08 | Activation audit trail | Request, approval and completed activation are recorded | PIM Resource audit showed the request, approval request, approval and completed activation | Pass |
 | D9-09 | Automatic expiration | Temporary privilege expires while Eligible assignment remains | My roles returned to Eligible with Activate available | Pass |
 | D9-10 | Expiration audit trail | Audit explicitly identifies the automatic expiry | Resource audit recorded `Remove member from role (PIM activation expired)` with success | Pass |
@@ -89,10 +89,12 @@ Day 09 lab - temporary privileged access required to validate Conditional Access
 **Acting identity:** `adm-lab` after PIM activation  
 **Expected:** the elevated identity can access Conditional Access Policies and create a safe validation policy.  
 **Observed:** `CA009-PIM-Validation` appeared in the policy inventory with `State: Off`.  
-**Result:** Pass  
+**Result:** Partial evidence (policy visible to the elevated user; creation actor not independently established).  
 **Evidence:** `../evidence/day-09/09-privileged-action-ca-policy-created.png`
 
 **Evidence boundary:** this screenshot confirms the policy exists after elevation; it does not independently show the creator in Entra Audit logs.
+
+**Follow-up:** capture the policy-creation Audit event with `adm-lab` as initiator and `CA009-PIM-Validation` as target, preserving time/correlation context while masking sensitive values.
 
 ## D9-08 — Activation audit history
 

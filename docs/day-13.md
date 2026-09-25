@@ -31,7 +31,7 @@ The proof blob contained the marker `BFL-MI-READ-SUCCESS`. The Azure Portal cont
 
 The Automation Account's System-assigned Managed Identity was enabled, and the corresponding `aa-bfl-identity-lab` service principal was located under Microsoft Entra Enterprise Applications. No separate conventional App Registration or manually managed application credential was required for this workload identity.
 
-The main PowerShell Runbook used `Connect-AzAccount -Identity` and `New-AzStorageContext -UseConnectedAccount` for Microsoft Entra-authenticated Blob access. Its job output recorded successful authentication without a client secret or password in the Runbook code.
+The recorded implementation used `Connect-AzAccount -Identity` and `New-AzStorageContext -UseConnectedAccount` for Microsoft Entra-authenticated Blob access. Job output reports authentication without a client secret or password. Only the User-assigned connection fragment is published (screenshot 17); the full Runbook source is unavailable, so credential handling and Azure context isolation cannot be independently inspected.
 
 ### Negative test before Storage data RBAC
 
@@ -59,7 +59,7 @@ Least Privilege: PASS
 DAY 13 WRITE TEST: PASS
 ```
 
-The observed behavior is consistent with a read-only data role: the workload could read the Blob but could not upload a new one. The screenshot shows the controlled Runbook result; it does not separately expose the raw Storage HTTP error for this write attempt.
+The reported behavior is consistent with a read-only data role. However, the screenshot does not expose the raw Storage error or the Runbook's exception filter. The write-denial result is therefore **Partial**: the audit cannot distinguish an authorization denial from another error handled as an expected failure. A rerun should capture the Storage authorization error and publish the sanitized upload/catch source.
 
 ### User-assigned identity
 
@@ -86,7 +86,7 @@ Microsoft Entra **Managed identity sign-ins** showed successful entries for both
 
 ## Verification and Scope
 
-The recorded evidence establishes successful passwordless-in-code workload authentication, a pre-RBAC read denial (`403`), successful read after Azure RBAC, denied write under the read-only role, a successful published Runbook job, User-assigned identity selection and successful sign-ins for both identities.
+The recorded evidence supports Managed Identity authentication, a reported pre-RBAC read denial with raw `403`, successful read output after Azure RBAC, a successful published Runbook job, explicit User-assigned identity selection and successful sign-ins for both identities. The write test reports denial but remains partially verified; complete Runbook source and the raw write error are missing.
 
 This day did **not** implement a Windows gMSA, test Microsoft Graph permissions for a Managed Identity, or demonstrate automatic infrastructure cleanup. No full access tokens or application credentials are published.
 

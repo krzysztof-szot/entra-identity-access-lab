@@ -55,7 +55,7 @@ Two dedicated emergency identities remain permanent Active `Global Administrator
 - `Emergency Access 01`;
 - `Emergency Access 02`.
 
-A Microsoft Graph policy review checked all ten Conditional Access policies. The emergency users are not excluded one-by-one; instead, the centralized emergency-access group is excluded and both accounts resolve to effective exclusions.
+The captured Microsoft Graph review output lists ten Conditional Access policies. It reports direct exclusions as False, emergency-group exclusions as True and effective exclusions as True for both accounts. The source of that review command, group IDs and membership-resolution logic are not published, so the effective-exclusion calculation cannot be independently reproduced from screenshot 06.
 
 The reviewed policy set included:
 
@@ -70,7 +70,7 @@ The reviewed policy set included:
 - `CA009-PIM-Validation`;
 - `CA010-Block-Legacy-Authentication`.
 
-The permanent emergency assignments are intentional and are treated separately from routine standing privilege. This review verifies role assignments and CA exclusions. It does not test who can modify the exclusion group, document a new emergency sign-in, or demonstrate emergency-account alert delivery; see [remaining validation](remaining-work.md).
+The permanent emergency assignments are intentional and are treated separately from routine standing privilege. This review verifies the role assignments and records the reported CA-exclusion result. Independently verifying exclusions requires the sanitized review source plus policy exclusions and emergency-group membership (or matching What If results for both accounts). It does not test who can modify the exclusion group, document a new emergency sign-in, or demonstrate emergency-account alert delivery; see [remaining validation](remaining-work.md).
 
 ### Privileged Identity Management
 
@@ -102,7 +102,7 @@ The current Authentication Methods Policy includes:
 
 The scopes differ by method. In particular, SMS remains available to all users, which is recorded as a broader authentication-method exposure rather than evidence that SMS can satisfy every protected-resource requirement.
 
-Expense Portal is protected by `CA003-ExpensePortal-Phishing-resistant-MFA-Pilot`, which is On and requires the `Phishing-resistant MFA` Authentication Strength.
+For the users included in the pilot policy, Expense Portal is protected by `CA003-ExpensePortal-Phishing-resistant-MFA-Pilot`, which is On and requires the `Phishing-resistant MFA` Authentication Strength. The capture shows specific user inclusions/exclusions; it does not establish coverage of every Expense Portal user.
 
 This separates **method availability** from **resource assurance requirements**.
 
@@ -125,7 +125,7 @@ would apply.
 
 A fresh real sign-in then showed both policies with **Success**, confirming the expected enforcement path.
 
-The same policy outcomes were later visible again through Log Analytics KQL.
+The same policy outcomes were later visible again through Log Analytics KQL. Screenshot 13 shows a 07:48:34Z event; screenshot 24 shows later 09:07–09:11 UTC events. They corroborate policy behavior across sign-ins, not an exact request-ID correlation of the same event.
 
 ### External identity governance
 
@@ -190,7 +190,7 @@ Both hold:
 
 at the Storage Account resource scope.
 
-The final evidence does not show Owner, Contributor or a privileged administrator role for either workload identity. The current assignment therefore matches the read-only storage scenario implemented in Day 13.
+The name-filtered Storage IAM views show one reader assignment for each identity and no matching privileged-role row. This supports the intended Day 13 assignment at that Storage Account; it is not a complete effective-access inventory across all scopes or group-derived assignments.
 
 ### Monitoring coverage and KQL validation
 
@@ -225,11 +225,11 @@ This creates a three-layer Conditional Access validation chain:
 | --- | --- | --- |
 | Day 17 direct privileged assignment | Remediated | Role removed; audit event and empty Active view captured |
 | PIM JIT model | Verified | `adm-lab` remains Eligible; 1h + MFA + justification + approval |
-| Emergency role and exclusion configuration | Verified | Two permanent GA emergency accounts; effective CA exclusions across ten reviewed policies; group-management boundary not tested |
+| Emergency role and exclusion configuration | Partial | Two permanent GA emergency assignments verified; console reports exclusions for ten policies, but calculation source and membership inputs are not published |
 | Phishing-resistant Expense Portal access | Verified | CA policy, What If, real sign-in and KQL all correlate |
 | External contractor access | Revoked / verified | Group empty, Access Package inactive, fresh app access denied |
 | Expense Portal Graph permissions | Delegated scope verified | `User.Read` only; no app credential remains; Easy Auth token renewal still requires validation |
-| Workload Azure RBAC | Least privilege verified | Both identities use `Storage Blob Data Reader` at resource scope |
+| Workload Azure RBAC | Scoped reader assignments verified | Both identities have `Storage Blob Data Reader` at resource scope; full effective permissions are not inventoried |
 | Graph tenant export | Evidence gap closed | CA summary now exports successfully |
 | High sign-in-risk policy | Residual / pilot state | Remains Report-only |
 | PIM role policy | Hardening opportunity | Permanent Active assignments are permitted by policy although none exist |
@@ -251,7 +251,7 @@ This creates a three-layer Conditional Access validation chain:
 
 ## Verification and Limitations
 
-**Verified by the published Day 18 evidence:** complete selected Graph inventory including CA summary; no Active Conditional Access Administrator assignment; removal of the Day 17 test role; two permanent emergency Global Administrators with effective group-based CA exclusions across ten reviewed policies; PIM Eligible state and activation controls; authentication-method configuration; phishing-resistant Expense Portal control; What If and real CA enforcement; empty external-contractor group; governed/expired external assignment and fresh AADSTS50105 denial; delegated `User.Read` only; no app credentials; successful post-cleanup application regression; read-only workload RBAC; selected Diagnostic Settings coverage; and final KQL CA results.
+**Verified by the published Day 18 evidence:** export output reporting all seven selected categories including CA summary (CSV contents not published); no Active Conditional Access Administrator assignment; removal of the Day 17 test role; two permanent emergency Global Administrators and a console-reported group-based exclusion result for ten policies (calculation not independently verified); PIM Eligible state and activation controls; authentication-method configuration; phishing-resistant Expense Portal control; What If and real CA enforcement; empty external-contractor group; governed/expired external assignment and fresh AADSTS50105 denial; delegated `User.Read` only; no app credentials; successful post-cleanup application regression; read-only workload RBAC; selected Diagnostic Settings coverage; and final KQL CA results.
 
 **Not established / not claimed:** a formal compliance audit; natural 30-day Access Package expiration; assessment of the separate `Initial Policy`; elimination of every possible stale account or permission path; final Identity Secure Score improvement; centralized Service Principal or Managed Identity sign-in export; or proof that no future permanent Active PIM assignment can be created under the current role policy.
 

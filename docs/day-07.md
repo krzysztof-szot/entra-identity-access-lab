@@ -74,7 +74,7 @@ After synchronization completed, the `Hybrid Finance` user appeared in Microsoft
 
 `On-premises sync enabled: Yes`
 
-A password change was performed in the on-premises Active Directory environment and the synchronized credentials were then used successfully for a cloud sign-in.
+The lab notes report an on-premises password change followed by successful cloud sign-in. Screenshot 07 shows an authenticated My Account session, but does not independently establish the password change, propagation time or a fresh sign-in using the new password. Screenshot 09 separately confirms successful Password Hash Sync authentication.
 
 Microsoft Entra sign-in logs confirmed:
 
@@ -159,7 +159,7 @@ The following hybrid identity scenarios were successfully validated:
 
 - `Hybrid Finance` exists in the on-premises Active Directory environment.
 - The user and required group are within the controlled `HybridLab` synchronization scope.
-- Microsoft Entra Connect Sync completed successfully.
+- Microsoft Entra Connect configuration succeeded and synchronization was initiated; the later synchronized-user view confirms the user reached Entra ID. The wizard completion screen alone does not prove a completed export cycle.
 - The synchronized user appeared in Microsoft Entra ID with on-premises synchronization enabled.
 - Credentials originating from Active Directory successfully authenticated the user to Microsoft Entra ID through Password Hash Synchronization.
 - Microsoft Entra sign-in logs identified `Password Hash Sync` as the authentication method.

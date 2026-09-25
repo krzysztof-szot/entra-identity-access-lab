@@ -20,7 +20,7 @@ The goal of Day 04 was to strengthen authentication for the Expense Portal by in
 - Excluded `SG-Emergency-Access` from CA003.
 - Targeted the Expense Portal as the protected resource.
 - Configured CA003 to require the built-in `Phishing-resistant MFA` authentication strength.
-- Confirmed that Peter Finance could not access the Expense Portal with authentication methods that did not satisfy the required authentication strength.
+- Captured Peter Finance's additional-sign-in-methods-required block during the reported Expense Portal test; the capture does not identify the app or CA003.
 - Confirmed that Anna Finance could access the Expense Portal using a device-bound passkey.
 - Verified the passkey authentication method and successful Conditional Access evaluation in Microsoft Entra sign-in logs.
 - Enabled Self-Service Password Reset for `SG-Auth-Hardening-Pilot`.
@@ -38,9 +38,9 @@ This separates the requirement to perform MFA from the requirement to use an aut
 
 ### Passwordless onboarding
 
-Temporary Access Pass was used as a short-lived bootstrap credential for registering a stronger authentication method.
+A one-hour Temporary Access Pass was issued for Anna as the intended bootstrap credential. The evidence confirms TAP creation and a registered device-bound passkey, but does not show TAP consumption or the registration authentication flow.
 
-Anna Finance used the onboarding process to register a device-bound passkey instead of relying only on password and Microsoft Authenticator push authentication.
+[Microsoft supports both existing MFA and TAP for passwordless bootstrap](https://learn.microsoft.com/en-us/entra/identity/authentication/howto-authentication-temporary-access-pass). Anna already had Microsoft Authenticator, so the actual bootstrap method cannot be inferred from the final credential list (guidance checked 2026-09-25).
 
 ### Pilot-based deployment
 
@@ -72,13 +72,15 @@ This establishes the pilot recovery configuration. The evidence does not include
 
 ## Verification
 
-Peter Finance was unable to access the Expense Portal because his available authentication methods did not satisfy the `Phishing-resistant MFA` requirement enforced by CA003.
+Peter Finance's capture shows an additional-sign-in-methods-required block. The lab record attributes it to Expense Portal/CA003, but no application name, policy result or sign-in detail is visible; that attribution remains partially verified.
 
 Anna Finance successfully accessed the same application using a device-bound passkey.
 
 Microsoft Entra sign-in logs confirmed that the passkey authentication succeeded and that both `CA001-ExpensePortal-Require-MFA` and `CA003-ExpensePortal-Phishing-resistant-MFA-Pilot` returned `Success`.
 
 The Expense Portal also confirmed that Anna retained the existing `Expense.Submitter` application role after completing phishing-resistant authentication.
+
+To complete the missing evidence, capture a TAP sign-in followed by passkey-registration audit events, and Peter's failed sign-in details showing Expense Portal, the CA003 evaluation and authentication methods. Do not publish the TAP value.
 
 Detailed validation results are available in [Day 04 Tests](../tests/day-04.md).
 

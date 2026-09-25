@@ -38,6 +38,8 @@ if ($context.Scopes -notcontains "Group.ReadWrite.All") {
 $existingGroup = @(
     Get-MgGroup `
         -Filter "displayName eq '$groupName'" `
+        -All `
+        -Property Id,DisplayName,SecurityEnabled,MailEnabled,GroupTypes,IsAssignableToRole,OnPremisesSyncEnabled `
         -ErrorAction Stop
 )
 
@@ -48,6 +50,16 @@ if ($existingGroup.Count -gt 1) {
 }
 
 if ($existingGroup.Count -eq 1) {
+
+    $group = $existingGroup[0]
+
+    if ($group.SecurityEnabled -ne $true -or
+        $group.MailEnabled -ne $false -or
+        @($group.GroupTypes).Count -gt 0 -or
+        $group.IsAssignableToRole -eq $true -or
+        $group.OnPremisesSyncEnabled -eq $true) {
+        throw "Existing lab group must be a cloud-managed, assigned, non-role-assignable security group."
+    }
 
     Write-Host "Group already exists."
 

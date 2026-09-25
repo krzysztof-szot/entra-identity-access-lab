@@ -37,7 +37,7 @@ The goal of the project is to build and secure a Microsoft Entra ID environment 
 
 The project is based on practical implementation rather than configuration screenshots alone.
 
-Each phase includes:
+Lab records include, where applicable:
 
 * design decisions
 * implementation
@@ -141,7 +141,7 @@ The currently implemented environment includes:
 * SMS
 * Temporary Access Pass
 * Passkey / FIDO2
-* Passwordless onboarding
+* Temporary Access Pass configuration and passkey registration; TAP use during onboarding is not independently shown
 * Phishing-resistant MFA
 * Authentication hardening pilot groups
 * Positive and negative authentication testing
@@ -166,7 +166,7 @@ The currently implemented environment includes:
 * Leaver account disablement and entitlement removal
 * Administrative Units
 * Administrative Unit-scoped `User Administrator`
-* Positive and negative delegated administration testing
+* Scoped-administration UI checks; actor-attributed write/deny evidence remains a follow-up
 
 ### Hybrid Identity
 
@@ -221,7 +221,7 @@ The currently implemented environment includes:
 * Azure Automation with System-assigned and User-assigned Managed Identities
 * Microsoft Entra authentication to private Azure Blob Storage
 * Storage Blob Data Reader authorization
-* Negative read-before-RBAC and read-only write-denial tests
+* Negative read-before-RBAC test and a reported write-denial result; the latter needs raw-error/source verification
 * Runbook execution and Managed identity sign-in monitoring
 
 ### SSO, Application Proxy and Provisioning
@@ -244,10 +244,10 @@ The currently implemented environment includes:
 ### Final Security Assessment
 
 * Current-state review of PIM, emergency access exclusions, authentication, application permissions, external access and workload RBAC
-* Correlated Conditional Access results across What If, real sign-in logs and Log Analytics KQL
+* Consistent Conditional Access policy outcomes across What If, real sign-in logs and Log Analytics KQL; the captures show different sign-in events
 * Explicit residual findings, including workload sign-in export coverage and follow-up validation
 
-Start with [Day 18 findings](docs/day-18.md), [remaining work](docs/remaining-work.md), [script instructions](scripts/README.md) and [reusable KQL](queries/README.md).
+Start with [Day 18 findings](docs/day-18.md), the [independent audit and full screenshot review](docs/audit-2026-09-25.md), [remaining work](docs/remaining-work.md), [script instructions](scripts/README.md) and [reusable KQL](queries/README.md).
 
 ---
 
@@ -572,8 +572,8 @@ Evidence: [`evidence/day-05/`](evidence/day-05/)
 * [x] Leaver deprovisioning
 * [x] Administrative Unit creation
 * [x] Administrative Unit-scoped User Administrator
-* [x] Positive scoped administration test
-* [x] Negative out-of-scope administration test
+* [x] In-scope and out-of-scope administration UI observations
+* [ ] Actor-attributed in-scope update and out-of-scope runtime denial
 * [x] Positive and negative lifecycle access validation
 
 Documentation: [`docs/day-06.md`](docs/day-06.md)
@@ -723,7 +723,7 @@ Evidence: [`evidence/day-12/`](evidence/day-12/)
 * [x] Azure Automation authentication to private Blob Storage
 * [x] Negative read test before Storage data-plane RBAC
 * [x] `Storage Blob Data Reader` assignment and successful read
-* [x] Negative write test under read-only authorization
+* [x] Captured Runbook write-denial report; raw Storage error and catch logic remain unverified
 * [x] Published Runbook and Managed identity sign-in verification
 
 Documentation: [`docs/day-13.md`](docs/day-13.md)
@@ -823,8 +823,8 @@ Scripts: [`scripts/`](scripts/)
 
 * [x] Test-role removal and successful CA inventory export
 * [x] PIM Eligible state and activation controls
-* [x] Emergency role assignments and effective CA exclusions
-* [x] What If, real sign-in and KQL correlation
+* [x] Emergency role assignments and reported CA exclusion output; calculation still requires independent verification
+* [x] What If, real sign-in and KQL policy-outcome comparison
 * [x] External-access removal and negative app test
 * [x] Delegated Graph permission review and captured portal regression
 * [x] Managed Identity storage RBAC review
@@ -844,6 +844,7 @@ Documentation: [Day 18](docs/day-18.md) · [Tests](tests/day-18.md) · [Evidence
 * [KQL queries and evidence mapping](queries/README.md)
 * [SC-300 coverage and study gaps](docs/sc-300-coverage.md)
 * [Remaining validation and source artifacts](docs/remaining-work.md)
+* [Independent audit and per-image verification](docs/audit-2026-09-25.md)
 
 ---
 
@@ -878,11 +879,11 @@ Security controls such as Conditional Access and stronger authentication require
 
 **Emergency access protection**
 
-Dedicated break-glass accounts are maintained separately and excluded from restrictive Conditional Access policies.
+Dedicated break-glass accounts are maintained separately, with Conditional Access exclusions in the lab design. Day 18's custom exclusion report still needs its calculation independently verified; current authentication, membership protection and operational readiness are tracked in remaining work.
 
 **Group-based access**
 
-Application authorization is assigned through security groups rather than directly to individual users.
+Security groups provide the baseline application entitlement path. The Day 10 Access Package also delivers a direct application resource role alongside group membership.
 
 **Authentication and authorization separation**
 

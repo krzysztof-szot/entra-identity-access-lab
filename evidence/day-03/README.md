@@ -16,8 +16,10 @@ This folder contains evidence for the Day 03 Conditional Access and MFA implemen
 
 - `06-anna-expense-portal-after-mfa.png` — confirms successful Expense Portal access after authentication and shows Anna retaining the `Expense.Submitter` application role.
 
-- `07-ca001-enforced-success.png` — confirms in Sign-in logs that MFA was successfully completed using Microsoft Authenticator and that `CA001-ExpensePortal-Require-MFA` returned `Success`.
+- `07-ca001-enforced-success.png` — shows successful password/mobile-app-notification steps and `CA001-ExpensePortal-Require-MFA: Success`. The overall event is `Interrupted`, explained by the keep-me-signed-in prompt; it is not an overall Success event.
 
 - `08-whatif-high-signin-risk.png` — shows a simulated `High` sign-in risk where CA001 requires MFA and `CA002-ExpensePortal-HighSignInRisk` evaluates `Block access` in `Report-only` mode.
 
 Sensitive environment-specific values were redacted before publication.
+
+CA001's initial name includes `-Pilot-`, while later captures omit it. The screenshots preserve both historical names but do not include the rename event or policy-ID correlation. CA002 evidence demonstrates simulation only.

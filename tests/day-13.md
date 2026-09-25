@@ -16,7 +16,7 @@ Tests validate System-assigned and User-assigned Managed Identity authentication
 | D13-06 | Published Runbook | The published PowerShell Runbook completes the read, not only the Test pane | Published status and completed job output with `DAY 13 RESULT: PASS` | Pass |
 | D13-07 | User-assigned identity | Standalone identity attaches to Automation Account and is selected explicitly | `mi-bfl-shared-reader` attached; `-AccountId $userAssignedClientId` in Runbook | Pass |
 | D13-08 | User-assigned Blob read | The selected User-assigned identity authenticates and reads the proof Blob | User-assigned identity named in output; authentication and Blob read Success | Pass |
-| D13-09 | Denied write under Reader | System-assigned identity cannot upload a new Blob | `EXPECTED WRITE DENIED`; `Least Privilege: PASS` | Pass |
+| D13-09 | Denied write under Reader | System-assigned identity cannot upload a new Blob | `EXPECTED WRITE DENIED`; `Least Privilege: PASS`; raw error and exception filter not shown | Partial |
 | D13-10 | Managed Identity sign-ins | Both identities show successful workload sign-ins | Success for each identity to Azure Storage and Azure Resource Manager | Pass |
 
 ## D13-01 — Resource preparation
@@ -97,10 +97,10 @@ Tests validate System-assigned and User-assigned Managed Identity authentication
 **Acting identity:** `aa-bfl-identity-lab` System-assigned MI via `rb-bfl-mi-write-denied`.  
 **Expected:** the Data Reader identity cannot upload a new Blob.  
 **Observed:** `AUTHENTICATION: SUCCESS`, `EXPECTED WRITE DENIED`, `Authorization: FAILED AS EXPECTED`, `Least Privilege: PASS`.  
-**Result:** Pass.  
+**Result:** Partial (reported denial; cause not independently verifiable).\
 **Evidence:** [15 — Write denied](../evidence/day-13/15-managed-identity-write-denied.png)
 
-**Evidence boundary:** the Runbook reports its handled denial, not the raw HTTP response for this write attempt. HTTP 403 is explicitly shown in D13-03 for the earlier read-denial test.
+**Evidence boundary / audited result:** **Partial**. The Runbook reports a handled denial, but neither the raw Storage error nor its exception filter is available. Another caught failure cannot be ruled out. Capture the upload's Storage authorization error and sanitized upload/catch source to resolve this test. HTTP 403 in D13-03 belongs to the separate read-denial test.
 
 ## D13-10 — Workload sign-in monitoring
 
@@ -115,7 +115,7 @@ Tests validate System-assigned and User-assigned Managed Identity authentication
 ## Final state
 
 - The System-assigned MI read the proof Blob after `Storage Blob Data Reader` was assigned.
-- The same identity's pre-assignment read failed with `403`, and its post-assignment write test was denied as expected.
+- The same identity's reported pre-assignment read failed with `403`; the post-assignment write test reports an expected denial but remains Partial pending its raw error and source.
 - The published System-assigned Runbook completed successfully.
 - The separate User-assigned MI was attached, explicitly selected and used successfully for Blob read.
 - Both identities appeared in successful Microsoft Entra Managed identity sign-ins.

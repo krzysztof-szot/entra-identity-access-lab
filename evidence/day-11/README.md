@@ -13,7 +13,7 @@ This folder documents a completed Microsoft Entra Access Review of the existing 
 - `07-access-review-created.png` — shows `AR-External-Contractors-Q3-2026` created for the group with initial status `Not started`; it is not evidence of a completed review.
 - `08-reviewer-pending-access-review.png` — shows Anna Finance's My Access reviewer view, with External Auditor awaiting a decision and a system recommendation of `Approve`.
 - `09-reviewer-denied-auditor-access.png` — shows Anna's recorded `Denied` decision and the justification that the external audit engagement was completed.
-- `10-auditor-access-before-results-applied.png` — shows Expense Portal still accessible after `Deny` but before results were applied. The portal screenshot itself does not display a timestamp.
+- `10-auditor-access-before-results-applied.png` — shows an auditor Expense Portal session reported as after `Deny` and before Apply. There is no timestamp or fresh-sign-in evidence; this is partial evidence of that sequence, not proof that a new authorization decision succeeded.
 - `11-access-review-decision-results.png` — shows the administrator's result: `Denied` by Anna Finance despite the separate `Approve` recommendation.
 - `12-access-review-results-applied.png` — shows the review's status `Result applied`.
 - `13-contractor-membership-removed.png` — shows zero members in `SG-External-Contractors` after the review results were applied.

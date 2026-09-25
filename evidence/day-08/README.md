@@ -12,11 +12,11 @@ This folder contains evidence of Microsoft Entra device identities and device-ba
 - `05-entra-joined-dsregcmd.png` — confirms BFL-EJ01 as Microsoft Entra joined with `AzureAdJoined: YES` and `DomainJoined: NO`.
 - `06-entra-joined-device-properties.png` — shows the BFL-EJ01 device object in Microsoft Entra ID with the Microsoft Entra joined join type.
 - `07-entra-joined-expense-portal-blocked.png` — shows the user-facing access denial to Expense Portal with Conditional Access error 53003.
-- `08-entra-joined-ca-block-result.png` — confirms BFL-EJ01 as Azure AD joined and shows CA008 blocking the Expense Portal sign-in.
+- `08-entra-joined-ca-block-result.png` — shows an Azure AD joined sign-in blocked by CA008. Its timestamp differs from screenshot 07, and its masked device ID prevents independently matching it to BFL-EJ01.
 
 - `09-hybrid-device-active-directory.png` — shows the BFL-HJ01 computer object in the `HybridLab\Devices` organizational unit in on-premises Active Directory.
 - `10-hybrid-joined-dsregcmd.png` — confirms BFL-HJ01 as Microsoft Entra hybrid joined with both `AzureAdJoined: YES` and `DomainJoined: YES`.
-- `11-hybrid-device-expense-portal-success.png` — shows successful Expense Portal access for Hybrid Finance from the hybrid joined device.
+- `11-hybrid-device-expense-portal-success.png` — shows successful Expense Portal access for Hybrid Finance; screenshot 12 separately shows the hybrid join type.
 - `12-hybrid-device-ca-success.png` — confirms the successful sign-in from a hybrid joined device and shows CA008 as not applied because the device matched the configured exclusion.
 - `13-three-device-identity-types.png` — shows the three tested device identity states in Microsoft Entra ID: registered, joined, and hybrid joined.
 
