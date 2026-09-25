@@ -1,0 +1,11 @@
+// Source: evidence/day-16/14-kql-application-signins.png
+SigninLogs
+| where TimeGenerated > ago(7d)
+| where AppDisplayName contains "Expense"
+| project
+    TimeGenerated,
+    UserPrincipalName,
+    AppDisplayName,
+    ConditionalAccessStatus,
+    ErrorCode = toint(Status.errorCode)
+| order by TimeGenerated desc

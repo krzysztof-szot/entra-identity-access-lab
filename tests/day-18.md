@@ -9,7 +9,7 @@ Day 18 tests the **current state** of the Baltic Finance Lab after Days 01–17.
 | D18-01 | Assessment baseline and Graph inventory | Review the correct tenant and successfully export selected tenant state including CA summary | Baltic Finance Lab / Entra ID P2 shown; users, groups, memberships, roles, apps and CA summary exported | Pass |
 | D18-02 | Standing Conditional Access Administrator access | No unnecessary Active assignment should remain | Active assignments view shows **No results** | Pass |
 | D18-03 | Day 17 privileged-role cleanup | Remove the temporary direct role assignment and record the change | Audit Logs show successful `Remove member from role` for `graph.operator` / Conditional Access Administrator | Pass |
-| D18-04 | Emergency access roles and CA exclusions | Two emergency GA accounts remain usable and are effectively excluded from reviewed CA policies | Two permanent Active GAs; emergency group effective for both accounts across ten reviewed policies | Pass |
+| D18-04 | Emergency access roles and CA exclusions | Two emergency GA role assignments and effective exclusions from reviewed CA policies are present | Two permanent Active GAs; emergency group effective for both accounts across ten reviewed policies | Pass |
 | D18-05 | PIM current assignment | Routine CA administration remains Eligible rather than standing Active | `adm-lab` is permanently Eligible; no Active assignment shown | Pass |
 | D18-06 | PIM activation controls | Activation is short-lived and controlled | 1 hour, Azure MFA, justification, approval and separate approver configured | Pass (hardening observation: permanent Active allowed by role policy) |
 | D18-07 | Authentication methods review | Record current method availability and scope | FIDO2, Authenticator, SMS, TAP and Email OTP enabled for configured targets | Pass (review; SMS remains broad) |
@@ -20,8 +20,8 @@ Day 18 tests the **current state** of the Baltic Finance Lab after Days 01–17.
 | D18-12 | Access Package governance state | Scoped external policy requires governance and has no active assignment | Approval + justification + 30-day expiration; zero active assignments; External Auditor shown Expired / Governed | Pass (natural expiry not evidenced) |
 | D18-13 | External negative access test | Guest without assignment cannot access Expense Portal | Fresh External Auditor sign-in fails with `AADSTS50105` | Pass |
 | D18-14 | Application API permission least privilege | Temporary broad Application permission should be removed | Only Microsoft Graph `User.Read` Delegated remains; admin consent confirmed | Pass |
-| D18-15 | Application credential cleanup | No temporary app credential should remain | 0 certificates, 0 client secrets, 0 federated credentials | Pass |
-| D18-16 | Post-cleanup application regression | Least-privilege cleanup must not break intended portal function | Anna signs in; `Expense.Submitter`; Graph HTTP 200 with Delegated `User.Read` | Pass |
+| D18-15 | Application credential inventory | Record the remaining app credentials | 0 certificates, 0 client secrets, 0 federated credentials | Pass (inventory; Easy Auth credential path requires follow-up) |
+| D18-16 | Captured post-cleanup application regression | The captured portal session retains the intended app role and Graph profile | Anna authenticated; `Expense.Submitter`; Graph HTTP 200 with Delegated `User.Read` | Pass (captured session; fresh code redemption and refresh not independently evidenced) |
 | D18-17 | Workload identity RBAC | Managed identities should retain read-only storage authorization | Both identities have `Storage Blob Data Reader` at Storage Account scope | Pass |
 | D18-18 | Diagnostic Settings coverage | Confirm exactly which Entra log categories are centralized | Audit, user sign-in and Provisioning selected; Service Principal / Managed Identity sign-ins not selected | Partial / gap documented |
 | D18-19 | Final KQL Conditional Access review | Centralized logs should corroborate recent CA outcomes | CA001 + CA003 success; CA002 reportOnlyNotApplied; CA009 notEnabled | Pass |
@@ -68,7 +68,7 @@ Day 18 tests the **current state** of the Baltic Finance Lab after Days 01–17.
 **Observed:** App Registration contains only delegated `User.Read`; Enterprise Application shows the corresponding Admin consent; no certificates, secrets or federated credentials remain; Anna's portal session succeeds and Graph profile retrieval returns HTTP 200 under Delegated `User.Read`.  
 **Result:** Pass.  
 **Evidence:** [18](../evidence/day-18/18-app-registration-permissions.png), [19](../evidence/day-18/19-enterprise-app-consent.png), [20](../evidence/day-18/20-no-client-secrets.png), [21](../evidence/day-18/21-expense-portal-regression.png).  
-**Evidence boundary:** the final credential list proves current absence of app credentials; it does not independently show the exact earlier deletion action.
+**Evidence boundary:** the final credential list proves current absence of app credentials; it does not independently show the exact earlier deletion action, a fresh authorization-code redemption or successful token renewal after removal. The Easy Auth credential path and `/.auth/refresh` remain [follow-up checks](../docs/remaining-work.md).
 
 ## D18-17 — Workload identity RBAC
 
@@ -99,10 +99,13 @@ Day 18 tests the **current state** of the Baltic Finance Lab after Days 01–17.
 | Access Package `Initial Policy` | Not assessed | Visible in screenshot 15 but not evaluated in this evidence set |
 | Natural 30-day Access Package expiry | Not evidenced | Day 10 documented earlier manual revocation before the configured end date |
 | Final Identity Secure Score improvement | Not evidenced | Day 18 evidence set does not include a final score comparison |
+| Easy Auth credential path and token renewal | Follow-up required | Verify fresh authentication and Graph token refresh after credential cleanup |
+| Emergency-group membership protection | Not tested | Confirm delegated group administrators cannot change the exclusion group |
+| Emergency-account sign-in and alert validation | Not repeated in Day 18 | Day 01 sign-ins are historical; current strong-authentication and alert evidence require separate validation |
 | Formal compliance | Out of scope | Day 18 is a lab security assessment, not a certified audit |
 
 ## Final state
 
-The Day 18 evidence establishes a reviewed and validated final state for the main Baltic Finance IAM controls. The Day 17 direct privileged-role test assignment and CA-export evidence gap are closed; PIM, break-glass, phishing-resistant Conditional Access, external-access removal, application least privilege and workload RBAC are revalidated. Remaining hardening opportunities and monitoring gaps are documented rather than silently counted as passes.
+The Day 18 evidence closes the Day 17 direct-role cleanup and CA-export evidence gaps. It revalidates PIM configuration, emergency role assignments and CA exclusions, phishing-resistant Conditional Access, external-access removal, delegated application permissions and workload RBAC. The captured portal session succeeds. Fresh Easy Auth code redemption, token renewal, emergency-group protection and emergency-use alert delivery remain separate follow-up checks alongside the documented hardening and monitoring gaps.
 
 See [Day 18 implementation notes](../docs/day-18.md) and [Day 18 evidence](../evidence/day-18/README.md).

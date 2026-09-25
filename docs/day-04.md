@@ -68,7 +68,7 @@ After satisfying CA003 with a passkey, Anna Finance retained access through the 
 
 Self-Service Password Reset was enabled for the authentication hardening pilot with two authentication methods required for password reset.
 
-Authentication hardening therefore includes both stronger sign-in methods and a controlled account recovery process.
+This establishes the pilot recovery configuration. The evidence does not include an executed password reset, a sign-in with a newly reset password, or hybrid password writeback.
 
 ## Verification
 

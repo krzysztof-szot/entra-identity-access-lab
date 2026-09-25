@@ -54,7 +54,7 @@ Tests validate Joiner, Mover, Leaver lifecycle scenarios and scoped administrati
 **Expected:** account is disabled and existing access assignments are removed.  
 **Observed:** account was disabled with zero group memberships, application assignments, and administrative roles.  
 **Result:** Pass  
-**Evidence:** `../evidence/day-06/07-leaver-account-disabled.png`
+**Evidence:** `../evidence/day-06/07-leaver-deprovisioning-completed.png`
 
 ## D6-05 — Leaver sign-in
 

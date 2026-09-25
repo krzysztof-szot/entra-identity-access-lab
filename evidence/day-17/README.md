@@ -1,5 +1,7 @@
 # Day 17 — Microsoft Graph PowerShell Automation — Evidence
 
+**Follow-up:** Day 18 adds the [successful CA CSV export](../day-18/02-graph-inventory.png) and [test-role removal audit](../day-18/05-privilege-remediation.png). The screenshots below remain the original Day 17 record.
+
 The screenshots document delegated Microsoft Graph PowerShell administration in Baltic Finance Lab: read operations, lab-user and security-group provisioning, membership idempotency, a real Entra role-authorization boundary, selected tenant inventory and an Entra audit event.
 
 - [01 — PowerShell and Graph SDK](01-graph-powershell-installed.png) — PowerShell 7.6.6, Microsoft.Graph.Authentication 2.40.0 and the available `Connect-MgGraph` cmdlet.

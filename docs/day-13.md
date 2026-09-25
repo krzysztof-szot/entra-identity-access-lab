@@ -1,5 +1,7 @@
 # Day 13 — Workload Identities and Managed Identity
 
+**Day 18 follow-up:** the [final Storage IAM evidence](../evidence/day-18/22-workload-rbac.png) separately confirms `Storage Blob Data Reader` at Storage Account scope for both managed identities. The runtime tests below retain their Day 13 context.
+
 ## Objectives
 
 The goal of Day 13 was to authenticate an Azure workload to another Azure resource without storing a password, client secret, SAS token or Storage Account key in Runbook code.

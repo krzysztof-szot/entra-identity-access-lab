@@ -4,6 +4,8 @@ This folder documents OAuth 2.0 authorization and Microsoft Graph integration wi
 
 ## Evidence
 
+Screenshots 01 and 02 are byte-identical copies of one API permissions view. They document the permission type and consent status in the same capture, not two independent events or a before/after sequence.
+
 - `01-delegated-user-read.png` — shows Microsoft Graph `User.Read` configured as a Delegated permission for Expense Portal.
 - `02-delegated-admin-consent.png` — confirms tenant-wide admin consent for delegated `User.Read` (consent status, not the moment of approval).
 - `03-enterprise-app-permissions.png` — shows the consented delegated `User.Read` permission on the Expense Portal Enterprise Application.

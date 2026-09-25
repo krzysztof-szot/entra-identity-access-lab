@@ -4,6 +4,8 @@ Tests validate delegated Microsoft Graph access from the existing Expense Portal
 
 ## Results
 
+**Evidence note:** screenshots 01 and 02 are the same capture. Delegated permission configuration and existing admin consent are both visible in that view; no separate consent action is inferred.
+
 | Test ID | Test | Expected result | Actual result | Outcome |
 |---|---|---|---|---|
 | D12-01 | Delegated permission | Expense Portal requests Graph `User.Read` as Delegated | `User.Read` shown as Delegated and granted | Pass |

@@ -2,6 +2,8 @@
 
 Results below reflect **published screenshots and the checked-in scripts**. A script that supports an operation is not, by itself, proof that the operation was successfully rerun after a code change. **Pass** means the described observation is evidenced; **Partial / not evidenced** marks the narrower proof boundary.
 
+**Day 18 follow-up:** the [successful CA export](../evidence/day-18/02-graph-inventory.png) and [audited removal of the test role](../evidence/day-18/05-privilege-remediation.png) close the two outstanding Day 17 items. Results below retain the original Day 17 capture context. See [Day 18 validation](../tests/day-18.md).
+
 ## Results
 
 | Test ID | Test | Expected result | Actual result | Outcome |

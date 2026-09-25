@@ -16,7 +16,7 @@ This folder contains evidence of identity lifecycle management and scoped admini
 
 - `06-mover-expense-portal-access-denied.png` — Expense Portal access denied after the Mover was removed from the Finance access group.
 
-- `07-leaver-account-disabled.png` — Leaver account disabled with group memberships, application assignments, and administrative roles removed.
+- `07-leaver-deprovisioning-completed.png` — Leaver account disabled with group memberships, application assignments, and administrative roles removed.
 
 - `08-leaver-signin-blocked.png` — sign-in attempt blocked after the Leaver account was disabled.
 

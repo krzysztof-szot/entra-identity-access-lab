@@ -2,7 +2,7 @@
 
 ## Objective
 
-Validate authentication method configuration, passwordless onboarding, phishing-resistant authentication strength enforcement, Conditional Access behavior, sign-in logging and Self-Service Password Reset for the Expense Portal.
+Validate authentication method configuration, passwordless onboarding, phishing-resistant authentication strength enforcement, Conditional Access behavior, sign-in logging and tenant Self-Service Password Reset configuration for the pilot group.
 
 | Check | Expected Result | Actual Result | Evidence |
 |---|---|---|---|
@@ -14,10 +14,10 @@ Validate authentication method configuration, passwordless onboarding, phishing-
 | `peter.finance` cannot access Expense Portal with authentication methods that do not satisfy CA003 | Access is denied or additional stronger authentication is required | Pass | [06-peter-weak-authentication-denied.png](../evidence/day-04/06-peter-weak-authentication-denied.png) |
 | `anna.finance` can access Expense Portal using a passkey | Authentication succeeds and the existing `Expense.Submitter` application role remains available | Pass | [07-anna-passkey-expense-portal-success.png](../evidence/day-04/07-anna-passkey-expense-portal-success.png) |
 | Passkey authentication and CA003 enforcement are recorded in Sign-in logs | Authentication details show a device-bound passkey and both CA001 and CA003 return `Success` | Pass | [08-anna-fido2-signin-log.png](../evidence/day-04/08-anna-fido2-signin-log.png) |
-| SSPR is enabled for the authentication hardening pilot | `SG-Auth-Hardening-Pilot` is selected and two authentication methods are required for password reset | Pass | [09-sspr-pilot-configuration.png](../evidence/day-04/09-sspr-pilot-configuration.png) |
+| SSPR is enabled for the authentication hardening pilot | `SG-Auth-Hardening-Pilot` is selected and two authentication methods are required for password reset | Pass (configuration only) | [09-sspr-pilot-configuration.png](../evidence/day-04/09-sspr-pilot-configuration.png) |
 
 ## Result
 
-All planned Day 04 authentication hardening tests completed successfully.
+The recorded tests validate authentication hardening, positive and negative application access, and Conditional Access logging.
 
-The tests confirmed that passwordless onboarding, phishing-resistant MFA enforcement, negative and positive access scenarios, Conditional Access logging and SSPR recovery controls behave as designed.
+SSPR was configured for the pilot. An actual password reset, subsequent sign-in with the new password, and hybrid password writeback were not captured and are not counted as completed runtime tests.

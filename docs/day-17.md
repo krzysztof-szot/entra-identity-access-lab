@@ -6,6 +6,8 @@ Day 17 turns existing Baltic Finance Entra ID administration into a small, reusa
 
 The central troubleshooting case was real: `adm-lab` could resolve `Conditional Access Administrator` but received **403 Forbidden** when trying to assign the role; the authorized `roleops-lab` operator subsequently created the assignment.
 
+**Day 18 follow-up:** the [successful CA export](../evidence/day-18/02-graph-inventory.png) and [audited removal of the test role](../evidence/day-18/05-privilege-remediation.png) close the two outstanding Day 17 items. Results below retain the original Day 17 capture context. See [Day 18 validation](../tests/day-18.md).
+
 ## Implemented
 
 ### Graph SDK and delegated connection

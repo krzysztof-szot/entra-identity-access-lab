@@ -1,0 +1,17 @@
+// Source: evidence/day-18/24-final-kql-review.png
+// Original capture has no app filter; displayed results concern Expense Portal.
+SigninLogs
+| where TimeGenerated > ago(7d)
+| mv-expand CAPolicy = ConditionalAccessPolicies
+| extend
+    PolicyName = tostring(CAPolicy.displayName),
+    PolicyResult = tostring(CAPolicy.result)
+| where PolicyResult != "notApplied"
+| project
+    TimeGenerated,
+    UserPrincipalName,
+    AppDisplayName,
+    PolicyName,
+    PolicyResult,
+    ConditionalAccessStatus
+| order by TimeGenerated desc

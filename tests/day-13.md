@@ -1,5 +1,7 @@
 # Day 13 — Workload Identities and Managed Identity Tests
 
+**Day 18 follow-up:** the [final Storage IAM evidence](../evidence/day-18/22-workload-rbac.png) separately confirms `Storage Blob Data Reader` at Storage Account scope for both managed identities. The runtime tests below retain their Day 13 context.
+
 Tests validate System-assigned and User-assigned Managed Identity authentication from Azure Automation, private Blob authorization with Azure RBAC, negative access cases, a published Runbook job and Microsoft Entra workload sign-in monitoring.
 
 ## Results

@@ -10,7 +10,7 @@ Day 12 focused on OAuth 2.0 authorization and Microsoft Graph. This day separate
 
 ### Existing Expense Portal: OIDC and sign-in verification
 
-The existing single-tenant Expense Portal App Registration and Azure App Service were reused, preserving the web redirect URI ending in /auth/login/aad/callback, app roles and Microsoft Graph integration.
+The existing single-tenant Expense Portal App Registration and Azure App Service were reused, preserving the web redirect URI ending in /.auth/login/aad/callback, app roles and Microsoft Graph integration.
 
 Anna Finance signed in successfully. Expense Portal displayed the existing Expense.Submitter role and her profile retrieved using delegated Microsoft Graph User.Read. The associated Entra sign-in evidence recorded a successful Expense Portal sign-in, an MFA requirement and Conditional Access results. The Microsoft Graph resource visible in that log reflects the app's Graph access; it is not a separate Application Proxy sign-in.
 

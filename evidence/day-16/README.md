@@ -13,7 +13,7 @@ Screenshots 01–05 examine available Entra history; screenshots 06–17 documen
 - `05-expense-portal-signins.png` — shows Expense Portal's interactive sign-in history for internal users and the external auditor, with successful, interrupted, and failed results.
 - `06-log-analytics-workspace.png` — shows the active `law-bfl-identity` workspace in `rg-bfl-identity-lab`, located in Poland Central.
 - `07-diagnostic-settings.png` — shows `diag-bfl-identity-monitoring` exporting Audit, interactive/non-interactive sign-in, and Provisioning logs to `law-bfl-identity`; selecting a category does not by itself prove that it contains events.
-- `08-successful-test-signin.png` — shows Anna authenticated to Expense Portal, assigned the `Expense_Submitter` app role, and retrieving her profile using delegated Microsoft Graph `User.Read` (HTTP 200).
+- `08-successful-test-signin.png` — shows Anna authenticated to Expense Portal, assigned the `Expense.Submitter` app role, and retrieving her profile using delegated Microsoft Graph `User.Read` (HTTP 200).
 - `09-failed-test-signin.png` — shows Peter denying a Microsoft Authenticator verification request; this is distinct from the invalid-credentials event in the KQL screenshots.
 - `10-kql-failed-signins.png` — shows a `SigninLogs` query identifying Peter's failed Expense Portal sign-in, error `50126`, and an invalid username/password failure reason.
 - `11-kql-authentication-failures-by-user.png` — uses `summarize` and `countif()` to compare failed and successful sign-ins by user in the exported data.

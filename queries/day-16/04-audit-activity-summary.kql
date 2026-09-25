@@ -1,0 +1,5 @@
+// Source: evidence/day-16/13-kql-audit-activity-summary.png
+AuditLogs
+| where TimeGenerated > ago(7d)
+| summarize Events = count() by OperationName
+| order by Events desc

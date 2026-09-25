@@ -1,0 +1,6 @@
+// Source: evidence/day-16/12-kql-conditional-access.png
+SigninLogs
+| where TimeGenerated > ago(7d)
+| summarize Events = count()
+    by ConditionalAccessStatus
+| order by Events desc

@@ -13,7 +13,7 @@ Tests cover historical Entra investigations, diagnostic export, new positive/neg
 | D16-05 | Application sign-in monitoring | Inspect results for the Enterprise Application | Expense Portal records for internal users and guest show Success, Interrupted and Failure | Pass |
 | D16-06 | Log Analytics Workspace | Workspace exists in the intended lab Resource Group | `law-bfl-identity` Active in `rg-bfl-identity-lab`, Poland Central | Pass |
 | D16-07 | Diagnostic Settings | Select Entra categories and Log Analytics destination | Audit, interactive, non-interactive and Provisioning categories selected; destination `law-bfl-identity` | Pass (configuration) |
-| D16-08 | Positive application access | Assigned Anna signs in and displays app permissions | Expense Portal authenticated Anna, displayed `Expense_Submitter` and Graph `User.Read` HTTP 200 | Pass |
+| D16-08 | Positive application access | Assigned Anna signs in and displays app permissions | Expense Portal authenticated Anna, displayed `Expense.Submitter` and Graph `User.Read` HTTP 200 | Pass |
 | D16-09 | Negative MFA test | A rejected Authenticator request is visible | Peter received “Request denied” after declining verification | Pass (MFA denial; not the `50126` KQL event) |
 | D16-10 | KQL failed sign-ins | Query exported errors and explain their cause | `SigninLogs` returned Peter / Expense Portal, `50126`, invalid username or password | Pass |
 | D16-11 | KQL per-user aggregation | Count failure/success per user | `summarize` / `countif()` returned per-user counts | Pass |
@@ -59,7 +59,7 @@ Tests cover historical Entra investigations, diagnostic export, new positive/neg
 
 **Acting identities:** `anna.finance` (positive application access), `peter.finance` (negative MFA test).  
 **Expected:** confirm that the previously built portal remains usable and show a controlled failed authentication interaction.  
-**Observed:** Anna authenticated to Expense Portal with `Expense_Submitter` and Graph `User.Read` (HTTP 200). Peter rejected an Authenticator verification request and saw “Request denied.”  
+**Observed:** Anna authenticated to Expense Portal with `Expense.Submitter` and Graph `User.Read` (HTTP 200). Peter rejected an Authenticator verification request and saw “Request denied.”  
 **Result:** Pass for the observed positive and negative interactions.  
 **Evidence:**
 

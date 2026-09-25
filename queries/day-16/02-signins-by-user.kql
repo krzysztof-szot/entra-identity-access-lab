@@ -1,0 +1,8 @@
+// Source: evidence/day-16/11-kql-authentication-failures-by-user.png
+SigninLogs
+| where TimeGenerated > ago(7d)
+| summarize
+    FailedSignIns = countif(toint(Status.errorCode) != 0),
+    SuccessfulSignIns = countif(toint(Status.errorCode) == 0)
+    by UserPrincipalName
+| order by FailedSignIns desc

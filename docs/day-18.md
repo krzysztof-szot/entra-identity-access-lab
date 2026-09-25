@@ -70,7 +70,7 @@ The reviewed policy set included:
 - `CA009-PIM-Validation`;
 - `CA010-Block-Legacy-Authentication`.
 
-The permanent emergency assignments are intentional and are treated separately from routine standing privilege.
+The permanent emergency assignments are intentional and are treated separately from routine standing privilege. This review verifies role assignments and CA exclusions. It does not test who can modify the exclusion group, document a new emergency sign-in, or demonstrate emergency-account alert delivery; see [remaining validation](remaining-work.md).
 
 ### Privileged Identity Management
 
@@ -167,7 +167,7 @@ The App Registration also shows:
 
 This verifies cleanup of the temporary Day 12 app-only experiment.
 
-A fresh Anna Finance regression test succeeded after cleanup:
+Anna Finance's captured portal session showed the following after cleanup:
 
 - Microsoft Entra authentication successful;
 - `Expense.Submitter` app role present;
@@ -175,7 +175,7 @@ A fresh Anna Finance regression test succeeded after cleanup:
 - permission model: Delegated;
 - permission: `User.Read`.
 
-The application therefore retains its required functionality after least-privilege cleanup.
+The captured portal session confirms the displayed app role and a successful delegated Graph response. It does not independently prove a new authorization-code redemption or token refresh after all application credentials were removed. The Easy Auth credential configuration and `/.auth/refresh` require a separate check; see [remaining validation](remaining-work.md).
 
 ### Workload identities and Azure RBAC
 
@@ -225,10 +225,10 @@ This creates a three-layer Conditional Access validation chain:
 | --- | --- | --- |
 | Day 17 direct privileged assignment | Remediated | Role removed; audit event and empty Active view captured |
 | PIM JIT model | Verified | `adm-lab` remains Eligible; 1h + MFA + justification + approval |
-| Emergency access | Verified | Two permanent GA emergency accounts; effective CA exclusions across ten reviewed policies |
+| Emergency role and exclusion configuration | Verified | Two permanent GA emergency accounts; effective CA exclusions across ten reviewed policies; group-management boundary not tested |
 | Phishing-resistant Expense Portal access | Verified | CA policy, What If, real sign-in and KQL all correlate |
 | External contractor access | Revoked / verified | Group empty, Access Package inactive, fresh app access denied |
-| Expense Portal Graph permissions | Least privilege verified | Delegated `User.Read` only; no app credential remains |
+| Expense Portal Graph permissions | Delegated scope verified | `User.Read` only; no app credential remains; Easy Auth token renewal still requires validation |
 | Workload Azure RBAC | Least privilege verified | Both identities use `Storage Blob Data Reader` at resource scope |
 | Graph tenant export | Evidence gap closed | CA summary now exports successfully |
 | High sign-in-risk policy | Residual / pilot state | Remains Report-only |
@@ -236,6 +236,8 @@ This creates a three-layer Conditional Access validation chain:
 | Authentication methods | Hardening opportunity | SMS remains enabled for all users |
 | Workload sign-in central logging | Monitoring gap | Service Principal / Managed Identity sign-in categories are not selected |
 | Access Package `Initial Policy` | Not assessed | Visible in policy list but not evaluated in Day 18 evidence |
+| Easy Auth credential and token lifecycle | Follow-up required | Captured Graph HTTP 200 does not establish fresh code redemption and token renewal after credential removal |
+| Emergency-group management boundary | Not tested | Effective exclusion is shown, but protection of group membership is not |
 
 ## Design Decisions
 
@@ -252,6 +254,10 @@ This creates a three-layer Conditional Access validation chain:
 **Verified by the published Day 18 evidence:** complete selected Graph inventory including CA summary; no Active Conditional Access Administrator assignment; removal of the Day 17 test role; two permanent emergency Global Administrators with effective group-based CA exclusions across ten reviewed policies; PIM Eligible state and activation controls; authentication-method configuration; phishing-resistant Expense Portal control; What If and real CA enforcement; empty external-contractor group; governed/expired external assignment and fresh AADSTS50105 denial; delegated `User.Read` only; no app credentials; successful post-cleanup application regression; read-only workload RBAC; selected Diagnostic Settings coverage; and final KQL CA results.
 
 **Not established / not claimed:** a formal compliance audit; natural 30-day Access Package expiration; assessment of the separate `Initial Policy`; elimination of every possible stale account or permission path; final Identity Secure Score improvement; centralized Service Principal or Managed Identity sign-in export; or proof that no future permanent Active PIM assignment can be created under the current role policy.
+
+## Reusable Query
+
+The [per-policy KQL query](../queries/day-18/01-conditional-access-policy-results.kql) is transcribed from screenshot 24. [Query instructions](../queries/README.md) describe its original scope and how to rerun it.
 
 ## Evidence and Tests
 

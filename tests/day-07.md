@@ -22,7 +22,7 @@ Tests validate the hybrid identity integration between on-premises Active Direct
 **Expected:** the hybrid user exists in the dedicated `HybridLab` Active Directory scope and is associated with the intended on-premises security group.  
 **Observed:** `Hybrid Finance` was present in the on-premises Active Directory environment on `BFL-DC01` with the expected lab group configuration.  
 **Result:** Pass  
-**Evidence:** `../evidence/day-07/01-hybrid-ad-ds-users-group.png`
+**Evidence:** [01 — AD user](../evidence/day-07/01-hybrid-ad-ds-users-group.png), [02 — AD group membership](../evidence/day-07/02-domain-configuration.png).
 
 ## D7-02 — Active Directory domain configuration
 
@@ -32,8 +32,7 @@ Tests validate the hybrid identity integration between on-premises Active Direct
 **Result:** Pass  
 **Evidence:**
 
-- `../evidence/day-07/02-domain-configuration.png`
-- `../evidence/day-07/03-bfl-dc01-domain-joined.png`
+- [03 — Server and domain](../evidence/day-07/03-bfl-dc01-domain-joined.png)
 
 ## D7-03 — Microsoft Entra Connect synchronization scope
 

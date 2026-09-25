@@ -7,7 +7,7 @@
 <p align="center">
   <img alt="AZ-500 passed" src="https://img.shields.io/badge/AZ--500-PASSED-238636?style=for-the-badge">
   <img alt="SC-300 in preparation" src="https://img.shields.io/badge/SC--300-IN%20PREPARATION-0078D4?style=for-the-badge">
-  <img alt="17 documented labs" src="https://img.shields.io/badge/LABS-17%20DOCUMENTED-6f42c1?style=for-the-badge">
+  <img alt="18 documented labs" src="https://img.shields.io/badge/LABS-18%20DOCUMENTED-6f42c1?style=for-the-badge">
 </p>
 
 <p align="center">
@@ -145,7 +145,7 @@ The currently implemented environment includes:
 * Phishing-resistant MFA
 * Authentication hardening pilot groups
 * Positive and negative authentication testing
-* Self-Service Password Reset
+* Self-Service Password Reset pilot configuration
 
 ### External Identities and Cross-Tenant Access
 
@@ -239,7 +239,15 @@ The currently implemented environment includes:
 * Repeat-safe provisioning and membership checks, explicit privileged-operation confirmation and separate privileged operator
 * Real role authorization troubleshooting: `adm-lab` received `403 Forbidden`, while `roleops-lab` completed the authorized assignment
 * Separate App Registration, Service Principal and Conditional Access inventory, and successful Add-user Audit Log correlation
-* Local CSV exports excluded from Git; captured tenant export omitted CA because `Policy.Read.All` was absent in that run, and role-assignment cleanup is not evidenced
+* Local CSV exports excluded from Git; Day 18 closes the earlier CA-export gap and confirms removal of the temporary direct role assignment through Audit Logs
+
+### Final Security Assessment
+
+* Current-state review of PIM, emergency access exclusions, authentication, application permissions, external access and workload RBAC
+* Correlated Conditional Access results across What If, real sign-in logs and Log Analytics KQL
+* Explicit residual findings, including workload sign-in export coverage and follow-up validation
+
+Start with [Day 18 findings](docs/day-18.md), [remaining work](docs/remaining-work.md), [script instructions](scripts/README.md) and [reusable KQL](queries/README.md).
 
 ---
 
@@ -425,8 +433,9 @@ flowchart TB
 | 15 | Global Secure Access and Defender for Cloud Apps | [Docs](docs/day-15.md) | [Tests](tests/day-15.md) | [Screens](evidence/day-15/) |
 | 16 | Monitoring, KQL, Workbooks and Identity Secure Score | [Docs](docs/day-16.md) | [Tests](tests/day-16.md) | [Screens](evidence/day-16/) |
 | 17 | Microsoft Graph PowerShell Automation | [Docs](docs/day-17.md) | [Tests](tests/day-17.md) | [Screens](evidence/day-17/) |
+| 18 | Security Assessment and Final Validation | [Docs](docs/day-18.md) | [Tests](tests/day-18.md) | [Screens](evidence/day-18/) |
 
-<sub>Day 15's Cloud Discovery extension and some Day 17 follow-up evidence remain outstanding; see the individual lab notes.</sub>
+<sub>All 18 labs are documented. Day 18 closes the Day 17 role-cleanup and CA-export gaps. Deferred features and further tenant validation are listed in <a href="docs/remaining-work.md">remaining work</a>.</sub>
 
 ### Detailed Lab Notes
 
@@ -517,7 +526,7 @@ Evidence: [`evidence/day-03/`](evidence/day-03/)
 * [x] Positive passkey authentication test
 * [x] Negative weak-authentication test
 * [x] Sign-in log verification
-* [x] Self-Service Password Reset
+* [x] Self-Service Password Reset pilot configuration; runtime reset remains a follow-up
 
 Documentation: [`docs/day-04.md`](docs/day-04.md)
 
@@ -792,10 +801,10 @@ Evidence: [`evidence/day-16/`](evidence/day-16/)
 * [x] PowerShell SDK and delegated Microsoft Graph sign-in
 * [x] User, group and membership provisioning with repeat-safe checks
 * [x] Privileged role dry run, `403 Forbidden` negative test and authorized assignment
-* [x] Selected local tenant-state export; captured CA CSV export was skipped
+* [x] Selected local tenant-state export; CA CSV export confirmed in the Day 18 follow-up
 * [x] Separate application, service principal and Conditional Access queries
 * [x] Add-user audit event correlation
-* [ ] Privileged role cleanup and post-fix CA CSV export not evidenced
+* [x] Privileged role cleanup and post-fix CA CSV export confirmed by Day 18 evidence
 
 Documentation: [`docs/day-17.md`](docs/day-17.md)
 
@@ -809,10 +818,32 @@ Scripts: [`scripts/`](scripts/)
 
 ---
 
+<details>
+<summary><strong>Day 18 — Security Assessment and Final Validation</strong> · implementation, tests &amp; evidence</summary>
+
+* [x] Test-role removal and successful CA inventory export
+* [x] PIM Eligible state and activation controls
+* [x] Emergency role assignments and effective CA exclusions
+* [x] What If, real sign-in and KQL correlation
+* [x] External-access removal and negative app test
+* [x] Delegated Graph permission review and captured portal regression
+* [x] Managed Identity storage RBAC review
+* [x] Monitoring gaps and remaining validation documented
+
+Documentation: [Day 18](docs/day-18.md) · [Tests](tests/day-18.md) · [Evidence](evidence/day-18/)
+
+</details>
+
+---
+
 ## Supporting Documentation
 
 * [Access Matrix](docs/access-matrix.md)
 * [Expense Portal Application Architecture](docs/application-architecture.md)
+* [Script prerequisites and usage](scripts/README.md)
+* [KQL queries and evidence mapping](queries/README.md)
+* [SC-300 coverage and study gaps](docs/sc-300-coverage.md)
+* [Remaining validation and source artifacts](docs/remaining-work.md)
 
 ---
 
@@ -824,6 +855,8 @@ The next phases of the project will expand the environment with:
 * [ ] Broader joiner / mover / leaver automation beyond Day 17's scoped test-user provisioning
 * [ ] Azure Key Vault integration for workload identities
 * [ ] Further identity governance and automation scenarios
+
+See [remaining work](docs/remaining-work.md) for concrete validation tasks and source artifacts to add. The [SC-300 coverage map](docs/sc-300-coverage.md) distinguishes tested labs from configuration-only and unimplemented topics.
 
 ---
 
@@ -863,56 +896,14 @@ Configuration changes and access scenarios are validated using Microsoft Entra S
 
 ## Repository Structure
 
-```mermaid
-flowchart TB
-
-    ROOT["entra-identity-access-lab"]
-
-    README["README.md"]
-
-    subgraph DOCS["docs/"]
-        ACCESS["access-matrix.md"]
-        ARCH["application-architecture.md"]
-        D1["day-01.md"]
-        D2["day-02.md"]
-        D3["day-03.md"]
-        DX["day-...md"]
-    end
-
-    subgraph TESTS["tests/"]
-        T1["day-01.md"]
-        T2["day-02.md"]
-        T3["day-03.md"]
-        TX["day-...md"]
-    end
-
-    subgraph EVIDENCE["evidence/"]
-        E1["day-01/"]
-        E2["day-02/"]
-        E3["day-03/"]
-        EX["day-.../"]
-    end
-
-    SCRIPTS["scripts/ - Day 17 Graph PowerShell"]
-
-    ROOT --> README
-    ROOT --> DOCS
-    ROOT --> TESTS
-    ROOT --> EVIDENCE
-    ROOT --> SCRIPTS
-
-    classDef root fill:#e8f1ff,stroke:#2563eb,stroke-width:2px,color:#111827;
-    classDef readme fill:#f8fafc,stroke:#475569,stroke-width:1.5px,color:#111827;
-    classDef docs fill:#f0fdf4,stroke:#16a34a,stroke-width:1.5px,color:#111827;
-    classDef tests fill:#fff7ed,stroke:#ea580c,stroke-width:1.5px,color:#111827;
-    classDef evidence fill:#faf5ff,stroke:#9333ea,stroke-width:1.5px,color:#111827;
-
-    class ROOT root;
-    class README readme;
-    class ACCESS,ARCH,D1,D2,D3,D14,DX docs;
-    class T1,T2,T3,T14,TX tests;
-    class E1,E2,E3,E14,EX evidence;
-    class SCRIPTS docs;
-```
+| Path | Contents |
+| --- | --- |
+| [README.md](README.md) | Project overview, roadmap and featured evidence |
+| [docs/](docs/) | Day 01–18 implementation notes, access matrix, architecture, coverage and remaining work |
+| [tests/](tests/) | Expected behavior, observed results and evidence boundaries |
+| [evidence/](evidence/) | Published screenshots with per-day indexes |
+| [scripts/](scripts/) | Six Day 17 Microsoft Graph PowerShell scripts and usage instructions |
+| [queries/](queries/) | Six Day 16/18 KQL queries with evidence mapping |
+| [assets/](assets/) | Repository banner |
 
 The repository will continue to evolve as additional Microsoft Entra identity governance, privileged access, workload identity and automation scenarios are implemented.

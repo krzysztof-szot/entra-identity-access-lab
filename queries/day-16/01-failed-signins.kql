@@ -1,0 +1,12 @@
+// Source: evidence/day-16/10-kql-failed-signins.png
+SigninLogs
+| where TimeGenerated > ago(7d)
+| where toint(Status.errorCode) != 0
+| project
+    TimeGenerated,
+    UserPrincipalName,
+    AppDisplayName,
+    IPAddress,
+    ErrorCode = toint(Status.errorCode),
+    FailureReason = tostring(Status.failureReason)
+| order by TimeGenerated desc

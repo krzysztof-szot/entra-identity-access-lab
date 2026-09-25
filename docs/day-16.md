@@ -37,7 +37,7 @@ The screenshots establish the configured destination and actual ingestion of sig
 
 ### New sign-in tests and KQL investigations
 
-Anna successfully authenticated to Expense Portal. The application displayed her `Expense_Submitter` app role and retrieved her profile with delegated Microsoft Graph `User.Read` (HTTP 200). A separate negative test showed Peter **denying a Microsoft Authenticator request**.
+Anna successfully authenticated to Expense Portal. The application displayed her `Expense.Submitter` app role and retrieved her profile with delegated Microsoft Graph `User.Read` (HTTP 200). A separate negative test showed Peter **denying a Microsoft Authenticator request**.
 
 The exported `SigninLogs` records were investigated with KQL:
 
@@ -71,6 +71,10 @@ Identity Secure Score was reviewed as a **baseline**: the captured value was **4
 **Verified by the evidence:** historical sign-in/CA/guest/PIM-request investigations; active Log Analytics workspace; configured Entra diagnostic export; successful Expense Portal app access; rejected MFA test; ingested sign-in and audit records queried through KQL; functioning Microsoft Conditional Access Workbook and custom monitoring Workbook; Identity Secure Score baseline and recommendation review.
 
 **Not shown / not claimed:** PIM approval or successful role activation from screenshot 03 alone; a CA failure in screenshot 02; retroactive ingestion of Day 01–15 logs; fresh guest or PIM records in KQL; Provisioning or non-interactive event ingestion; Service Principal / Managed Identity log export; a KQL role-change investigation; automated alerts; or remediation that changed Secure Score. The Audit Logs chart shows operations by name, not proof of a privileged role change.
+
+## Reusable Queries
+
+Five [KQL source files](../queries/README.md) reproduce the queries visible in screenshots 10–14. They were transcribed during the repository review; the screenshots remain the evidence of the original executions.
 
 ## Evidence and Tests
 
