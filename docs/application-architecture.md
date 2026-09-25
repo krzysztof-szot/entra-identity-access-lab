@@ -23,7 +23,7 @@ flowchart TB
 | `Expense.Submitter` App Role | Represents expense-submission permission | Anna's captured portal session |
 | `Expense.Approver` App Role | Represents approval permission | Peter's captured portal session alongside Submitter |
 | Graph `User.Read`, Delegated | Reads the signed-in user's own profile | Day 12 Anna/Peter results and Day 18 captured regression |
-| Conditional Access | Applies the required sign-in conditions and authentication strength | Day 18 What If, real sign-in and KQL correlation |
+| Conditional Access | Applies the required sign-in conditions and authentication strength | Day 18 What If and consistent policy outcomes in real sign-in/KQL captures; different event timestamps |
 
 The baseline assignments are `SG-App-Expense-Users` → `Expense.Submitter` and `SG-App-Expense-Approvers` → `Expense.Approver`. Later labs add Finance and external-access paths; see the [Access Matrix](access-matrix.md).
 
