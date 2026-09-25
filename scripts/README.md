@@ -42,9 +42,9 @@ Get-MgContext | Select-Object Account, TenantId, AuthType, Scopes
 Disconnect-MgGraph
 ```
 
-The export writes timestamped CSV summaries under `local-output/day-17/`, which is excluded by `.gitignore`. `Policy.Read.All` and an appropriate active Entra role are needed for the CA query. If CA access is denied, verify the role/PIM activation and reconnect; a requested scope alone does not grant the administrator's role permissions.
+The export writes CSV summaries into a unique timestamp-and-run-ID directory under `local-output/day-17/`, which is excluded by `.gitignore`. `Policy.Read.All` and an appropriate active Entra role are needed for the CA query. If CA access is denied, verify the role/PIM activation and reconnect; a requested scope alone does not grant the administrator's role permissions.
 
-Review warnings as well as the completion message. Membership failures are caught per group, CA export can be skipped or fail, and non-user/unresolved principals can appear as placeholders. The result is a selected inventory, not a complete backup or effective-access report.
+Review `export-status.json` as well as warnings. `Complete` means the selected reads finished; `Partial` identifies omitted group memberships or skipped/failed CA reads; `Failed` records a terminating error. An interrupted run can remain `InProgress`. Non-user/unresolved principals retain their IDs beside placeholders, and CSVs include stable object IDs to distinguish duplicate display names. The result is a selected inventory, not a complete backup or effective-access report; it does not export PIM eligibility or expand indirect access. Even a completed v1.0 group-member read has API limits, including the documented service-principal omission and extra permission needed for hidden membership. See [List group members](https://learn.microsoft.com/en-us/graph/api/group-list-members?view=graph-rest-1.0). Keep these tenant inventories private.
 
 ## Create the Lab User and Group
 
@@ -60,7 +60,7 @@ $labOperatorUpn = 'graph.operator@steglitzer1outlook.onmicrosoft.com'
 Disconnect-MgGraph
 ```
 
-The group is `SG-Graph-Automation-Lab`. Reruns check for existing objects or membership. An existing user/group is not automatically reconciled to every expected attribute.
+The group is `SG-Graph-Automation-Lab`. Reruns check for existing objects or membership. Group lookup enumerates all matching results and requires one cloud-managed, assigned, non-mail-enabled, non-role-assignable security group before reuse or membership changes. An existing user/group is not automatically reconciled to every expected attribute. These are sequential rerun checks, not an atomic concurrency guarantee; do not run provisioning concurrently.
 
 ## Privileged Role Test
 
@@ -90,6 +90,18 @@ The script additionally requires typing `ASSIGN`. This creates a direct Active a
 
 Scripts 02, 03, 04 and 06 check the original `adm-lab` UPN; scripts 02, 04 and 05 also restrict the target UPN. Review and replace these identity checks together with the tenant configuration in a separate lab copy. Preserve the guards, duplicate checks and privileged-write confirmation. No password, secret or token should be added to source.
 
-The six scripts were retained unchanged by the documentation review. These instructions were checked against their parameters and guards; the review did not execute Graph writes or create a new tenant test result.
+## Offline Audit Checks
+
+The 2026-09-25 independent audit changed scripts 03, 04 and 06 to reject incompatible groups and make incomplete exports distinguishable. These revised versions have **not** been rerun against the tenant. Day 17/18 screenshots remain historical evidence of the captured versions.
+
+Run the local regression checks in a fresh process:
+
+```powershell
+pwsh -NoProfile -File ./tests/local/Test-GraphScripts.ps1
+```
+
+The harness checks PowerShell syntax and replaces every Graph command with a local function; SDK autoloading is disabled. It exercises provisioning reruns, group ambiguity/type guards, role dry run/confirmation/error handling and complete/partial/failed exports. Fixture files stay under ignored `local-output/local-tests/`. Passing these checks validates local control flow only, not Graph authorization, consent, replication or tenant behavior.
+
+Graph scope consent and delegated operator roles must both allow the operation. `IdentityWrite` supports the complete user/group workflow; it is not a claim that every scope is the minimum for every individual request. For the privileged write, Privileged Role Administrator is the least-privileged supported role; for CA reads, an appropriate role such as Security Reader is sufficient when active. See [Add group members](https://learn.microsoft.com/en-us/graph/api/group-post-members?view=graph-rest-1.0), [Create role assignment](https://learn.microsoft.com/en-us/graph/api/rbacapplication-post-roleassignments?view=graph-rest-1.0), and [List CA policies](https://learn.microsoft.com/en-us/graph/api/conditionalaccessroot-list-policies?view=graph-rest-1.0).
 
 See [Day 17 implementation](../docs/day-17.md), [test history](../tests/day-17.md) and [Day 18 closure](../docs/day-18.md).

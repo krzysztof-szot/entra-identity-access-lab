@@ -55,6 +55,8 @@ $user = Get-MgUser `
 $groups = @(
     Get-MgGroup `
         -Filter "displayName eq '$groupName'" `
+        -All `
+        -Property Id,DisplayName,SecurityEnabled,MailEnabled,GroupTypes,IsAssignableToRole,OnPremisesSyncEnabled `
         -ErrorAction Stop
 )
 
@@ -65,6 +67,14 @@ if ($groups.Count -ne 1) {
 }
 
 $group = $groups[0]
+
+if ($group.SecurityEnabled -ne $true -or
+    $group.MailEnabled -ne $false -or
+    @($group.GroupTypes).Count -gt 0 -or
+    $group.IsAssignableToRole -eq $true -or
+    $group.OnPremisesSyncEnabled -eq $true) {
+    throw "Lab membership changes require a cloud-managed, assigned, non-role-assignable security group."
+}
 
 # Retrieve existing group members
 
