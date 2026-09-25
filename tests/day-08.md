@@ -138,6 +138,8 @@ Sign-in Logs showed:
 - `../evidence/day-08/07-entra-joined-expense-portal-blocked.png`
 - `../evidence/day-08/08-entra-joined-ca-block-result.png`
 
+**Evidence boundary:** the error page is timestamped `2026-09-18T13:44:24.520Z`, while the log event is `2026-09-18T13:43:18Z`. These are separate attempts supporting the joined-device block scenario. Masked device IDs prevent independent matching to `BFL-EJ01`.
+
 ## D8-07 — Hybrid joined device access
 
 **Acting identity:** `Hybrid Finance`  

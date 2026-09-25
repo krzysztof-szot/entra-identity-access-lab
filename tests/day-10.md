@@ -155,7 +155,7 @@ Require access reviews: Unchecked
 Access package: AP-External-Auditor-30D
 Policy: POL-Amber-External-Auditors
 Status: Delivered
-End date: 10/21/2026, 10:24:44 AM
+End date: 10/21/2026, 10:20:44 AM
 User lifecycle: Governed
 ```
 
@@ -207,7 +207,7 @@ User lifecycle: Governed
 **Target identity:** `External Auditor`  
 **Precondition:** the original assignment was delivered and its configured end date had not yet arrived.  
 **Expected:** manual removal terminates the package-managed entitlement.  
-**Observed:** after the removal action, the assignment remained visible in Assignments with status `Expired`, policy `POL-Amber-External-Auditors`, and original end date `10/21/2026, 10:24:44 AM`.  
+**Observed:** after the reported removal action, the assignment remained visible in Assignments with status `Expired`, policy `POL-Amber-External-Auditors`, and original end date `10/21/2026, 10:20:44 AM`.  
 **Result:** Pass  
 **Evidence:**
 

@@ -153,6 +153,8 @@ and CA008 returned:
 
 This confirmed that Microsoft Entra joined did not satisfy the hybrid device exclusion configured in CA008.
 
+The user-facing error (screenshot 07, `13:44:24.520Z`) and sign-in log (screenshot 08, `13:43:18Z`) show separate failed attempts on 2026-09-18. They support the same scenario, but are not an exact-event correlation. Masked device IDs also prevent independently matching each log to its named test VM.
+
 ### Hybrid joined device test
 
 The same Expense Portal access test was performed from `BFL-HJ01`.

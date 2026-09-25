@@ -43,24 +43,28 @@ The profile responses included display name, user principal name, department and
 
 To compare the non-user context, `User.Read.All` was temporarily added to the **same** Expense Portal App Registration as a Microsoft Graph **Application** permission. The screenshots show its transition from `Not granted` to tenant-wide admin consent granted.
 
-A temporary client secret was used for a PowerShell Client Credentials Flow token request with:
+The lab notes report using a temporary client secret for a PowerShell Client Credentials Flow token request with:
 
 ```text
 grant_type=client_credentials
 scope=https://graph.microsoft.com/.default
 ```
 
-Using the app-only bearer token, a Microsoft Graph `GET /users` request returned user profiles. The controlled negative test sent the same type of token to `GET /me` and returned `BadRequest`, as `/me` needs a signed-in user context.
+The token-acquisition request is not included in the published screenshots or source files. Screenshot 12 begins with an existing `$tokenResponse`; screenshot 14 shows selected claims but no client identifier. Together they support the reported app-only scenario, but do not independently establish the token-acquisition implementation or bind the token to the Expense Portal client.
 
-A locally decoded token payload showed Microsoft Graph as `aud`, `User.Read.All` in `roles`, and no delegated `scp` claim. The decoded payload was inspected for learning purposes, not treated as independent cryptographic token validation. Full tokens and secrets were not published.
+Using the reported app-only bearer token, a Microsoft Graph `GET /users` request returned user profiles. The controlled negative test sent the same type of token to `GET /me` and displayed `BadRequest`. This is consistent with the [Microsoft Graph requirement for delegated user context at `/me`](https://learn.microsoft.com/en-us/graph/api/user-get?view=graph-rest-1.0); the capture omits the response body, so it does not independently establish the server's exact error reason.
+
+A local projection of token claims showed Microsoft Graph as `aud`, `User.Read.All` in `roles`, and a blank `scp` value. The screenshot does not include the decoding code or distinguish an absent claim from an empty value. It was inspected for learning purposes, not treated as independent cryptographic token validation. Full tokens and secrets were not published.
 
 ### Least-privilege cleanup
 
-After the app-only experiment, the temporary client secret was deleted and the `User.Read.All` Application consent was revoked; its configured permission was removed. The user confirmed that cleanup was completed.
+The existing lab notes record operator-confirmed deletion of the temporary client secret and revocation of `User.Read.All` Application consent, plus removal of the configured permission. That historical report is retained; the Day 12 screenshots do not independently verify all cleanup actions.
 
-The final App Registration screenshot shows only `User.Read` (Delegated) remaining. A new Anna sign-in still displayed `Expense.Submitter`, her Graph profile and HTTP 200. This checks that cleanup of the temporary app-only access did not break the delegated integration.
+The final App Registration screenshot shows only `User.Read` (Delegated) remaining. Anna's captured portal session displayed `Expense.Submitter`, her Graph profile and HTTP 200. Its capture has no timestamp, token lifetime or fresh-sign-in details, so it supports the observed session result but does not prove new code redemption or token renewal after cleanup.
 
 The final permission-list screenshot alone does not independently show the secret deletion or the separate consent-revocation action.
+
+For the documented Easy Auth token-store approach, [Microsoft Learn](https://learn.microsoft.com/en-us/azure/app-service/configure-authentication-oauth-tokens) describes a configured provider client secret for provider access tokens, and `offline_access` for refresh tokens. A valid existing session cannot establish that this credential path still works after cleanup. The [remaining-work follow-up](remaining-work.md) calls for sanitized credential-configuration evidence, a fresh sign-in and token renewal without publishing secrets or tokens.
 
 ## Design Decisions
 
@@ -80,11 +84,11 @@ The recorded evidence supports:
 - Easy Auth, Token store and Graph scope configuration;
 - successful in-app Graph profiles for Anna and Peter with their distinct App Roles;
 - temporary `User.Read.All` Application permission and admin consent;
-- app-only `GET /users` success and `GET /me` failure (`BadRequest`);
-- Graph audience and app-role claims in the app-only token payload;
-- the final minimal configured permission list and a successful Expense Portal Graph regression test.
+- `GET /users` success and `GET /me` failure (`BadRequest`) in the reported app-only workflow, with token-acquisition and error-body limits noted above;
+- displayed Graph audience and app-role claim values in the reported app-only token;
+- the final minimal configured permission list and a successful captured Expense Portal Graph session.
 
-No separate user-consent prompt or full delegated JWT-claim capture is claimed. Secret deletion and consent revocation were confirmed as completed but are not individually pictured in the final permission-list screenshot.
+No separate user-consent prompt or full delegated JWT-claim capture is claimed. Secret deletion and consent revocation remain historical operator reports for Day 12; fresh token acquisition and renewal after cleanup are not independently evidenced here.
 
 ## Evidence and Tests
 

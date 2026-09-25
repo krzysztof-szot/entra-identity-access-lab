@@ -17,10 +17,10 @@ Screenshots 01 and 02 are byte-identical copies of one API permissions view. The
 - `09-peter-graph-profile.png` — shows Peter signed in with `Expense.Submitter` and `Expense.Approver`, plus his own Graph profile returned through delegated `User.Read` (HTTP 200).
 - `10-delegated-vs-application-permissions.png` — contrasts delegated `User.Read` (granted) with newly configured application `User.Read.All` (not yet granted).
 - `11-application-admin-consent.png` — confirms tenant-wide admin consent was granted to the temporary `User.Read.All` Application permission.
-- `12-client-credentials-graph-users.png` — shows the app-only token used in PowerShell to retrieve user profiles through Microsoft Graph `GET /users`.
-- `13-app-only-me-denied.png` — shows the expected `BadRequest` when an app-only token is used with `GET /me`, which requires a signed-in user.
-- `14-app-only-token-claims.png` — shows Microsoft Graph as token audience, `roles: User.Read.All`, and no delegated `scp` claim.
+- `12-client-credentials-graph-users.png` — shows a bearer-token PowerShell `GET /users` request returning profiles in the reported app-only scenario. Token acquisition and client identity are not shown.
+- `13-app-only-me-denied.png` — shows `BadRequest` from `GET /me` using the reported app-only token. The error body is absent, so the exact server reason is not independently visible.
+- `14-app-only-token-claims.png` — shows selected `$claims` values: Microsoft Graph audience, `roles: User.Read.All`, and blank `scp`. Decoding code, client ID and signature validation are not shown.
 - `15-least-privilege-final-state.png` — shows the final App Registration permission list with delegated `User.Read` retained and temporary application `User.Read.All` removed.
-- `16-final-expense-portal-graph.png` — confirms Expense Portal still authenticates Anna, displays `Expense.Submitter`, and retrieves her Graph profile (HTTP 200) after cleanup.
+- `16-final-expense-portal-graph.png` — shows Anna's session, `Expense.Submitter`, and a displayed Graph profile (HTTP 200), reported as after cleanup. It does not prove fresh code redemption or token renewal; the separate secret/consent cleanup actions are not captured here.
 
 Sensitive identifiers, user-specific details and credentials were redacted where appropriate. No access tokens or client secrets are published.

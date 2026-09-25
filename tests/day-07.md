@@ -9,7 +9,7 @@ Tests validate the hybrid identity integration between on-premises Active Direct
 | D7-01 | On-premises hybrid identity source | `Hybrid Finance` exists in the `HybridLab` Active Directory scope and is associated with the intended on-premises security group | User and group configuration were confirmed in Active Directory on `BFL-DC01` | Pass |
 | D7-02 | Active Directory domain configuration | `BFL-DC01` operates within the `bfl.local` Active Directory domain used by the hybrid lab | Domain configuration was confirmed on the Windows Server host | Pass |
 | D7-03 | Microsoft Entra Connect synchronization scope | Synchronization is limited to the intended `HybridLab` Organizational Unit structure | OU filtering was configured for the selected `HybridLab` user and group scope | Pass |
-| D7-04 | Microsoft Entra Connect synchronization | Connect Sync completes successfully and exports the scoped identity to Microsoft Entra ID | Initial synchronization completed successfully | Pass |
+| D7-04 | Microsoft Entra Connect initialization | Connect configuration succeeds and starts synchronization | Configuration completed and synchronization was initiated; user export is corroborated separately by D7-05 | Pass |
 | D7-05 | Synchronized user state | `Hybrid Finance` appears in Microsoft Entra ID as an on-premises synchronized identity | User appeared in Entra ID with `On-premises sync enabled: Yes` | Pass |
 | D7-06 | Password Hash Synchronization | Credentials originating from on-premises Active Directory can be used for Microsoft Entra cloud authentication | Cloud sign-in succeeded and Sign-in Logs identified `Password Hash Sync` | Pass |
 | D7-07 | Expense Portal access and Conditional Access | Synchronized user can access Expense Portal after satisfying the existing MFA Conditional Access policy | `Hybrid Finance` completed MFA, CA evaluation succeeded, and `Expense.Submitter` was available | Pass |
@@ -70,6 +70,8 @@ Tests validate the hybrid identity integration between on-premises Active Direct
 
 - `../evidence/day-07/07-password-hash-sync-test.png`
 - `../evidence/day-07/09-hybrid-user-signin-log-ca.png`
+
+**Evidence boundary:** screenshot 07 shows an existing My Account session; screenshot 09 proves PHS authentication. Neither independently records the reported on-premises password change followed by a fresh sign-in with the new password. To validate propagation separately, record the password-change time without exposing the password, then correlate a fresh PHS sign-in after synchronization.
 
 ## D7-07 — Expense Portal and Conditional Access
 

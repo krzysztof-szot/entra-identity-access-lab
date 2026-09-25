@@ -43,7 +43,7 @@ This demonstrates that **recent usage is not the same as continued business need
 
 ### Decision versus enforcement
 
-With automatic application disabled, a subsequent portal test still showed the auditor authenticated with `Expense.Submitter` after the Deny decision and before Apply. This was the intended distinction between a review decision and enforcement. The portal screenshot has no embedded time marker; its placement in the workflow documents the test sequence, not an independently timestamped correlation.
+With automatic application disabled, the lab notes place a portal test after the Deny decision and before Apply. It shows the auditor authenticated with `Expense.Submitter`, but has no timestamp or evidence of a fresh sign-in. A retained session alone does not establish whether membership was still present. The intended distinction between a review decision and enforcement is therefore only partially evidenced by that screenshot.
 
 After the review was closed and its results applied, Entra showed `Result applied`. The group returned to zero members. The auditor's fresh Expense Portal sign-in then failed with `AADSTS50105` because no eligible group or direct app assignment remained. The corresponding Sign-in log recorded `Failure` and error `50105`.
 
@@ -55,7 +55,7 @@ The Access Review audit log additionally showed `Apply review` / `Success`, init
 - Reuse the existing B2B guest, group and Expense Portal to keep the portfolio scenario connected across days.
 - Restore direct group membership after Day 10 instead of misrepresenting the expired access-package assignment as active.
 - Assign Anna as business reviewer, separate from the administrator applying the results and the user being reviewed.
-- Turn off auto-apply to make `Deny → access still granted → Apply → access denied` independently observable.
+- Turn off auto-apply to test `Deny → access still granted → Apply → access denied`; independently verifying the middle step requires a timestamped membership check and fresh sign-in.
 - Remove only the reviewed group membership; retain the guest identity, group, application and historical review.
 - Keep `Expense.Submitter` as the pre-existing lab role; it is **not** least-privilege read-only audit access.
 
@@ -66,7 +66,7 @@ The recorded evidence supports:
 - a zero-member starting baseline, restored guest membership and successful application access;
 - creation and configuration of the intended one-time guest group review;
 - Anna's completed, justified `Deny` decision despite a distinct `Approve` recommendation;
-- portal access after the decision but before results were applied;
+- a portal session reported as after the decision but before Apply, with timing and fresh-sign-in limitations;
 - `Result applied` and a successful `Apply review` audit event;
 - removal of the auditor's group membership and fresh sign-in denial (`AADSTS50105`), corroborated by Sign-in logs.
 
