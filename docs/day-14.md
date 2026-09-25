@@ -39,7 +39,7 @@ BFL Linked Portal was configured with the existing Expense Portal URL as the lin
 
 A separate Enterprise Application, `BFL Legacy HR - Password SSO`, was configured for **Password-based single sign-on** using the test application's form at `https://the-internet.herokuapp.com/login`. Entra's configuration page reported `A sign-in form was detected`.
 
-Anna was assigned the application, and the `BFL Legacy HR - Password SSO` tile appeared in My Apps. In the executed test, selecting the tile automatically signed her in to the test site's `/secure` page using stored application credentials **without manually entering the username or password**. The resulting page displayed `You logged into a secure area!`.
+Anna was assigned the application, and the `BFL Legacy HR - Password SSO` tile appeared in My Apps. The existing lab notes report that selecting the tile automatically signed her in to the test site's `/secure` page using stored application credentials **without manually entering the username or password**. The resulting page displayed `You logged into a secure area!`.
 
 This is credential replay to a separate form-based application's sign-in, **not SAML/OIDC federation** and not evidence that the application itself validates an Entra token. The configuration, My Apps assignment and successful destination page are visible in screenshots 19–21. Those screenshots do not independently expose the credential-replay step; the no-manual-entry observation is the recorded test execution. No credentials were published.
 
@@ -73,6 +73,8 @@ IIS on BFL-APP01 (http://localhost/)
 
 The internal page was opened locally on BFL-APP01. The connector appeared as **Active**, its group showed **one assigned application**, and the Enterprise Application showed the expected internal/external URLs, pre-authentication and connector group.
 
+Screenshots 08 and 10 also contain a `Private Network is currently disabled for your tenant` banner; screenshot 09 shows the enabled-state `Disable private network connectors` control. These configuration captures have no timestamps establishing their transition order. The successful external access and sign-in in 13–15 establish the working test outcome separately.
+
 The single-server arrangement is a deliberate learning constraint, **not** a highly available or separated production deployment. The public HTTPS URL reaches the IIS test page through Application Proxy; the static IIS page does **not** demonstrate backend Kerberos/header-based SSO or independently display a validated user identity.
 
 ### Assignment, Conditional Access and access tests
@@ -105,7 +107,7 @@ The source identity remained active (IsActive = True); deprovisioning concerned 
 
 ## Verification and Limitations
 
-The evidence supports: working Expense Portal authentication; SAML Toolkit sign-in with a matching Entra application log; Linked SSO redirection; successful Password-based SSO test execution through a My Apps tile and a separate login form; a healthy connector and working external Application Proxy route; Anna's allowed access and Peter's expected assignment denial; MFA policy evaluation; and SCIM user update plus successful disable recorded by Provisioning Logs.
+The evidence supports: working Expense Portal authentication; SAML Toolkit sign-in with a matching Entra application log; Linked SSO redirection; Password-based SSO configuration, a My Apps tile and a successful target session (the automatic replay step remains independently unverified); a healthy connector and working external Application Proxy route; Anna's allowed access and Peter's expected assignment denial; MFA policy evaluation; and SCIM user update plus successful disable recorded by Provisioning Logs.
 
 **Not implemented / not claimed:** Kerberos Constrained Delegation, header-based backend SSO, a second connector, high availability, a separate connector VM, or independent inspection of raw OIDC/SAML/SCIM messages. The provisioning evidence is numbered **16–18** and was completed before the previously deferred Password-based SSO lab was added as **19–21**. The last three images were not renumbered to imply a different execution order.
 

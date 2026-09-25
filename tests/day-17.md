@@ -60,20 +60,20 @@ Results below reflect **published screenshots and the checked-in scripts**. A sc
 **Observed:** six export categories completed, CA export skipped due to absent scope in the captured session; separate Application, Service Principal and CA queries succeeded; Add-user event records Graph Command Line Tools and `adm-lab`.  
 **Result:** D17-14 Partial; D17-15–17 Pass.  
 **Evidence:** [14](../evidence/day-17/14-graph-tenant-export.png), [15](../evidence/day-17/15-graph-applications-query.png), [16](../evidence/day-17/16-graph-conditional-access-query.png), [17](../evidence/day-17/17-graph-automation-audit-logs.png).  
-**Boundary:** the checked-in connection script now requests `Policy.Read.All`; there is no published screenshot of a **successful post-fix `conditional-access.csv` export**.
+**Boundary:** the checked-in connection script now requests `Policy.Read.All`; the Day 17 set has no **successful post-fix `conditional-access.csv` export**. Day 18 screenshot 02 separately reports that export; neither capture publishes its contents.
 
-## Deferred, incomplete or not evidenced
+## Day 17-only evidence boundaries
 
 | Area | Status | Explanation |
 | --- | --- | --- |
-| Direct role-assignment removal | Not evidenced | Screenshot 13 shows creation; no later removal or portal absence captured |
-| CA CSV after connection-scope correction | Not evidenced | Screenshot 14 remains the earlier skipped export; screenshot 16 is a separate read |
+| Direct role-assignment removal | Not in Day 17 captures; closed in Day 18 | Day 18 screenshot 05 records removal and screenshot 04 shows no Active assignment |
+| CA CSV after connection-scope correction | Not in Day 17 captures; reported successful in Day 18 | Day 18 screenshot 02 reports CA export; raw CSV contents remain unpublished |
 | PIM Eligible / time-bound role activation | Not tested in Day 17 | Script creates a direct tenant-wide assignment; Day 09 covers PIM |
 | Full tenant backup / effective permissions | Not in scope | CSV contains selected properties, direct assignments and possible unresolved principals |
 | Re-execution of all scripts after code edits | Not evidenced | Published screenshots capture the observed lab runs; source review is separate |
 
 ## Final state
 
-The published evidence establishes delegated Graph automation, the creation and verification of test identities/groups, repeat-safe membership, an actual 403 privilege boundary, a successful separate authorized assignment, selected local inventory and an audit event. A full CA CSV rerun and privileged-role cleanup are **open verification points**, not silently counted as passes.
+The published evidence establishes delegated Graph automation, the creation and verification of test identities/groups, repeat-safe membership, an actual 403 privilege boundary, a successful separate authorized assignment, selected local inventory and an audit event. CA CSV completion and direct-role cleanup were open points at the Day 17 checkpoint. The separate Day 18 captures report the CA export and confirm role cleanup; the historical Day 17 outcomes above are unchanged. Revised repository scripts have local checks only, with no new tenant execution.
 
 See [Day 17 implementation notes](../docs/day-17.md) and [Day 17 evidence](../evidence/day-17/README.md).

@@ -9,7 +9,7 @@ Day 18 tests the **current state** of the Baltic Finance Lab after Days 01–17.
 | D18-01 | Assessment baseline and Graph inventory | Review the correct tenant and successfully export selected tenant state including CA summary | Baltic Finance Lab / Entra ID P2 shown; users, groups, memberships, roles, apps and CA summary exported | Pass |
 | D18-02 | Standing Conditional Access Administrator access | No unnecessary Active assignment should remain | Active assignments view shows **No results** | Pass |
 | D18-03 | Day 17 privileged-role cleanup | Remove the temporary direct role assignment and record the change | Audit Logs show successful `Remove member from role` for `graph.operator` / Conditional Access Administrator | Pass |
-| D18-04 | Emergency access roles and CA exclusions | Two emergency GA role assignments and effective exclusions from reviewed CA policies are present | Two permanent Active GAs; emergency group effective for both accounts across ten reviewed policies | Pass |
+| D18-04 | Emergency access roles and CA exclusions | Two emergency GA role assignments and effective exclusions from reviewed CA policies are present | Two permanent Active GAs confirmed; console reports effective exclusions for ten policies, but source and membership inputs are absent | Partial |
 | D18-05 | PIM current assignment | Routine CA administration remains Eligible rather than standing Active | `adm-lab` is permanently Eligible; no Active assignment shown | Pass |
 | D18-06 | PIM activation controls | Activation is short-lived and controlled | 1 hour, Azure MFA, justification, approval and separate approver configured | Pass (hardening observation: permanent Active allowed by role policy) |
 | D18-07 | Authentication methods review | Record current method availability and scope | FIDO2, Authenticator, SMS, TAP and Email OTP enabled for configured targets | Pass (review; SMS remains broad) |
@@ -31,17 +31,17 @@ Day 18 tests the **current state** of the Baltic Finance Lab after Days 01–17.
 **Acting identity:** `adm-lab`.  
 **Expected:** confirm the Baltic Finance Lab tenant and rerun the existing Graph inventory successfully, including Conditional Access.  
 **Observed:** tenant overview shows Entra ID P2. The export reports users, groups, group memberships, role assignments, App Registrations, Enterprise Applications and Conditional Access summary as exported.  
-**Result:** Pass. This closes the Day 17 CA-export evidence gap.  
+**Result:** Pass. This closes the missing CA-success-output gap from Day 17. Raw CSV contents, row completeness and the later revised exporter remain outside this screenshot's proof.\
 **Evidence:** [01](../evidence/day-18/01-assessment-baseline.png), [02](../evidence/day-18/02-graph-inventory.png).
 
 ## D18-02–D18-06 — Privileged access, emergency access and PIM
 
 **Acting identities:** authorized Entra / PIM administrators; emergency accounts are assessed as dedicated recovery identities.  
 **Expected:** remove temporary routine standing privilege, retain the intended PIM Eligible model, preserve dedicated emergency access and verify PIM activation controls.  
-**Observed:** Conditional Access Administrator has no Active assignment; the Day 17 `graph.operator` role removal is present in Audit Logs; `adm-lab` remains Eligible; both emergency accounts are permanent Active Global Administrators and resolve to effective CA exclusions through the emergency group for all ten reviewed policies; PIM requires one-hour activation, Azure MFA, justification and separate approval.  
-**Result:** Pass for current state and recorded remediation.  
+**Observed:** Conditional Access Administrator has no Active assignment; the Day 17 `graph.operator` role removal is present in Audit Logs; `adm-lab` remains Eligible; both emergency accounts are permanent Active Global Administrators; console output reports effective exclusions through the emergency group for ten policies, without the calculation source or membership inputs; PIM requires one-hour activation, Azure MFA, justification and separate approval.\
+**Result:** D18-02–03 and D18-05–06 Pass for the captured configuration/removal; D18-04 Partial because the exclusion calculation is not independently verifiable.\
 **Evidence:** [03](../evidence/day-18/03-privileged-role-inventory.png), [04](../evidence/day-18/04-standing-privilege-assessment.png), [05](../evidence/day-18/05-privilege-remediation.png), [06](../evidence/day-18/06-break-glass-assessment.png), [07](../evidence/day-18/07-pim-current-state.png), [08](../evidence/day-18/08-pim-security-settings.png).  
-**Evidence boundary:** the PIM role policy still permits permanent Active assignments. The screenshots prove that none are currently present for Conditional Access Administrator; they do not prove that future permanent Active assignments are technically impossible.
+**Evidence boundary:** publish the sanitized emergency-exclusion review source and policy/group membership inputs, or capture matching What If exclusions for both accounts, to resolve D18-04. The PIM role policy still permits permanent Active assignments. The screenshots prove that none are currently present for Conditional Access Administrator; they do not prove that future permanent Active assignments are technically impossible.
 
 ## D18-07–D18-10 — Authentication and Conditional Access
 
@@ -77,7 +77,7 @@ Day 18 tests the **current state** of the Baltic Finance Lab after Days 01–17.
 **Observed:** both `aa-bfl-identity-lab` and `mi-bfl-shared-reader` have `Storage Blob Data Reader` at the Storage Account scope.  
 **Result:** Pass.  
 **Evidence:** [22](../evidence/day-18/22-workload-rbac.png).  
-**Evidence boundary:** this is an RBAC assignment review. Day 13 contains the separate runtime read-success / write-denial tests.
+**Evidence boundary:** this is a name-filtered RBAC assignment review at the Storage Account, not a complete effective-permission inventory. Day 13 separately records read-success output and a partially verified write-denial test.
 
 ## D18-18–D18-19 — Monitoring coverage and KQL
 
@@ -106,6 +106,6 @@ Day 18 tests the **current state** of the Baltic Finance Lab after Days 01–17.
 
 ## Final state
 
-The Day 18 evidence closes the Day 17 direct-role cleanup and CA-export evidence gaps. It revalidates PIM configuration, emergency role assignments and CA exclusions, phishing-resistant Conditional Access, external-access removal, delegated application permissions and workload RBAC. The captured portal session succeeds. Fresh Easy Auth code redemption, token renewal, emergency-group protection and emergency-use alert delivery remain separate follow-up checks alongside the documented hardening and monitoring gaps.
+The Day 18 evidence closes the Day 17 direct-role cleanup and CA-export evidence gaps. It revalidates PIM configuration and emergency role assignments, records reported CA exclusions pending independent verification, and revalidates phishing-resistant Conditional Access, external-access removal, delegated application permissions and workload RBAC. The captured portal session succeeds. Fresh Easy Auth code redemption, token renewal, emergency-group protection and emergency-use alert delivery remain separate follow-up checks alongside the documented hardening and monitoring gaps.
 
 See [Day 18 implementation notes](../docs/day-18.md) and [Day 18 evidence](../evidence/day-18/README.md).

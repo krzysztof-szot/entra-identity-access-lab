@@ -18,8 +18,8 @@ This folder documents workload authentication with Microsoft Entra Managed Ident
 - `12-user-assigned-identity-created.png` — shows the standalone `mi-bfl-shared-reader` user-assigned Managed Identity.
 - `13-user-assigned-identity-attached.png` — confirms `mi-bfl-shared-reader` is attached to the Automation Account.
 - `14-user-assigned-identity-success.png` — shows successful authentication and Blob read using `mi-bfl-shared-reader`.
-- `15-managed-identity-write-denied.png` — shows an attempted Blob upload denied as expected under `Storage Blob Data Reader` (`Least Privilege: PASS`).
+- `15-managed-identity-write-denied.png` — reports an attempted Blob upload and expected denial (`Least Privilege: PASS`). The raw Storage error and exception-filtering source are absent, so authorization-denial validation is Partial.
 - `16-managed-identity-sign-in-log.png` — shows successful sign-ins for both Managed Identities to Azure Storage and Azure Resource Manager. Sign-in success confirms authentication, not authorization for every Blob operation.
 - `17-user-assigned-identity-code.png` — shows the User-assigned Runbook selecting a specific identity with `Connect-AzAccount -Identity -AccountId $userAssignedClientId`.
 
-The Runbooks authenticate to Storage through Microsoft Entra ID without a client secret, password, SAS token or Storage Account key in the Runbook code. Sensitive identifiers were redacted where appropriate; no access tokens or credentials are published.
+The recorded design and job output describe Microsoft Entra authentication without stored application or Storage credentials. Only a connection-code fragment is published; complete credential handling and exception handling are not independently inspectable. Sensitive identifiers were redacted where appropriate; no access tokens or credentials are visible in these captures.

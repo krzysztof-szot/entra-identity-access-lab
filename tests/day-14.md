@@ -26,7 +26,7 @@ Tests cover the existing Expense Portal's sign-in experience, separate SAML, Lin
 | D14-18 | Redundant soft-delete handling | Repeating an already processed soft-delete is not misreported as new disable | RedundantSoftDelete / Skipped; assignment False, source identity active | Pass (expected skip) |
 | D14-19 | Password-based SSO configuration | A form-based test app is configured and its sign-in form detected | `BFL Legacy HR - Password SSO`; test-site login URL; `A sign-in form was detected` | Pass |
 | D14-20 | Password SSO My Apps assignment | Anna can launch the assigned test application from My Apps | `BFL Legacy HR - Password SSO` tile visible for Anna | Pass |
-| D14-21 | Credential replay and target sign-in | Selecting the tile signs in with stored test credentials without manual entry | Automatic sign-in observed during test; destination `/secure` displayed `You logged into a secure area!` | Pass (replay step reported, not independently visible in screenshot) |
+| D14-21 | Credential replay and target sign-in | Selecting the tile signs in with stored test credentials without manual entry | Existing notes report automatic sign-in; destination `/secure` displayed `You logged into a secure area!` | Partial (target session confirmed; replay reported but not independently visible) |
 
 ## D14-01–D14-03 — Expense Portal authentication
 
@@ -131,18 +131,18 @@ Tests cover the existing Expense Portal's sign-in experience, separate SAML, Lin
 
 **Acting identities:** authorized Baltic Finance Enterprise Application administrator (configuration), `anna.finance` (My Apps and sign-in).  
 **Expected:** a real test login form is detected; the assigned tile appears in My Apps; clicking it uses stored application credentials to sign in without manually entering the username or password.  
-**Observed:** `BFL Legacy HR - Password SSO` was configured with `https://the-internet.herokuapp.com/login`, and Entra showed `A sign-in form was detected`. The tile appeared for Anna. On selection, the user observed automatic credential replay without manual input, and the browser reached `/secure` with `You logged into a secure area!`.  
-**Result:** Pass for all three tests.  
+**Observed:** `BFL Legacy HR - Password SSO` was configured with `https://the-internet.herokuapp.com/login`, and Entra showed `A sign-in form was detected`. The tile appeared for Anna. The existing notes report automatic credential replay on selection without manual input, and the browser reached `/secure` with `You logged into a secure area!`.\
+**Result:** D14-19–20 Pass for configuration and tile; D14-21 Partial because the automatic replay step is not independently visible.\
 **Evidence:**
 
 - [19 — Password-based SSO form configuration](../evidence/day-14/19-password-based-sso-configuration.png)
 - [20 — Application tile in Anna's My Apps](../evidence/day-14/20-password-sso-myapps-assignment.png)
 - [21 — Successful sign-in at the test site's Secure Area](../evidence/day-14/21-password-based-sso.png)
 
-**Evidence boundary:** the destination screenshot proves a signed-in session, but cannot on its own distinguish automatic replay from manual input. Automatic use of stored credentials without manual entry is the recorded test observation. This is password-based credential replay, not a SAML/OIDC login to the target app. No test password is published.
+**Evidence boundary:** the destination screenshot proves a signed-in session, but cannot on its own distinguish automatic replay from manual input. Automatic use of stored credentials without manual entry is the recorded test observation. To resolve D14-21, sign out of the disposable target, record a fresh My Apps tile launch with the browser extension enabled and no manual form entry, and capture the resulting session without exposing credentials. This is password-based credential replay, not a SAML/OIDC login to the target app. No test password is published.
 
 ## Final state
 
-The existing Expense Portal, separate SAML and Linked applications, the single-host IIS/Application Proxy lab, and the SCIM test application were exercised as described above. Evidence includes both positive and negative proxy access, SCIM update and a logged successful disable. The later Password-based SSO test also demonstrated automatic sign-in through My Apps using stored credentials. No second connector VM, backend Kerberos SSO or high availability is claimed.
+The existing Expense Portal, separate SAML and Linked applications, the single-host IIS/Application Proxy lab, and the SCIM test application were exercised as described above. Evidence includes both positive and negative proxy access, SCIM update and a logged successful disable. The later Password-based SSO record shows configuration, a My Apps tile and a signed-in destination; automatic replay remains a reported observation requiring independent validation. No second connector VM, backend Kerberos SSO or high availability is claimed.
 
 See [Day 14 evidence](../evidence/day-14/README.md) and [Day 14 implementation notes](../docs/day-14.md).

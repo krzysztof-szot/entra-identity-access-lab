@@ -35,19 +35,21 @@ The group-creation and membership scripts check the existing state before write 
 
 Graph delegated scopes and the signed-in administrator's Entra RBAC permissions are **separate authorization layers**. This is a direct assignment, **not** a PIM Eligible grant, temporary activation or automatic one-hour expiry.
 
-**Cleanup limitation:** the 17 published screenshots do not confirm removal of the test role. No completed cleanup is claimed.
+**Day 17 evidence boundary:** its 17 screenshots do not show cleanup. The separate [Day 18 removal audit](../evidence/day-18/05-privilege-remediation.png) confirms the later removal; this does not change what the original Day 17 screenshots show.
 
 ### Tenant state inventory and audit
 
 `06-export-tenant-state.ps1` writes local timestamped CSV summaries of users, groups, group members, direct role assignments, App Registrations and Enterprise Applications. The code also conditionally exports CA policy names and states when `Policy.Read.All` is present and the Graph request succeeds.
 
-The **captured run** successfully reported the first six CSV categories but skipped Conditional Access for missing `Policy.Read.All`. The subsequently checked-in `01-connect-graph.ps1` requests this scope in Read mode, and screenshot 16 separately shows a successful CA policy query; **a completed CA CSV export after the scope correction is not shown**.
+The **captured run** successfully reported the first six CSV categories but skipped Conditional Access for missing `Policy.Read.All`. The subsequently checked-in `01-connect-graph.ps1` requests this scope in Read mode, and screenshot 16 separately shows a successful CA policy query; **a completed CA CSV export after the scope correction is not shown in the Day 17 set**; the separate Day 18 output reports its success.
 
 The application inventory distinguishes `Get-MgApplication` (App Registration) from `Get-MgServicePrincipal` (Enterprise Application / Service Principal). The CA query shows eight policies and states at the time of capture; it does not establish their enforcement outcomes.
 
 A successful Entra `Add user` Audit Log identifies `graph.operator` as target, `adm-lab` as initiating user and Microsoft Graph Command Line Tools as actor display name.
 
 ## Scripts
+
+The [script instructions](../scripts/README.md) describe the audited source and local validation. Repository corrections made after these captures have not been rerun against the tenant; the screenshots validate historical runs, not every behavior of the revised scripts.
 
 | Script | Purpose |
 | --- | --- |
@@ -71,7 +73,7 @@ A successful Entra `Add user` Audit Log identifies `graph.operator` as target, `
 
 **Verified by published evidence:** SDK availability; delegated sign-in; object queries; test-user properties and duplicate prevention; successful Add-user audit event; group creation and membership; role definition and dry run; real `adm-lab` authorization denial; successful `roleops-lab` direct assignment; local export of six categories; separate application/Service Principal and CA policy queries.
 
-**Not verified / not claimed:** the original user-creation console success from screenshot 04; a successful CA CSV export after fixing requested scopes; deletion of the direct test role; a time-bound PIM activation; a full-fidelity Entra backup; or a complete effective-access report. The export catches membership-read errors and may contain `[non-user or unavailable]` placeholders, so its membership/role-name reports must not be treated as exhaustive object-resolved inventories.
+**Not verified by the Day 17 screenshots:** the original user-creation console success from screenshot 04; the later successful CA CSV export or deletion of the direct test role (both have separate Day 18 evidence); a time-bound PIM activation; a full-fidelity Entra backup; or a complete effective-access report. The export catches membership-read errors and may contain `[non-user or unavailable]` placeholders, so its membership/role-name reports must not be treated as exhaustive object-resolved inventories.
 
 ## Evidence and Tests
 
