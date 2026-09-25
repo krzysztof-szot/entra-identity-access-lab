@@ -35,10 +35,10 @@ The user was:
 - created as an internal Member account,
 - assigned to Finance,
 - added to `SG-Finance-Users`,
-- included in the Finance administrative scope,
+- reported as included in the Finance administrative scope (direct user membership is not shown in the published AU capture),
 - granted Expense Portal access through group membership.
 
-A fresh sign-in confirmed that the Joiner received the `Expense.Submitter` application role.
+The captured authenticated portal session shows the Joiner's `Expense.Submitter` application role. No sign-in timestamp is published to independently confirm session freshness.
 
 ### Mover
 
@@ -70,11 +70,15 @@ The final deprovisioned state included:
 
 A fresh authentication attempt was blocked after the account was disabled.
 
+The account overview still shows one assigned license. Session revocation and termination of existing application sessions are not demonstrated; this lab verifies disabled state and a blocked sign-in attempt, not complete production offboarding. The sign-in capture says the account is locked and lacks an error code/log to establish disablement as the precise cause.
+
 ### Administrative Unit
 
 `AU-Finance` was created to provide a limited administrative scope for Finance identities.
 
-`SG-Finance-Users` was added to the Administrative Unit and Finance users required for delegated administration were placed within the Finance scope.
+`SG-Finance-Users` was added to the Administrative Unit. Finance users were reported as placed within the scope, but the published membership screenshot shows only the group.
+
+Adding a group to an AU scopes management of that group; it does not scope management of the group's individual users. Those users must be AU members separately. See [Microsoft's Administrative Unit scope rules](https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/administrative-units) (checked 2026-09-25). A direct user-membership capture is therefore still required for Marc.
 
 A dedicated administrator account, `adm-finance`, received:
 
@@ -84,7 +88,7 @@ with the assignment scoped to:
 
 `AU-Finance`
 
-The role was not assigned tenant-wide.
+The shown assignment is scoped to `AU-Finance`. A complete inventory of the administrator's other active/eligible roles is not published, so the capture does not establish that this is the account's only source of administrative permission.
 
 ## Design Decisions
 
@@ -113,7 +117,7 @@ These mechanisms have different purposes:
 
 ### Scoped administration instead of tenant-wide administration
 
-The Finance administrator received `User Administrator` only for `AU-Finance`.
+The documented Finance administrator assignment grants `User Administrator` at `AU-Finance` scope.
 
 This follows the least-privilege principle and avoids granting unnecessary tenant-wide administrative permissions.
 
@@ -124,10 +128,10 @@ The following scenarios were validated:
 - `Marc Joiner` received Expense Portal access through `SG-Finance-Users`.
 - `Jan Mover` lost Expense Portal access after moving from Finance to IT.
 - `Alexandra Leaver` could no longer authenticate after offboarding.
-- `adm-finance` could manage a Finance user within `AU-Finance`.
-- `adm-finance` could not manage the HR control user outside `AU-Finance`.
+- The `adm-finance` session showed enabled edit controls and Marc's Job title; a successful update by that administrator is reported but no update audit event is published.
+- The `adm-finance` session showed disabled Edit properties/Delete controls for the HR control user. Other operations, including the visible Reset password control, were not tested in the published evidence.
 
-The positive and negative tests confirmed both the intended lifecycle behavior and the Administrative Unit permission boundary.
+The evidence supports application access/denial, disabled-account state and the visible portal control boundary. To complete AU runtime verification, capture Marc's direct AU membership and the administrator's effective roles, then make and restore a harmless Job title change as `adm-finance` with successful Audit Logs. Attempt the same harmless edit on the out-of-scope HR control user and retain the denial. Do not use deletion as the negative test.
 
 ## Evidence and Tests
 

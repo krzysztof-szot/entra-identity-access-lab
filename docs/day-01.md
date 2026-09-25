@@ -7,7 +7,7 @@ The goal of Day 01 was to build the Microsoft Entra ID identity foundation for t
 ## Implemented
 
 - Created workforce user accounts and configured basic identity attributes.
-- Created department, application, Conditional Access pilot, emergency access and contractor security groups.
+- Created department, application, Conditional Access pilot and contractor security groups. The emergency access group is part of the documented design, but is not shown in the Day 01 group inventory; its later CA exclusion is visible in Day 03.
 - Separated administrative responsibilities across dedicated admin accounts.
 - Assigned `User Administrator` to `adm-lab`.
 - Configured two emergency access accounts with permanent active `Global Administrator` assignments.
@@ -37,8 +37,10 @@ Two dedicated break-glass accounts provide tenant recovery access and are kept s
 
 ## Verification
 
-User attribute changes and `SG-CA-Pilot` membership changes were completed successfully and verified in Microsoft Entra Audit Logs.
+Audit Logs show a successful user attribute update and successful re-add of `thomas.it` to `SG-CA-Pilot`. The preceding removal row is visible, but its result detail is not expanded.
 
 Both emergency access accounts also completed successful interactive Azure Portal sign-ins.
+
+Anna's fresh-sign-in check was reported as successful, but no Day 01 evidence was published for that check. The role-assignment boundary is demonstrated by a disabled portal control, not an attempted Microsoft Graph operation.
 
 Detailed validation results are available in [Day 01 Tests](../tests/day-01.md), with supporting screenshots in [Day 01 Evidence](../evidence/day-01/).

@@ -6,12 +6,12 @@ Tests validate B2B collaboration between **Amber Audit Partners** and **Baltic F
 
 | Test ID | Test | Expected result | Actual result | Outcome |
 |---|---|---|---|---|
-| D5-01 | B2B invitation and redemption | External user can be invited from Amber Audit Partners and successfully redeem the invitation. | Audit Logs recorded partner configuration, `Invite external user` and `Redeem external user invite` with successful results. | Pass |
+| D5-01 | B2B invitation and redemption | External user can be invited from Amber Audit Partners and successfully redeem the invitation. | Successful partner-add, invitation and redemption rows are visible; target and initiator details are absent. | Partial evidence |
 | D5-02 | Expense Portal access without group membership | External Auditor must not access Expense Portal without an applicable application assignment. | Sign-in was denied with `AADSTS50105` because the user was not a member of an assigned group and had no direct assignment. | Pass |
 | D5-03 | Group-based application authorization | Membership in `SG-External-Contractors` should provide the assigned `Expense.Submitter` role. | External Auditor was added as a Guest member of `SG-External-Contractors` and successfully accessed Expense Portal with `Expense.Submitter`. | Pass |
 | D5-04 | B2B sign-in logging | Successful access should appear as a Guest B2B collaboration sign-in. | Sign-in Logs showed `External Auditor`, `User type: Guest`, `Cross tenant access type: B2B collaboration` and `Application: Expense Portal`. | Pass |
-| D5-05 | Inbound B2B scoping | Baltic Finance should allow inbound B2B access only for the selected Amber user and selected application. | Inbound access was customized for the selected Amber Audit Partners user and Expense Portal. | Pass |
-| D5-06 | Cross-tenant trust and outbound access | MFA trust should be enabled without trusting partner device state, and Amber outbound access should be scoped to the intended user and application. | MFA claims from Amber were trusted. Compliant-device and hybrid-joined-device trust remained disabled. Amber outbound access was restricted to the External Auditor and selected Baltic Finance application. | Pass |
+| D5-05 | Inbound B2B scoping | Baltic Finance should allow inbound B2B access only for the selected Amber user and selected application. | Custom Allow scope shows one masked user and Expense Portal; the user's identity cannot be checked. | Partial evidence |
+| D5-06 | Cross-tenant trust and outbound access | MFA trust should be enabled without trusting partner device state, and Amber outbound access should be scoped to the intended user and application. | MFA trust enabled and both device trusts disabled; outbound scope shows External Auditor and one masked application. Runtime MFA-claim acceptance is not shown. | Partial evidence |
 | D5-07 | Cross-tenant inbound block | Blocking inbound B2B access should prevent the External Auditor from reaching Expense Portal. | Access was denied with `AADSTS500213`, confirming enforcement of the resource tenant cross-tenant access policy. | Pass |
 | D5-08 | Restore intended cross-tenant access | Restoring inbound access should allow the authorized Guest to use Expense Portal again. | After restoring `Allow access`, a new Expense Portal sign-in completed successfully. | Pass |
 
@@ -31,7 +31,9 @@ Audit Logs confirmed:
 - `Invite external user` — Success;
 - `Redeem external user invite` — Success.
 
-**Result:** Pass
+The list does not display the event targets or initiators, so exact correlation to this partner/user is not independently established by the audit screenshot.
+
+**Result:** Partial evidence; successful event types are confirmed.
 
 **Evidence:** `02-b2b-cross-tenant-audit-logs.png`
 
@@ -144,9 +146,9 @@ Only the intended external identity and application are included in the partner-
 
 **Observed**
 
-Custom inbound B2B collaboration settings were successfully configured with selected user and application scopes.
+Custom inbound B2B collaboration shows Allow access for one selected user and Expense Portal. The user value is masked, preventing exact identity verification. Screenshot 08 shows the earlier inherited-default state; screenshot 09 shows the custom settings.
 
-**Result:** Pass
+**Result:** Partial evidence; scope shape and named application confirmed, selected user identity obscured.
 
 **Evidence:**
 
@@ -171,9 +173,9 @@ Baltic Finance inbound trust:
 - compliant device trust — disabled;
 - Microsoft Entra hybrid joined device trust — disabled.
 
-Amber Audit Partners outbound B2B access was scoped to the External Auditor and selected Baltic Finance application.
+Amber Audit Partners outbound B2B access shows External Auditor and one selected external application. The application value is masked. MFA trust is configuration evidence only; the successful sign-in screenshots show CA Not applied and no partner-MFA acceptance detail.
 
-**Result:** Pass
+**Result:** Partial evidence; trust configuration and outbound user confirmed, exact outbound application obscured.
 
 **Evidence:**
 
@@ -234,7 +236,7 @@ A new interactive sign-in to Expense Portal completed successfully after restori
 
 ---
 
-## Final state
+## Day 05 final state
 
 - External Auditor remains a `Guest` in Baltic Finance.
 - External Auditor is a member of `SG-External-Contractors`.
@@ -244,6 +246,8 @@ A new interactive sign-in to Expense Portal completed successfully after restori
 - Partner device trust remains disabled.
 - Amber Audit Partners outbound B2B access remains configured for the intended user and application.
 - Temporary blocking configuration used during D5-07 was removed.
+
+These statements record the historical lab outcome, subject to the masking limits above. Later governance labs remove the auditor's application access. To close the evidence gaps, retain stable non-sensitive aliases for the selected user/application, capture target/initiator details for the invitation events, verify the saved external-collaboration settings, and capture a guest sign-in with a required MFA policy and authentication details establishing partner MFA-claim acceptance.
 
 ## Evidence
 

@@ -8,13 +8,13 @@ This folder contains evidence for the Day 04 authentication hardening and phishi
 
 - `02-passkey-registration-campaign.png` — shows the enabled Passkey (FIDO2) registration campaign scoped to `SG-Passwordless-Pilot`.
 
-- `03-temporary-access-pass-bootstrap.png` — shows a Temporary Access Pass created for Anna Finance to bootstrap registration of a stronger authentication method.
+- `03-temporary-access-pass-bootstrap.png` — shows a one-hour Temporary Access Pass created for Anna Finance for intended bootstrap use; no TAP sign-in or consumption is shown.
 
 - `04-anna-passkey-registered.png` — confirms that Anna Finance successfully registered a device-bound passkey in addition to Microsoft Authenticator.
 
 - `05-ca003-phishing-resistant-mfa.png` — shows `CA003-ExpensePortal-Phishing-resistant-MFA-Pilot` enabled for `SG-Auth-Hardening-Pilot`, excluding `SG-Emergency-Access`, targeting the Expense Portal, and requiring the `Phishing-resistant MFA` authentication strength.
 
-- `06-peter-weak-authentication-denied.png` — confirms that Peter Finance cannot access the Expense Portal because his available authentication methods do not satisfy the phishing-resistant MFA requirement.
+- `06-peter-weak-authentication-denied.png` — shows Peter Finance blocked with an additional-sign-in-methods-required message. The application, CA003 policy and exact failed method are not visible, so the scenario attribution is only partially supported.
 
 - `07-anna-passkey-expense-portal-success.png` — confirms successful Expense Portal access for Anna Finance after authentication with a passkey while retaining the `Expense.Submitter` application role.
 

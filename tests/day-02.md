@@ -16,7 +16,7 @@ Validate Microsoft Entra authentication, group-based application access, App Rol
 | `anna.finance` receives `Expense.Submitter` | Submitter permission is present and Approver permission is absent | Pass | [06-anna-portal-access.png](../evidence/day-02/06-anna-portal-access.png) |
 | `peter.finance` can authenticate to Expense Portal | Authentication succeeds | Pass | [07-peter-portal-access.png](../evidence/day-02/07-peter-portal-access.png) |
 | `peter.finance` receives `Expense.Submitter` and `Expense.Approver` | Both expected application permissions are present | Pass | [07-peter-portal-access.png](../evidence/day-02/07-peter-portal-access.png) |
-| Tenant-wide admin consent is granted | Required API permissions have admin consent | Pass | [08-admin-consent.png](../evidence/day-02/08-admin-consent.png) |
+| Tenant-wide admin consent is granted | Microsoft Graph delegated `User.Read` is granted for the tenant | Pass | [08-admin-consent.png](../evidence/day-02/08-admin-consent.png) |
 | Sign-ins for Anna and Peter are recorded | Successful authentication events are visible in Microsoft Entra sign-in logs | Pass | [09-anna-and-peter-signin-logs.png](../evidence/day-02/09-anna-and-peter-signin-logs.png) |
 | Unassigned account cannot access Expense Portal | Access is denied because explicit assignment is required | Pass | [10-unassigned-user-access-denied.png](../evidence/day-02/10-unassigned-user-access-denied.png) |
 
@@ -24,4 +24,4 @@ Validate Microsoft Entra authentication, group-based application access, App Rol
 
 All planned Day 02 application identity and access tests completed successfully.
 
-The tests confirmed that authentication, application assignment, App Roles and access restrictions behave as designed.
+The tests confirmed authenticated application sessions, displayed App Roles and assignment-based denial. Successful business operations and server-side enforcement of Submitter versus Approver permissions were not tested in the published evidence.
