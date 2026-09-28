@@ -897,7 +897,7 @@ Configuration changes and access scenarios are validated using Microsoft Entra S
 | Path | Contents |
 | --- | --- |
 | [README.md](README.md) | Project overview, roadmap and featured evidence |
-| [docs/](docs/) | Day 01–18 implementation notes, access matrix, architecture, coverage and remaining work |
+| [docs/](docs/) | Day 01–18 implementation notes, access matrix, architecture |
 | [tests/](tests/) | Expected behavior, observed results and evidence boundaries |
 | [evidence/](evidence/) | Published screenshots with per-day indexes |
 | [scripts/](scripts/) | Six Day 17 Microsoft Graph PowerShell scripts and usage instructions |
