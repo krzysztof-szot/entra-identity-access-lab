@@ -435,8 +435,6 @@ flowchart TB
 | 17 | Microsoft Graph PowerShell Automation | [Docs](docs/day-17.md) | [Tests](tests/day-17.md) | [Screens](evidence/day-17/) |
 | 18 | Security Assessment and Final Validation | [Docs](docs/day-18.md) | [Tests](tests/day-18.md) | [Screens](evidence/day-18/) |
 
-<sub>All 18 labs are documented. Day 18 closes the Day 17 role-cleanup and CA-export gaps. Deferred features and further tenant validation are listed in <a href="docs/remaining-work.md">remaining work</a>.</sub>
-
 ### Detailed Lab Notes
 
 Select a day to expand its original implementation checklist and supporting links.
