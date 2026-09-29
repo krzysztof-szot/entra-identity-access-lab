@@ -222,6 +222,21 @@ This creates a three-layer Conditional Access validation chain:
 
 `What If prediction → real Entra sign-in → centralized KQL result`.
 
+### Final Identity Secure Score
+
+The final Day 18 review captured the current Microsoft Entra Identity Secure Score as a point-in-time posture indicator.
+
+- Day 16 baseline: **43.82%**;
+- Day 18 snapshot: **49.67%**;
+- observed difference: **+5.85 percentage points**;
+- total recommendations: **15**;
+- Security recommendations: **13**;
+- Best practice recommendations: **2**.
+
+The final recommendation list still contains active items, including protection for all users with a **user risk policy** and a **sign-in risk policy**. These remain residual hardening opportunities rather than completed controls.
+
+No causal claim is made that a specific Day 18 change produced the score increase. Identity Secure Score refreshes periodically and can reflect multiple configuration changes. The score is therefore used as an assessment signal, not as proof of full remediation or compliance.
+
 ## Assessment Summary
 
 | Area | Result | Notes |
@@ -241,6 +256,7 @@ This creates a three-layer Conditional Access validation chain:
 | Access Package `Initial Policy` | Not assessed | Visible in policy list but not evaluated in Day 18 evidence |
 | Easy Auth credential and token lifecycle | Configuration evidenced / runtime follow-up required | Microsoft provider references `MICROSOFT_PROVIDER_AUTHENTICATION_SECRET`; captured session succeeds, but fresh code redemption and token renewal remain unverified |
 | Emergency-group management boundary | Not tested | Effective exclusion is shown, but protection of group membership is not |
+| Identity Secure Score | Reviewed | Final snapshot 49.67% versus Day 16 baseline 43.82%; unresolved recommendations remain |
 
 ## Design Decisions
 
@@ -254,9 +270,9 @@ This creates a three-layer Conditional Access validation chain:
 
 ## Verification and Limitations
 
-**Verified by the published Day 18 evidence:** complete selected Graph inventory including CA summary; no Active Conditional Access Administrator assignment; removal of the Day 17 test role; two permanent emergency Global Administrators with effective group-based CA exclusions across ten reviewed policies; PIM Eligible state and activation controls; authentication-method configuration; phishing-resistant Expense Portal control; What If and real CA enforcement; empty external-contractor group; governed/expired external assignment and fresh AADSTS50105 denial; delegated `User.Read` only; Easy Auth Microsoft provider linked to Expense Portal with the `MICROSOFT_PROVIDER_AUTHENTICATION_SECRET` credential reference; successful captured portal session and delegated Graph HTTP 200 after that configuration; read-only workload RBAC; selected Diagnostic Settings coverage; and final KQL CA results.
+**Verified by the published Day 18 evidence:** complete selected Graph inventory including CA summary; no Active Conditional Access Administrator assignment; removal of the Day 17 test role; two permanent emergency Global Administrators with effective group-based CA exclusions across ten reviewed policies; PIM Eligible state and activation controls; authentication-method configuration; phishing-resistant Expense Portal control; What If and real CA enforcement; empty external-contractor group; governed/expired external assignment and fresh AADSTS50105 denial; delegated `User.Read` only; Easy Auth Microsoft provider linked to Expense Portal with the `MICROSOFT_PROVIDER_AUTHENTICATION_SECRET` credential reference; successful captured portal session and delegated Graph HTTP 200 after that configuration; read-only workload RBAC; selected Diagnostic Settings coverage; final KQL CA results; and a final point-in-time Identity Secure Score snapshot of 49.67% with remaining recommendations visible.
 
-**Not established / not claimed:** fresh Easy Auth authorization-code redemption; successful provider token refresh through `/.auth/refresh` followed by another successful Graph call; a formal compliance audit; natural 30-day Access Package expiration; assessment of the separate `Initial Policy`; elimination of every possible stale account or permission path; final Identity Secure Score improvement; centralized Service Principal or Managed Identity sign-in export; or proof that no future permanent Active PIM assignment can be created under the current role policy.
+**Not established / not claimed:** fresh Easy Auth authorization-code redemption; successful provider token refresh through `/.auth/refresh` followed by another successful Graph call; a formal compliance audit; natural 30-day Access Package expiration; assessment of the separate `Initial Policy`; elimination of every possible stale account or permission path; causal attribution of the Identity Secure Score increase to any individual change; centralized Service Principal or Managed Identity sign-in export; or proof that no future permanent Active PIM assignment can be created under the current role policy.
 
 ## Reusable Query
 
