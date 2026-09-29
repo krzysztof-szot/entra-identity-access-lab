@@ -25,6 +25,7 @@ Day 18 tests the **current state** of the Baltic Finance Lab after Days 01–17.
 | D18-17 | Workload identity RBAC | Managed identities should retain read-only storage authorization | Both identities have `Storage Blob Data Reader` at Storage Account scope | Pass |
 | D18-18 | Diagnostic Settings coverage | Confirm exactly which Entra log categories are centralized | Audit, user sign-in and Provisioning selected; Service Principal / Managed Identity sign-ins not selected | Partial / gap documented |
 | D18-19 | Final KQL Conditional Access review | Centralized logs should corroborate recent CA outcomes | CA001 + CA003 success; CA002 reportOnlyNotApplied; CA009 notEnabled | Pass |
+| D18-20 | Final Identity Secure Score review | Capture the current score and unresolved recommendations without treating the score as compliance evidence | Identity Secure Score 49.67%; 15 total recommendations; 13 Security; 2 Best practice; user-risk and sign-in-risk recommendations remain Active | Pass (point-in-time review) |
 
 ## D18-01 — Baseline and tenant-state inventory
 
@@ -88,6 +89,15 @@ Day 18 tests the **current state** of the Baltic Finance Lab after Days 01–17.
 **Evidence:** [23](../evidence/day-18/23-monitoring-coverage.png), [24](../evidence/day-18/24-final-kql-review.png).  
 **Evidence boundary:** selected categories do not imply historical backfill or prove event presence in every corresponding table. Workload identity sign-ins are not centrally exported by the shown Diagnostic Setting.
 
+## D18-20 — Final Identity Secure Score
+
+**Acting identity:** authorized Entra security report reader.  
+**Expected:** capture the final point-in-time Identity Secure Score and remaining recommendations without treating the score as a compliance result.  
+**Observed:** Identity Secure Score is **49.67%**, compared with the Day 16 baseline of **43.82%**. The view shows **15** total recommendations, including **13 Security** and **2 Best practice** recommendations. User-risk and sign-in-risk policy recommendations remain Active.  
+**Result:** Pass (point-in-time review).  
+**Evidence:** [25](../evidence/day-18/25-final-secure-score.png).  
+**Evidence boundary:** the observed increase is **5.85 percentage points**, but it is not attributed to one specific Day 18 remediation. Identity Secure Score refreshes periodically and does not prove complete security or compliance.
+
 ## Residual findings / not fully assessed
 
 | Area | Status | Explanation |
@@ -98,7 +108,6 @@ Day 18 tests the **current state** of the Baltic Finance Lab after Days 01–17.
 | Workload identity centralized sign-in logging | Partial | `ServicePrincipalSignInLogs` and `ManagedIdentitySignInLogs` are not selected |
 | Access Package `Initial Policy` | Not assessed | Visible in screenshot 15 but not evaluated in this evidence set |
 | Natural 30-day Access Package expiry | Not evidenced | Day 10 documented earlier manual revocation before the configured end date |
-| Final Identity Secure Score improvement | Not evidenced | Day 18 evidence set does not include a final score comparison |
 | Easy Auth token lifecycle | Follow-up required | Credential reference is documented in screenshot 20; independently evidence fresh sign-in/code redemption and successful `/.auth/refresh` followed by another successful Graph call |
 | Emergency-group membership protection | Not tested | Confirm delegated group administrators cannot change the exclusion group |
 | Emergency-account sign-in and alert validation | Not repeated in Day 18 | Day 01 sign-ins are historical; current strong-authentication and alert evidence require separate validation |
@@ -106,6 +115,6 @@ Day 18 tests the **current state** of the Baltic Finance Lab after Days 01–17.
 
 ## Final state
 
-The Day 18 evidence closes the Day 17 direct-role cleanup and CA-export evidence gaps. It revalidates PIM configuration, emergency role assignments and CA exclusions, phishing-resistant Conditional Access, external-access removal, delegated application permissions, the Easy Auth credential reference and workload RBAC. The captured portal session after the Easy Auth credential configuration succeeds with `Expense.Submitter` and Graph HTTP 200 under Delegated `User.Read`. Fresh Easy Auth code redemption, token renewal, emergency-group protection and emergency-use alert delivery remain separate follow-up checks alongside the documented hardening and monitoring gaps.
+The Day 18 evidence closes the Day 17 direct-role cleanup and CA-export evidence gaps. It revalidates PIM configuration, emergency role assignments and CA exclusions, phishing-resistant Conditional Access, external-access removal, delegated application permissions, the Easy Auth credential reference and workload RBAC, and records a final Identity Secure Score snapshot of 49.67% against the Day 16 baseline of 43.82%. The captured portal session after the Easy Auth credential configuration succeeds with `Expense.Submitter` and Graph HTTP 200 under Delegated `User.Read`. Fresh Easy Auth code redemption, token renewal, emergency-group protection and emergency-use alert delivery remain separate follow-up checks alongside the documented hardening and monitoring gaps.
 
 See [Day 18 implementation notes](../docs/day-18.md) and [Day 18 evidence](../evidence/day-18/README.md).
