@@ -249,7 +249,7 @@ The currently implemented environment includes:
 * Correlated Conditional Access results across What If, real sign-in logs and Log Analytics KQL
 * Explicit residual findings, including workload sign-in export coverage and follow-up validation
 
-Start with [Day 18 findings](docs/day-18.md), [remaining work](docs/remaining-work.md), [script instructions](scripts/README.md) and [reusable KQL](queries/README.md).
+Start with [Day 18 findings](docs/day-18.md), [script instructions](scripts/README.md) and [reusable KQL](queries/README.md).
 
 ---
 
