@@ -70,7 +70,7 @@ The reviewed policy set included:
 - `CA009-PIM-Validation`;
 - `CA010-Block-Legacy-Authentication`.
 
-The permanent emergency assignments are intentional and are treated separately from routine standing privilege. This review verifies role assignments and CA exclusions. It does not test who can modify the exclusion group, document a new emergency sign-in, or demonstrate emergency-account alert delivery; see [remaining validation](remaining-work.md).
+The permanent emergency assignments are intentional and are treated separately from routine standing privilege. This review verifies role assignments and CA exclusions. It does not test who can modify the exclusion group, document a new emergency sign-in, or demonstrate emergency-account alert delivery; see [remaining validation](../tests/day-18.md#residual-findings--not-fully-assessed).
 
 ### Privileged Identity Management
 
@@ -148,7 +148,7 @@ The separate visible `Initial Policy` in the Access Package was not evaluated in
 
 The `Expired` assignment screenshot does not prove natural 30-day expiry; the earlier Day 10 workflow documented manual revocation before the configured end date.
 
-### Application permissions and credential cleanup
+### Application permissions and Easy Auth credentials
 
 Expense Portal was reviewed from both the App Registration and Enterprise Application sides.
 
@@ -159,15 +159,18 @@ Final permission state:
 - Admin consent granted;
 - no `User.Read.All` Application permission.
 
-The App Registration also shows:
+The permission review confirms removal of the temporary Day 12 `User.Read.All` Application permission. The Easy Auth credential configuration is assessed separately from Graph API permissions.
 
-- Certificates: 0;
-- Client secrets: 0;
-- Federated credentials: 0.
+[Screenshot 20](../evidence/day-18/20-easy-auth-credential-configuration.png) shows the Azure App Service Authentication provider configuration:
 
-This verifies cleanup of the temporary Day 12 app-only experiment.
+- identity provider: Microsoft;
+- App Registration: Expense Portal;
+- supported account types: Current tenant — Single tenant;
+- client secret setting name: `MICROSOFT_PROVIDER_AUTHENTICATION_SECRET`.
 
-Anna Finance's captured portal session showed the following after cleanup:
+This documents the configured Easy Auth client credential reference. The secret value is not shown or published. The provider credential is distinct from a Graph Application permission; the reviewed Graph permission model remains Delegated `User.Read`.
+
+Anna Finance's successful captured portal session in [screenshot 21](../evidence/day-18/21-expense-portal-regression.png), after the Easy Auth credential configuration, showed:
 
 - Microsoft Entra authentication successful;
 - `Expense.Submitter` app role present;
@@ -175,7 +178,7 @@ Anna Finance's captured portal session showed the following after cleanup:
 - permission model: Delegated;
 - permission: `User.Read`.
 
-The captured portal session confirms the displayed app role and a successful delegated Graph response. It does not independently prove a new authorization-code redemption or token refresh after all application credentials were removed. The Easy Auth credential configuration and `/.auth/refresh` require a separate check; see [remaining validation](remaining-work.md).
+The captured portal session confirms the displayed app role and a successful delegated Graph response. It does not independently prove fresh sign-in, new authorization-code redemption or provider token refresh. The credential reference is documented; a fresh sign-in with independently evidenced code redemption, and successful `/.auth/refresh` followed by another successful Graph call, remain [follow-up validation](../tests/day-18.md#residual-findings--not-fully-assessed).
 
 ### Workload identities and Azure RBAC
 
@@ -228,7 +231,7 @@ This creates a three-layer Conditional Access validation chain:
 | Emergency role and exclusion configuration | Verified | Two permanent GA emergency accounts; effective CA exclusions across ten reviewed policies; group-management boundary not tested |
 | Phishing-resistant Expense Portal access | Verified | CA policy, What If, real sign-in and KQL all correlate |
 | External contractor access | Revoked / verified | Group empty, Access Package inactive, fresh app access denied |
-| Expense Portal Graph permissions | Delegated scope verified | `User.Read` only; no app credential remains; Easy Auth token renewal still requires validation |
+| Expense Portal Graph permissions | Delegated scope verified | `User.Read` only; temporary `User.Read.All` Application permission absent; captured Graph response is HTTP 200 |
 | Workload Azure RBAC | Least privilege verified | Both identities use `Storage Blob Data Reader` at resource scope |
 | Graph tenant export | Evidence gap closed | CA summary now exports successfully |
 | High sign-in-risk policy | Residual / pilot state | Remains Report-only |
@@ -236,7 +239,7 @@ This creates a three-layer Conditional Access validation chain:
 | Authentication methods | Hardening opportunity | SMS remains enabled for all users |
 | Workload sign-in central logging | Monitoring gap | Service Principal / Managed Identity sign-in categories are not selected |
 | Access Package `Initial Policy` | Not assessed | Visible in policy list but not evaluated in Day 18 evidence |
-| Easy Auth credential and token lifecycle | Follow-up required | Captured Graph HTTP 200 does not establish fresh code redemption and token renewal after credential removal |
+| Easy Auth credential and token lifecycle | Configuration evidenced / runtime follow-up required | Microsoft provider references `MICROSOFT_PROVIDER_AUTHENTICATION_SECRET`; captured session succeeds, but fresh code redemption and token renewal remain unverified |
 | Emergency-group management boundary | Not tested | Effective exclusion is shown, but protection of group membership is not |
 
 ## Design Decisions
@@ -251,9 +254,9 @@ This creates a three-layer Conditional Access validation chain:
 
 ## Verification and Limitations
 
-**Verified by the published Day 18 evidence:** complete selected Graph inventory including CA summary; no Active Conditional Access Administrator assignment; removal of the Day 17 test role; two permanent emergency Global Administrators with effective group-based CA exclusions across ten reviewed policies; PIM Eligible state and activation controls; authentication-method configuration; phishing-resistant Expense Portal control; What If and real CA enforcement; empty external-contractor group; governed/expired external assignment and fresh AADSTS50105 denial; delegated `User.Read` only; no app credentials; successful post-cleanup application regression; read-only workload RBAC; selected Diagnostic Settings coverage; and final KQL CA results.
+**Verified by the published Day 18 evidence:** complete selected Graph inventory including CA summary; no Active Conditional Access Administrator assignment; removal of the Day 17 test role; two permanent emergency Global Administrators with effective group-based CA exclusions across ten reviewed policies; PIM Eligible state and activation controls; authentication-method configuration; phishing-resistant Expense Portal control; What If and real CA enforcement; empty external-contractor group; governed/expired external assignment and fresh AADSTS50105 denial; delegated `User.Read` only; Easy Auth Microsoft provider linked to Expense Portal with the `MICROSOFT_PROVIDER_AUTHENTICATION_SECRET` credential reference; successful captured portal session and delegated Graph HTTP 200 after that configuration; read-only workload RBAC; selected Diagnostic Settings coverage; and final KQL CA results.
 
-**Not established / not claimed:** a formal compliance audit; natural 30-day Access Package expiration; assessment of the separate `Initial Policy`; elimination of every possible stale account or permission path; final Identity Secure Score improvement; centralized Service Principal or Managed Identity sign-in export; or proof that no future permanent Active PIM assignment can be created under the current role policy.
+**Not established / not claimed:** fresh Easy Auth authorization-code redemption; successful provider token refresh through `/.auth/refresh` followed by another successful Graph call; a formal compliance audit; natural 30-day Access Package expiration; assessment of the separate `Initial Policy`; elimination of every possible stale account or permission path; final Identity Secure Score improvement; centralized Service Principal or Managed Identity sign-in export; or proof that no future permanent Active PIM assignment can be created under the current role policy.
 
 ## Reusable Query
 

@@ -20,8 +20,8 @@ Day 18 tests the **current state** of the Baltic Finance Lab after Days 01–17.
 | D18-12 | Access Package governance state | Scoped external policy requires governance and has no active assignment | Approval + justification + 30-day expiration; zero active assignments; External Auditor shown Expired / Governed | Pass (natural expiry not evidenced) |
 | D18-13 | External negative access test | Guest without assignment cannot access Expense Portal | Fresh External Auditor sign-in fails with `AADSTS50105` | Pass |
 | D18-14 | Application API permission least privilege | Temporary broad Application permission should be removed | Only Microsoft Graph `User.Read` Delegated remains; admin consent confirmed | Pass |
-| D18-15 | Application credential inventory | Record the remaining app credentials | 0 certificates, 0 client secrets, 0 federated credentials | Pass (inventory; Easy Auth credential path requires follow-up) |
-| D18-16 | Captured post-cleanup application regression | The captured portal session retains the intended app role and Graph profile | Anna authenticated; `Expense.Submitter`; Graph HTTP 200 with Delegated `User.Read` | Pass (captured session; fresh code redemption and refresh not independently evidenced) |
+| D18-15 | Easy Auth credential configuration | Document the Microsoft provider's configured client credential reference without exposing its value | Microsoft provider linked to Expense Portal; single tenant; `Client secret setting name` is `MICROSOFT_PROVIDER_AUTHENTICATION_SECRET` | Pass (configuration reference; secret value not shown) |
+| D18-16 | Captured application regression after Easy Auth configuration | The captured portal session retains the intended app role and Graph profile | Anna authenticated; `Expense.Submitter`; Graph HTTP 200 with Delegated `User.Read` after the Easy Auth credential configuration | Pass (captured session; fresh code redemption and refresh not independently evidenced) |
 | D18-17 | Workload identity RBAC | Managed identities should retain read-only storage authorization | Both identities have `Storage Blob Data Reader` at Storage Account scope | Pass |
 | D18-18 | Diagnostic Settings coverage | Confirm exactly which Entra log categories are centralized | Audit, user sign-in and Provisioning selected; Service Principal / Managed Identity sign-ins not selected | Partial / gap documented |
 | D18-19 | Final KQL Conditional Access review | Centralized logs should corroborate recent CA outcomes | CA001 + CA003 success; CA002 reportOnlyNotApplied; CA009 notEnabled | Pass |
@@ -61,14 +61,14 @@ Day 18 tests the **current state** of the Baltic Finance Lab after Days 01–17.
 **Evidence:** [14](../evidence/day-18/14-guest-access-review.png), [15](../evidence/day-18/15-access-package-lifecycle.png), [16](../evidence/day-18/16-access-package-assignments.png), [17](../evidence/day-18/17-external-access-denied.png).  
 **Evidence boundary:** screenshot 14 is final group state, not the Access Review decision page. Screenshot 16 does not prove natural 30-day expiry. The separate visible `Initial Policy` is not assessed in this Day 18 evidence set.
 
-## D18-14–D18-16 — Application permissions, credentials and regression
+## D18-14–D18-16 — Application permissions, Easy Auth credentials and regression
 
 **Acting identities:** authorized application administrator for review; `anna.finance` for regression.  
-**Expected:** retain only the required delegated Graph permission, remove the temporary credential and broad app-only permission, then confirm the portal still works.  
-**Observed:** App Registration contains only delegated `User.Read`; Enterprise Application shows the corresponding Admin consent; no certificates, secrets or federated credentials remain; Anna's portal session succeeds and Graph profile retrieval returns HTTP 200 under Delegated `User.Read`.  
-**Result:** Pass.  
-**Evidence:** [18](../evidence/day-18/18-app-registration-permissions.png), [19](../evidence/day-18/19-enterprise-app-consent.png), [20](../evidence/day-18/20-no-client-secrets.png), [21](../evidence/day-18/21-expense-portal-regression.png).  
-**Evidence boundary:** the final credential list proves current absence of app credentials; it does not independently show the exact earlier deletion action, a fresh authorization-code redemption or successful token renewal after removal. The Easy Auth credential path and `/.auth/refresh` remain [follow-up checks](../docs/remaining-work.md).
+**Expected:** retain only the required delegated Graph permission, remove the temporary broad app-only permission, document the Easy Auth credential reference without exposing its value and confirm the captured portal session works.  
+**Observed:** App Registration contains only delegated `User.Read`; Enterprise Application shows the corresponding Admin consent; the single-tenant Easy Auth Microsoft provider is linked to Expense Portal and references `MICROSOFT_PROVIDER_AUTHENTICATION_SECRET` as its client secret setting. Anna's captured session after that configuration shows `Expense.Submitter` and Graph profile HTTP 200 under Delegated `User.Read`.  
+**Result:** Pass for delegated permission/consent, the configured credential reference and the captured session.  
+**Evidence:** [18](../evidence/day-18/18-app-registration-permissions.png), [19](../evidence/day-18/19-enterprise-app-consent.png), [20](../evidence/day-18/20-easy-auth-credential-configuration.png), [21](../evidence/day-18/21-expense-portal-regression.png).  
+**Evidence boundary:** screenshot 20 documents the provider's credential reference without exposing the secret value; it is not a credential inventory or proof of secret validity, expiry or rotation. Screenshot 21 confirms a successful captured session, not independently evidenced fresh sign-in, authorization-code redemption or token renewal. A fresh sign-in with independently evidenced code redemption, and successful `/.auth/refresh` followed by another successful Graph call, remain [follow-up checks](#residual-findings--not-fully-assessed).
 
 ## D18-17 — Workload identity RBAC
 
@@ -99,13 +99,13 @@ Day 18 tests the **current state** of the Baltic Finance Lab after Days 01–17.
 | Access Package `Initial Policy` | Not assessed | Visible in screenshot 15 but not evaluated in this evidence set |
 | Natural 30-day Access Package expiry | Not evidenced | Day 10 documented earlier manual revocation before the configured end date |
 | Final Identity Secure Score improvement | Not evidenced | Day 18 evidence set does not include a final score comparison |
-| Easy Auth credential path and token renewal | Follow-up required | Verify fresh authentication and Graph token refresh after credential cleanup |
+| Easy Auth token lifecycle | Follow-up required | Credential reference is documented in screenshot 20; independently evidence fresh sign-in/code redemption and successful `/.auth/refresh` followed by another successful Graph call |
 | Emergency-group membership protection | Not tested | Confirm delegated group administrators cannot change the exclusion group |
 | Emergency-account sign-in and alert validation | Not repeated in Day 18 | Day 01 sign-ins are historical; current strong-authentication and alert evidence require separate validation |
 | Formal compliance | Out of scope | Day 18 is a lab security assessment, not a certified audit |
 
 ## Final state
 
-The Day 18 evidence closes the Day 17 direct-role cleanup and CA-export evidence gaps. It revalidates PIM configuration, emergency role assignments and CA exclusions, phishing-resistant Conditional Access, external-access removal, delegated application permissions and workload RBAC. The captured portal session succeeds. Fresh Easy Auth code redemption, token renewal, emergency-group protection and emergency-use alert delivery remain separate follow-up checks alongside the documented hardening and monitoring gaps.
+The Day 18 evidence closes the Day 17 direct-role cleanup and CA-export evidence gaps. It revalidates PIM configuration, emergency role assignments and CA exclusions, phishing-resistant Conditional Access, external-access removal, delegated application permissions, the Easy Auth credential reference and workload RBAC. The captured portal session after the Easy Auth credential configuration succeeds with `Expense.Submitter` and Graph HTTP 200 under Delegated `User.Read`. Fresh Easy Auth code redemption, token renewal, emergency-group protection and emergency-use alert delivery remain separate follow-up checks alongside the documented hardening and monitoring gaps.
 
 See [Day 18 implementation notes](../docs/day-18.md) and [Day 18 evidence](../evidence/day-18/README.md).
