@@ -842,21 +842,6 @@ Documentation: [Day 18](docs/day-18.md) · [Tests](tests/day-18.md) · [Evidence
 * [Expense Portal Application Architecture](docs/application-architecture.md)
 * [Script prerequisites and usage](scripts/README.md)
 * [KQL queries and evidence mapping](queries/README.md)
-* [SC-300 coverage and study gaps](docs/sc-300-coverage.md)
-* [Remaining validation and source artifacts](docs/remaining-work.md)
-
----
-
-## Planned Implementation
-
-The next phases of the project will expand the environment with:
-
-* [ ] Cloud Discovery extension for Defender for Cloud Apps (deferred in Day 15)
-* [ ] Broader joiner / mover / leaver automation beyond Day 17's scoped test-user provisioning
-* [ ] Azure Key Vault integration for workload identities
-* [ ] Further identity governance and automation scenarios
-
-See [remaining work](docs/remaining-work.md) for concrete validation tasks and source artifacts to add. The [SC-300 coverage map](docs/sc-300-coverage.md) distinguishes tested labs from configuration-only and unimplemented topics.
 
 ---
 
