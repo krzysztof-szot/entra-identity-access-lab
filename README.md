@@ -314,30 +314,34 @@ flowchart TB
     PIM["Directory Roles / PIM"]
     PS["Microsoft Graph PowerShell"]
     GRAPH["Microsoft Graph API"]
-    JML["Joiner / Mover / Leaver Automation"]
+    JML["Broader Joiner / Mover / Leaver Automation<br/>Planned"]
 
     %% =========================
     %% APPLICATION ACCESS
     %% =========================
 
-    AUTH["Authentication / MFA / SSO / Conditional Access"]
+    AUTH["App Service Authentication - Easy Auth<br/>MFA / SSO / Conditional Access"]
     APPREG["App Registration"]
     SP["Enterprise Application / Service Principal"]
+    GROUPS["Application Access Groups"]
     PORTAL["Expense Portal"]
 
     %% =========================
     %% WORKLOAD IDENTITY
     %% =========================
 
-    MI["Workload Identity / Managed Identity"]
-    KV["Azure Key Vault"]
-    SECRETS["Secrets / Certificates"]
+    AUTO["Azure Automation Runbooks<br/>aa-bfl-identity-lab"]
+    MI["Managed Identities<br/>System-assigned / User-assigned"]
+    BLOB["Private Azure Blob Storage<br/>identity-lab container"]
+    KV["Azure Key Vault<br/>Planned"]
+    SECRETS["Secrets / Certificates<br/>Planned"]
 
     %% =========================
     %% MONITORING
     %% =========================
 
     LOGS["Sign-in and Audit Logs"]
+    LAW["Log Analytics<br/>KQL / Workbooks"]
 
     %% =========================
     %% USER FLOWS
@@ -354,38 +358,41 @@ flowchart TB
     PIM -->|"Privileged administration"| ENTRA
 
     ADM --> PS
-    PS --> GRAPH
-    GRAPH -->|"Administration"| ENTRA
-    PS -.->|"Automation"| JML
-    JML -.-> ENTRA
+    PS -->|"Delegated administration scopes"| GRAPH
+    GRAPH -->|"Directory operations within granted permissions"| ENTRA
+    PS -.->|"Planned automation"| JML
+    JML -.->|"Planned Graph operations"| GRAPH
 
     %% =========================
     %% APPLICATION FLOW
     %% =========================
 
-    ENTRA --> AUTH
+    ENTRA -->|"User authentication and policy evaluation"| AUTH
     AUTH -->|"Protected access"| PORTAL
 
-    ENTRA --> APPREG
-    APPREG --> SP
+    APPREG -->|"Application definition"| SP
+    GROUPS -->|"Group assignments"| SP
 
-    APPREG -.->|"Application definition"| PORTAL
-    SP -.->|"Assignments / App Roles"| PORTAL
+    APPREG -->|"Client configuration"| AUTH
+    SP -->|"Assignment required / App Roles"| PORTAL
+    PORTAL -->|"Delegated User.Read - own profile"| GRAPH
 
     %% =========================
     %% WORKLOAD IDENTITY FLOW
     %% =========================
 
-    PORTAL --> MI
-    MI -.->|"Identity managed by Entra"| ENTRA
-    MI -->|"Access token"| KV
-    KV --> SECRETS
+    AUTO -->|"Runs as the selected identity"| MI
+    ENTRA -->|"Managed identity authentication / token issuance"| MI
+    MI -->|"Entra token / Storage Blob Data Reader"| BLOB
+    MI -.->|"Planned Key Vault access"| KV
+    KV -.->|"Planned secret and certificate storage"| SECRETS
 
     %% =========================
     %% LOGGING
     %% =========================
 
     ENTRA -->|"Sign-in and administrative events"| LOGS
+    LOGS -->|"Selected diagnostic categories"| LAW
 
     %% =========================
     %% STYLES
@@ -399,15 +406,17 @@ flowchart TB
     classDef workload fill:#faf5ff,stroke:#9333ea,stroke-width:1.5px,color:#111827;
     classDef monitor fill:#fefce8,stroke:#ca8a04,stroke-width:1.5px,color:#111827;
     classDef automation fill:#ecfeff,stroke:#0891b2,stroke-width:1.5px,color:#111827;
+    classDef planned fill:#fff7ed,stroke:#d97706,stroke-width:2px,stroke-dasharray:5 5,color:#111827;
 
     class ENTRA entra;
     class EMP,CON person;
     class ADM,PIM admin;
     class AUTH security;
-    class APPREG,SP,PORTAL app;
-    class MI,KV,SECRETS workload;
-    class LOGS monitor;
-    class PS,GRAPH,JML automation;
+    class APPREG,SP,GROUPS,PORTAL app;
+    class AUTO,MI,BLOB workload;
+    class LOGS,LAW monitor;
+    class PS,GRAPH automation;
+    class JML,KV,SECRETS planned;
 ```
 
 ---
