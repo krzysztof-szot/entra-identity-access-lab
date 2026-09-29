@@ -31,8 +31,6 @@ This repository documents a hands-on Identity and Access Management lab built ar
 
 The project was created to demonstrate practical skills in identity administration, access control, privileged access, identity governance, application security, monitoring, and automation. It includes documented lab scenarios, tests, screenshots, and PowerShell/Microsoft Graph automation covering real-world IAM use cases in simulated enterprise environments.
 
-Key areas include Conditional Access, MFA, Authentication Methods, PIM, Access Reviews, Entitlement Management, B2B Collaboration, Enterprise Applications, App Registrations, Workload Identities, Managed Identities, monitoring, KQL, and Microsoft Graph automation.
-
 The repository serves both as a practical learning environment for Microsoft identity security and as a technical portfolio demonstrating hands-on Microsoft Entra ID skills.
 
 ## Project Overview
