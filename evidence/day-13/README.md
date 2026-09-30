@@ -138,4 +138,4 @@ This folder documents workload authentication with Microsoft Entra Managed Ident
 
 **Why it matters:** Shows explicit selection of a User-assigned identity. The masked client ID and missing remainder of the Runbook limit source-level verification.
 
-The Runbook outputs and visible identity-selection code document Microsoft Entra authentication to Storage. The complete Runbook source is not included, so all credential and error-handling paths cannot be independently reviewed. Sensitive identifiers were redacted where appropriate; no access tokens or credentials are published.
+Sensitive credentials, identifiers and tenant-specific values were redacted before publication.
