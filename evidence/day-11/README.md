@@ -130,4 +130,4 @@ This folder documents a completed Microsoft Entra Access Review of the existing 
 
 **Why it matters:** Adds an audit record for applying the review. It does not independently show a `Remove member from group` event.
 
-**Evidence boundary:** Day 11 reviews manually restored *group membership*, not an active Day 10 access-package assignment. The Day 10 assignment was already removed. The group state, application denial and apply audit event together support the observed revocation; the `Apply review` log alone does not identify the member-removal operation. The lab retains the existing `Expense.Submitter` role, which is not a read-only auditor role. Sensitive IDs and tenant-specific details were redacted where appropriate.
+Sensitive credentials, identifiers and tenant-specific values were redacted before publication.
