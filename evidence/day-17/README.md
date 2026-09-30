@@ -140,3 +140,4 @@ The screenshots document delegated Microsoft Graph PowerShell administration in 
 
 **Why it matters:** Corroborates the original provisioning action alongside the existing-user captures in screenshots 04–05.
 
+Sensitive credentials, identifiers and tenant-specific values were redacted before publication.
