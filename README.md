@@ -286,9 +286,9 @@ Selected, redacted screenshots from the lab. Each image links to its full eviden
 
 ## Target Architecture
 
-The following diagram represents the target architecture of the complete lab.
+The following diagram summarizes the lab's identity, application and workload architecture, including planned extensions.
 
-The diagram combines implemented identity and application flows with the target state. Microsoft Graph PowerShell administration and the manual Joiner / Mover / Leaver labs are implemented; broader lifecycle automation and Azure Key Vault integration remain planned. The Managed Identity lab currently demonstrates Azure Blob Storage access.
+Solid lines show documented relationships; dashed lines and nodes marked **Planned** show future work. Expense Portal uses App Service authentication and delegated Microsoft Graph access. The separate Day 13 workload uses Azure Automation managed identities to read private Blob Storage. Azure Key Vault integration and broader Joiner / Mover / Leaver automation remain planned; the manual lifecycle scenarios are already documented.
 
 ```mermaid
 flowchart TB
