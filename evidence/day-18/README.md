@@ -201,3 +201,5 @@ This folder documents the final security assessment of the Baltic Finance Lab. T
 **Shows:** Identity Secure Score is `49.67%`, with 15 total recommendations: 13 Security and two Best practice. User-risk and sign-in-risk policy recommendations remain Active.
 
 **Why it matters:** Records an observed increase from the Day 16 baseline of `43.82%`; the snapshot does not attribute that change to a specific remediation or prove complete security or compliance.
+
+Sensitive credentials, identifiers and tenant-specific values were redacted before publication.
