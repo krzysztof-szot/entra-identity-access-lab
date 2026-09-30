@@ -140,4 +140,3 @@ The screenshots document delegated Microsoft Graph PowerShell administration in 
 
 **Why it matters:** Corroborates the original provisioning action alongside the existing-user captures in screenshots 04–05.
 
-**Evidence boundaries:** the Day 17 screenshots do not show removal of the test role or a successful CA CSV export; the Day 18 follow-up linked above supplies the separate export output and removal audit. Screenshot 14 remains the original partial export, and screenshot 16 is a separate CA query. Changes to checked-in scripts are not evidence of a tenant rerun. The CSV exports are local and excluded through `.gitignore`; their contents are not available for completeness review and they are not a full Entra backup. Identifiers and user-specific details are redacted where appropriate; no password, access token or client secret is shown.
