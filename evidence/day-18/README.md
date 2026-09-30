@@ -2,32 +2,206 @@
 
 This folder documents the final security assessment of the Baltic Finance Lab. The review validates privileged access, emergency access, PIM, authentication, Conditional Access, external governance, application permissions, workload identities and centralized monitoring. It also closes selected evidence gaps from earlier lab days and records remediation only where it was actually verified.
 
-- [01 — Assessment baseline](01-assessment-baseline.png) — Microsoft Entra tenant overview for Baltic Finance Lab, including Entra ID P2 licensing and current user, group, application and device counts. Tenant-specific identifiers are redacted.
-- [02 — Microsoft Graph inventory](02-graph-inventory.png) — final rerun of the tenant-state export. Users, groups, memberships, role assignments, App Registrations, Enterprise Applications and the Conditional Access summary export successfully, closing the Day 17 CA-export evidence gap.
-- [03 — Privileged role inventory](03-privileged-role-inventory.png) — `adm-lab` is shown as a direct, permanent **Eligible** assignment for `Conditional Access Administrator`; Eligible status is not standing Active privilege.
-- [04 — Standing privilege assessment](04-standing-privilege-assessment.png) — the `Conditional Access Administrator` Active assignments view shows **No results**, confirming no standing Active assignment remains for this role at the time of review.
-- [05 — Privileged-role remediation](05-privilege-remediation.png) — Microsoft Entra Audit Logs record a successful `Remove member from role` operation for `graph.operator`; modified properties identify the removed role as `Conditional Access Administrator`. This supplies the cleanup evidence missing from Day 17.
-- [06 — Emergency access assessment](06-break-glass-assessment.png) — `Emergency Access 01` and `Emergency Access 02` retain permanent Active `Global Administrator` assignments. The accompanying Microsoft Graph review shows both accounts are effectively excluded through the centralized emergency-access group across all ten reviewed Conditional Access policies.
-- [07 — PIM current state](07-pim-current-state.png) — tenant-level PIM view confirms `adm-lab` remains permanently Eligible for `Conditional Access Administrator`, preserving the Just-in-Time administration model established on Day 09.
-- [08 — PIM security settings](08-pim-security-settings.png) — `Conditional Access Administrator` activation is limited to one hour and requires Azure MFA, justification and approval by the separate `PIM Approver`. The role policy also permits permanent Active assignments; screenshot 04 separately confirms that none are currently present for this role.
-- [09 — Authentication methods review](09-authentication-methods-review.png) — the current Authentication Methods Policy shows Passkey (FIDO2), Microsoft Authenticator, SMS, Temporary Access Pass and Email OTP enabled for their configured scopes. This records availability and targeting, not equal assurance between methods.
-- [10 — Phishing-resistant MFA](10-phishing-resistant-mfa.png) — `CA003-ExpensePortal-Phishing-resistant-MFA-Pilot` targets Expense Portal, is On and requires the `Phishing-resistant MFA` Authentication Strength.
-- [11 — Conditional Access inventory](11-conditional-access-inventory.png) — portal inventory records the Conditional Access policies and their captured states, including enforced Expense Portal controls, `CA002-ExpensePortal-HighSignInRisk` in Report-only and `CA009-PIM-Validation` Off. `CA010-Block-Legacy-Authentication` was added later and is visible in the final ten-policy review in screenshot 06.
-- [12 — Conditional Access What If](12-conditional-access-what-ifvalidation.png) — What If evaluates Anna Finance accessing Expense Portal from Windows with a browser and predicts that `CA001-ExpensePortal-Require-MFA` and `CA003-ExpensePortal-Phishing-resistant-MFA-Pilot` will apply.
-- [13 — Real Conditional Access validation](13-conditional-access-validation.png) — a fresh successful Anna Finance sign-in to Expense Portal shows both `CA001` and `CA003` evaluated successfully. Other policies are shown as Not applied or Disabled as appropriate, providing real-event validation of the What If result.
-- [14 — External contractor group state](14-guest-access-review.png) — `SG-External-Contractors` contains zero direct members after the external-access governance workflow. This is the final group-membership state, not the Access Review decision screen itself.
-- [15 — Access Package lifecycle policy](15-access-package-lifecycle.png) — selected `POL-Amber-External-Auditors` is enabled, requires requester justification and approval, uses one approval stage, expires assignments after 30 days and currently has zero active assignments. The separate visible `Initial Policy` is not evaluated by this screenshot.
-- [16 — Access Package assignment state](16-access-package-assignments.png) — External Auditor remains in Access Package history with `Status: Expired` and `User lifecycle: Governed`. The displayed future end date is the configured lifecycle date; this screenshot does not prove natural 30-day expiry and is consistent with the earlier manual revocation workflow.
-- [17 — External access denied](17-external-access-denied.png) — a fresh External Auditor attempt to open Expense Portal fails with `AADSTS50105` because the guest has neither a direct application assignment nor qualifying group membership.
-- [18 — App Registration permissions](18-app-registration-permissions.png) — Expense Portal App Registration retains only Microsoft Graph `User.Read` as a Delegated permission, with tenant consent granted. The temporary Day 12 `User.Read.All` Application permission is no longer configured.
-- [19 — Enterprise Application consent](19-enterprise-app-consent.png) — Expense Portal Enterprise Application permissions confirm the actual Microsoft Graph `User.Read` Delegated grant through Admin consent, complementing the configured-permissions view in screenshot 18.
-- [20 — Easy Auth credential configuration](20-easy-auth-credential-configuration.png) — Azure App Service Authentication uses the Microsoft identity provider linked to the Expense Portal App Registration with a single-tenant configuration. `Client secret setting name` is `MICROSOFT_PROVIDER_AUTHENTICATION_SECRET`, documenting the configured client credential reference. The secret value is not shown.
-- [21 — Expense Portal regression test](21-expense-portal-regression.png) — the successful captured Anna Finance session after the Easy Auth credential configuration retains `Expense.Submitter` and displays a Graph profile with HTTP 200 using Delegated `User.Read`. This confirms the displayed session and delegated Graph response; fresh authorization-code redemption and token refresh are not independently established by this screen.
-- [22 — Workload identity RBAC](22-workload-rbac.png) — both the Automation Account managed identity `aa-bfl-identity-lab` and the user-assigned identity `mi-bfl-shared-reader` hold `Storage Blob Data Reader` at the Storage Account resource scope. The final captured view no longer shows the earlier elevated-access warning.
-- [23 — Monitoring coverage](23-monitoring-coverage.png) — `diag-bfl-identity-monitoring` sends Audit, interactive Sign-in, non-interactive user Sign-in and Provisioning logs to `law-bfl-identity`. `ServicePrincipalSignInLogs` and `ManagedIdentitySignInLogs` are not selected, documenting the current centralized-monitoring boundary for workload identities.
-- [24 — Final KQL review](24-final-kql-review.png) — Log Analytics expands `ConditionalAccessPolicies` from recent Expense Portal sign-ins and shows `CA001` and `CA003` with `success`, `CA002` with `reportOnlyNotApplied`, and `CA009` with `notEnabled`. This provides centralized monitoring evidence that complements screenshots 12–13.
-- [25 — Final Identity Secure Score](25-final-secure-score.png) — final point-in-time Microsoft Entra Identity Secure Score snapshot for Baltic Finance Lab. The score is **49.67%**, compared with the Day 16 baseline of **43.82%**. The view shows 15 total recommendations: 13 Security and 2 Best practice. Open recommendations still include user-risk and sign-in-risk policy coverage. The higher score is recorded as an observed change, not attributed to any single Day 18 remediation.
+## 01 — Assessment tenant baseline
 
-**Evidence boundaries:** Day 18 is a point-in-time security assessment of the lab, not a formal compliance audit. Screenshot 04 shows no Active `Conditional Access Administrator` assignment while screenshot 05 independently proves removal of the Day 17 test assignment. Permanent Active Global Administrator access for the two emergency accounts is intentional and assessed separately from routine standing privilege. Screenshot 08 records strong activation controls but also shows that the role policy permits permanent Active assignments. Screenshot 09 shows enabled authentication methods and scope, while screenshots 10–13 demonstrate the stronger control required for Expense Portal. Screenshot 15 does not assess the separate `Initial Policy`. Screenshot 16 does not prove natural package expiration. Screenshot 23 explicitly documents that Service Principal and Managed Identity sign-ins are not exported by the current Diagnostic Setting. Screenshot 25 is a point-in-time score snapshot and is not evidence of complete remediation, formal compliance or a causal link between any individual lab change and the score increase. Identifiers and user-specific details are redacted where appropriate; no passwords, client secrets or access tokens are published.
+![Assessment tenant baseline](01-assessment-baseline.png)
 
-**Follow-up validation:** screenshot 20 documents the Easy Auth credential reference, while screenshot 21 confirms a successful captured session. A fresh sign-in with independently evidenced authorization-code redemption, and successful `/.auth/refresh` followed by another successful Graph call, remain separate token-lifecycle checks. The emergency-access capture establishes effective CA exclusions, not protection of the exclusion group against membership changes. See [remaining validation](../../tests/day-18.md#residual-findings--not-fully-assessed).
+**Shows:** The Baltic Finance Lab overview displays Entra ID P2 and counts of 20 users, 19 groups, 13 applications and five devices.
+
+**Why it matters:** Records the assessment snapshot; the tenant license label alone does not verify feature licensing for every user.
+
+## 02 — Microsoft Graph inventory rerun
+
+![Microsoft Graph inventory rerun](02-graph-inventory.png)
+
+**Shows:** The export output reports success for users, groups, memberships, roles, App Registrations, Enterprise Applications and the Conditional Access summary.
+
+**Why it matters:** Supplies the CA-export output missing on Day 17. Unpublished CSV contents cannot be independently checked for completeness.
+
+## 03 — Eligible Conditional Access Administrator assignment
+
+![Eligible Conditional Access Administrator assignment](03-privileged-role-inventory.png)
+
+**Shows:** `adm-lab` has a Direct, Permanent Eligible assignment for `Conditional Access Administrator`.
+
+**Why it matters:** Distinguishes eligibility for activation from standing Active administrative privilege.
+
+## 04 — No Active assignment for the reviewed role
+
+![No Active assignment for the reviewed role](04-standing-privilege-assessment.png)
+
+**Shows:** The `Conditional Access Administrator` Active assignments view returns `No results`.
+
+**Why it matters:** Confirms the role-specific state at capture time; it is not an inventory of every privileged role in the tenant.
+
+## 05 — Audited removal of the Day 17 test role
+
+![Audited removal of the Day 17 test role](05-privilege-remediation.png)
+
+**Shows:** Audit Logs record `Remove member from role → Success` for `graph.operator`; modified properties identify `Conditional Access Administrator`.
+
+**Why it matters:** Provides independent cleanup evidence for the direct test assignment created on Day 17.
+
+## 06 — Emergency roles and reported CA exclusions
+
+![Emergency roles and reported CA exclusions](06-break-glass-assessment.png)
+
+**Shows:** `Emergency Access 01` and `Emergency Access 02` hold permanent Active Global Administrator assignments. Console output reports group-based effective exclusions across ten CA policies.
+
+**Why it matters:** Confirms the emergency role assignments. The exclusion review's source and group-membership inputs are absent, so its reported effective exclusions cannot be independently recalculated.
+
+## 07 — Current PIM Eligible assignment
+
+![Current PIM Eligible assignment](07-pim-current-state.png)
+
+**Shows:** The tenant PIM Eligible assignments view lists `adm-lab` as permanently Eligible for `Conditional Access Administrator`.
+
+**Why it matters:** Corroborates retention of the Just-in-Time administration model documented on Day 09.
+
+## 08 — PIM activation security settings
+
+![PIM activation security settings](08-pim-security-settings.png)
+
+**Shows:** Activation is limited to one hour and requires Azure MFA, justification and approval by `PIM Approver`; the role policy also permits permanent Active assignments.
+
+**Why it matters:** Documents activation controls and the remaining policy allowance. It is configuration evidence, not a new activation test.
+
+## 09 — Authentication method availability and scope
+
+![Authentication method availability and scope](09-authentication-methods-review.png)
+
+**Shows:** Passkey (FIDO2), Microsoft Authenticator, SMS, Temporary Access Pass and Email OTP are enabled for their displayed scopes.
+
+**Why it matters:** Records available methods and targeting; broad SMS availability does not mean it satisfies phishing-resistant Authentication Strength requirements.
+
+## 10 — Phishing-resistant MFA pilot policy
+
+![Phishing-resistant MFA pilot policy](10-phishing-resistant-mfa.png)
+
+**Shows:** `CA003-ExpensePortal-Phishing-resistant-MFA-Pilot` is On, targets Expense Portal and requires `Phishing-resistant MFA` for its selected users.
+
+**Why it matters:** Documents the scoped stronger-access requirement; it does not establish coverage of every Expense Portal user.
+
+## 11 — Conditional Access policy inventory
+
+![Conditional Access policy inventory](11-conditional-access-inventory.png)
+
+**Shows:** The portal lists nine policies and their states, including `CA002-ExpensePortal-HighSignInRisk` in Report-only and `CA009-PIM-Validation` Off.
+
+**Why it matters:** Records a point-in-time inventory. `CA010-Block-Legacy-Authentication` appears in the later ten-policy output in screenshot 06.
+
+## 12 — Conditional Access What If prediction
+
+![Conditional Access What If prediction](12-conditional-access-what-ifvalidation.png)
+
+**Shows:** What If evaluates Anna Finance accessing Expense Portal from Windows with a browser and predicts that `CA001` and `CA003` apply.
+
+**Why it matters:** Provides a policy simulation to compare with actual sign-in evidence; the simulation itself does not execute a sign-in.
+
+## 13 — Actual Expense Portal policy evaluation
+
+![Actual Expense Portal policy evaluation](13-conditional-access-validation.png)
+
+**Shows:** Anna's successful Expense Portal sign-in at `07:48:34Z` shows `CA001` and `CA003` with Success, alongside other Not applied or Disabled outcomes.
+
+**Why it matters:** Confirms the predicted policies evaluated successfully on a real event. Authentication-method details are not shown in this view.
+
+## 14 — External contractor group final state
+
+![External contractor group final state](14-guest-access-review.png)
+
+**Shows:** `SG-External-Contractors` contains zero direct members.
+
+**Why it matters:** Records the final membership state of the governed access group; this is not the Access Review decision screen.
+
+## 15 — External Access Package lifecycle policy
+
+![External Access Package lifecycle policy](15-access-package-lifecycle.png)
+
+**Shows:** `POL-Amber-External-Auditors` is enabled, requires justification and one-stage approval, expires assignments after 30 days and has zero active assignments.
+
+**Why it matters:** Documents the selected policy's governance controls; the separately visible `Initial Policy` is not assessed here.
+
+## 16 — External Auditor assignment history
+
+![External Auditor assignment history](16-access-package-assignments.png)
+
+**Shows:** External Auditor's Access Package assignment is `Expired` and `Governed`, with a future configured end date still displayed.
+
+**Why it matters:** Records the final assignment status. It does not prove natural 30-day expiration and is consistent with the earlier manual revocation workflow.
+
+## 17 — External Auditor denied Expense Portal access
+
+![External Auditor denied Expense Portal access](17-external-access-denied.png)
+
+**Shows:** The guest's Expense Portal attempt fails with `AADSTS50105` because no direct or qualifying group application assignment is present.
+
+**Why it matters:** Demonstrates a fresh negative access result for this application, without claiming all possible guest access paths were reviewed.
+
+## 18 — Configured App Registration permissions
+
+![Configured App Registration permissions](18-app-registration-permissions.png)
+
+**Shows:** Expense Portal's configured API permissions contain only Microsoft Graph `User.Read`, Delegated, with tenant consent granted.
+
+**Why it matters:** Shows the temporary `User.Read.All` Application permission is no longer configured; the actual consent grant is reviewed separately.
+
+## 19 — Enterprise Application consent grant
+
+![Enterprise Application consent grant](19-enterprise-app-consent.png)
+
+**Shows:** Expense Portal's Enterprise Application Admin consent view lists Microsoft Graph `User.Read` as Delegated.
+
+**Why it matters:** Corroborates the granted permission behind the configured scope; the separate User consent tab is not displayed.
+
+## 20 — Easy Auth credential reference
+
+![Easy Auth credential reference](20-easy-auth-credential-configuration.png)
+
+**Shows:** App Service Authentication uses the Microsoft provider linked to Expense Portal, with single-tenant accounts and client secret setting `MICROSOFT_PROVIDER_AUTHENTICATION_SECRET`.
+
+**Why it matters:** Documents the provider's credential reference without exposing its value. The screen does not establish secret validity, expiry, rotation or token refresh.
+
+## 21 — Expense Portal regression session
+
+![Expense Portal regression session](21-expense-portal-regression.png)
+
+**Shows:** Anna's captured session displays `Expense.Submitter` and a Graph profile with HTTP 200 using delegated `User.Read`.
+
+**Why it matters:** Confirms the displayed session and Graph response. Fresh authorization-code redemption, token refresh and the exact configuration-to-session chronology are not independently shown.
+
+## 22 — Storage reader assignments for both identities
+
+![Storage reader assignments for both identities](22-workload-rbac.png)
+
+**Shows:** Name-filtered Storage IAM views list `aa-bfl-identity-lab` and `mi-bfl-shared-reader` with `Storage Blob Data Reader` at the Storage Account resource scope.
+
+**Why it matters:** Corroborates the Day 13 reader assignments, not all effective permissions. The blanked banner text cannot establish resolution of an earlier elevated-access warning.
+
+## 23 — Centralized diagnostic coverage
+
+![Centralized diagnostic coverage](23-monitoring-coverage.png)
+
+**Shows:** `diag-bfl-identity-monitoring` selects Audit, interactive/non-interactive user Sign-in and Provisioning logs for `law-bfl-identity`; Service Principal and Managed Identity sign-ins are not selected.
+
+**Why it matters:** Documents the workload-monitoring gap and configured destination; selected categories alone do not prove ingestion into every table.
+
+## 24 — Conditional Access outcomes in Log Analytics
+
+![Conditional Access outcomes in Log Analytics](24-final-kql-review.png)
+
+**Shows:** A seven-day query expands `ConditionalAccessPolicies`; visible Expense Portal rows show `CA001` / `CA003` success, `CA002` reportOnlyNotApplied and `CA009` notEnabled.
+
+**Why it matters:** Corroborates policy outcomes on other sign-ins than screenshot 13. The query has no app filter and excludes only `notApplied`, retaining report-only and disabled results.
+
+## 25 — Final Identity Secure Score snapshot
+
+![Final Identity Secure Score snapshot](25-final-secure-score.png)
+
+**Shows:** Identity Secure Score is `49.67%`, with 15 total recommendations: 13 Security and two Best practice. User-risk and sign-in-risk policy recommendations remain Active.
+
+**Why it matters:** Records an observed increase from the Day 16 baseline of `43.82%`; the snapshot does not attribute that change to a specific remediation or prove complete security or compliance.
+
+**Evidence boundaries:** Day 18 is a point-in-time security assessment of the lab, not a formal compliance audit. Screenshot 04 shows no Active `Conditional Access Administrator` assignment while screenshot 05 independently proves removal of the Day 17 test assignment. Permanent Active Global Administrator access for the two emergency accounts is intentional and assessed separately from routine standing privilege. Screenshot 08 records strong activation controls but also shows that the role policy permits permanent Active assignments. Screenshot 09 shows enabled authentication methods and scope, while screenshots 10–13 demonstrate the stronger control for the scoped Expense Portal pilot. Screenshot 15 does not assess the separate `Initial Policy`. Screenshot 16 does not prove natural package expiration. Screenshot 23 explicitly documents that Service Principal and Managed Identity sign-ins are not exported by the current Diagnostic Setting. Screenshot 25 is a point-in-time score snapshot and is not evidence of complete remediation, formal compliance or a causal link between any individual lab change and the score increase. Identifiers and user-specific details are redacted where appropriate; no passwords, client secrets or access tokens are published.
+
+**Follow-up validation:** screenshot 20 documents the Easy Auth credential reference, while screenshot 21 confirms a successful captured session. A fresh sign-in with independently evidenced authorization-code redemption, and successful `/.auth/refresh` followed by another successful Graph call, remain separate token-lifecycle checks. The emergency-access capture reports group-based CA exclusions, but does not expose the review source or membership inputs needed to independently recalculate them; protection of the exclusion group against membership changes is also untested. See [remaining validation](../../tests/day-18.md#residual-findings--not-fully-assessed).
